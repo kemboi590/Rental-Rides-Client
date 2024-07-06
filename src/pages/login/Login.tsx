@@ -34,10 +34,12 @@ const Login = () => {
             
             <div className="form-control">
               <input type="email" placeholder="email" className="input input-bordered" required {...register("email")}/>
+              <p className="text-red-500">{errors.email?.message}</p>
             </div>
 
             <div className="form-control">
               <input type="password" placeholder="password" className="input input-bordered" required {...register("password")}/>
+              <p className="text-red-500">{errors.password?.message}</p>
             </div>
 
             <div>
@@ -57,7 +59,7 @@ const Login = () => {
           </form>
         </div>
 
-        {/* on small screens, do not show the image */}
+      
         <div className="hidden lg:block w-full lg:w-[40%] h-96 ">
           <img src={authImage} alt="auth" className="w-full h-full object-cover lg:object-fill rounded-lg" />
         </div>

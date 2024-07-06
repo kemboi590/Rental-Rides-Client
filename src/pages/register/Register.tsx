@@ -46,26 +46,32 @@ const Register = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <input type="text" placeholder="fullname" className="input input-bordered" required {...register("full_name")} />
+              <p className="text-red-500">{errors.full_name?.message}</p>
             </div>
             <div className="form-control">
               <input type="email" placeholder="email" className="input input-bordered" required {...register("email")} />
+              <p className="text-red-500">{errors.email?.message}</p>
             </div>
 
             <div className="form-control">
               <input type="string" placeholder="phone number" className="input input-bordered" required {...register("contact_phone")} />
+              <p className="text-red-500">{errors.contact_phone?.message}</p>
             </div>
 
             {/* for address */}
             <div className="form-control">
               <input type="string" placeholder="address" className="input input-bordered" required {...register("address")} />
+              <p className="text-red-500">{errors.address?.message}</p>
             </div>
 
             <div className="form-control">
               <input type="password" placeholder="password" className="input input-bordered" required {...register("password")} />
+              <p className="text-red-500">{errors.password?.message}</p>
             </div>
 
             <div className="form-control">
               <input type="password" placeholder="confirm password" className="input input-bordered" required {...register("confirmPassword")} />
+              <p className="text-red-500">{errors.confirmPassword?.message}</p>
             </div>
             <div>
               <label className="label">
