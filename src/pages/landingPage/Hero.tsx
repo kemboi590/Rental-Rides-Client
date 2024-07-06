@@ -3,7 +3,7 @@ import bgrides from '../../assets/images/bgrides.jpeg'
 const Hero = () => {
     return (
         <div
-            className="hero min-h-screen"
+            className="hero h-full lg:h-screen"
             style={{
                 backgroundImage: `url(${bgrides})`,
                 backgroundSize: 'cover',
