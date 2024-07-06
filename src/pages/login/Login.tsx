@@ -19,7 +19,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    // reset
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
