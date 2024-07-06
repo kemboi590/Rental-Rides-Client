@@ -1,6 +1,5 @@
 import bgrides from '../../assets/images/bgrides.jpeg'
 
-
 const Hero = () => {
     return (
         <div

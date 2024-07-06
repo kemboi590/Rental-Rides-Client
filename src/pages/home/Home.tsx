@@ -1,13 +1,13 @@
 import Navbar from "../../components/navbar/Navbar"
-import Hero from './../hero/Hero';
-
+import Card from "./Card";
+import Hero from './Hero';
 
 const Home = () => {
     return (
         <div>
             < Navbar />
             <Hero />
-
+            <Card />
         </div>
     )
 }
