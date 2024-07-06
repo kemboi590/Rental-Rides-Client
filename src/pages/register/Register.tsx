@@ -2,9 +2,10 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
+
+import { useCreateUserMutation } from "../../features/users/usersAPI"
 
 
 type FormData = {
@@ -21,11 +22,12 @@ const schema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   contact_phone: yup.string().required("Phone number is required"),
   address: yup.string().required("Address is required"),
-  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  password: yup.string().min(4, "Password must be at least 4 characters").required("Password is required"),
   confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required("Confirm password is required")
 })
 
 const Register = () => {
+  const [createUser, { isLoading, error }] = useCreateUserMutation()
 
   const {
     register,
@@ -34,9 +36,21 @@ const Register = () => {
     reset
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
-  }
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    console.log("Submitting data:", data); 
+    try {
+      const response = await createUser(data);
+      console.log("Response data:", response); // success
+    } catch (err) {
+      if (error) {
+        console.error("API error:", error); // error
+        //parse and display error details from the response
+        if ('data' in error && error.data) {
+          console.error("Error details:", error.data);
+        }
+      }
+    }
+  };
   return (
     <div>
       < Navbar />
