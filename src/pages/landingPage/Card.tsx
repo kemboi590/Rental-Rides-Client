@@ -4,7 +4,7 @@ const Card = () => {
     return (
         <div className="flex flex-wrap gap-3 justify-center mt-10">
             {CardData.map((data, index) => (
-                <div key={index} className="card bg-base-100 w-80 md:w-72 shadow-xl">
+                <div key={index} className="card bg-base-100 w-80 md:w-72 shadow-xl my-4 lg:my-0">
                     <figure className="h-60">
                         <img src={data.image} alt={data.name} />
                     </figure>
