@@ -4,7 +4,7 @@ const About = () => {
   return (
 
     <div className="mt-10 mb-10">
-        <h1 className="text-[#FF914D] text-2xl font-bold text-center py-4">Get To Know Us</h1>
+        <h1 className="text-[#FF914D] text-xl md:text-4xl font-bold text-center py-4">Get To Know Us</h1>
         <p className=" text-center text-lg px-6">
             RentalRides is a car rental service that offers a wide range of vehicles to choose from. We have every type of car available to meet your needs. 
             We offer affordable pricing to our customers. Our goal is to provide the best car rental experience to our customers. 
