@@ -16,7 +16,7 @@ const Card = () => {
                         <p>Price: Ksh.{data.price}</p>
                       </div>
                         <div className="card-actions justify-end">
-                    <button className="badge badge-outline btn bg-[#FF914D] text-text-light hover:text-black border-none">Book vehicle</button>
+                    <button className="badge badge-outline btn bg-webcolor text-text-light hover:text-black border-none">Book vehicle</button>
                         </div>
                     </div>
                 </div>

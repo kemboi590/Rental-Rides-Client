@@ -8,7 +8,7 @@ const Services = () => {
                 <img src={serviceimg} alt="services" className="w-full" />
             </div>
             <div>
-                <h2 className="font-bold text-center lg:text-start text-xl md:text-4xl text-[#FF914D]">Our Services</h2>
+                <h2 className="font-bold text-center lg:text-start text-xl md:text-4xl text-webcolor">Our Services</h2>
                 
                 <div className="flex flex-col justify-center lg:flex-none lg:justify-start lg:items-start">
                 <p className="text-lg mt-5 px-6 lg:px-0">
