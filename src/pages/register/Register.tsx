@@ -1,32 +1,71 @@
+
+import { useForm, SubmitHandler } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
 
+
+type FormData = {
+  full_name: string
+  email: string
+  contact_phone: string
+  address: string
+  password: string
+  confirmPassword: string
+}
+
+const schema = yup.object().shape({
+  full_name: yup.string().required("Full name is required"),
+  email: yup.string().email().required("Email is required"),
+  contact_phone: yup.string().required("Phone number is required"),
+  address: yup.string().required("Address is required"),
+  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+  confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required("Confirm password is required")
+})
+
 const Register = () => {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<FormData>({ resolver: yupResolver(schema) })
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data)
+  }
   return (
     <div>
       < Navbar />
 
-
       <div className="hero-content flex-col lg:flex-row-reverse gap-8 h-fit">
         <div className="card bg-base-100 w-full lg:w-[40%] shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
-              <input type="text" placeholder="fullname" className="input input-bordered" required />
+              <input type="text" placeholder="fullname" className="input input-bordered" required {...register("full_name")} />
             </div>
             <div className="form-control">
-              <input type="email" placeholder="email" className="input input-bordered" required />
-            </div>
-
-            <div className="form-control">
-              <input type="string" placeholder="phone number" className="input input-bordered" required />
+              <input type="email" placeholder="email" className="input input-bordered" required {...register("email")} />
             </div>
 
             <div className="form-control">
-              <input type="password" placeholder="password" className="input input-bordered" required />
+              <input type="string" placeholder="phone number" className="input input-bordered" required {...register("contact_phone")} />
+            </div>
+
+            {/* for address */}
+            <div className="form-control">
+              <input type="string" placeholder="address" className="input input-bordered" required {...register("address")} />
             </div>
 
             <div className="form-control">
-              <input type="password" placeholder="confirm password" className="input input-bordered" required />
+              <input type="password" placeholder="password" className="input input-bordered" required {...register("password")} />
+            </div>
+
+            <div className="form-control">
+              <input type="password" placeholder="confirm password" className="input input-bordered" required {...register("confirmPassword")} />
             </div>
             <div>
               <label className="label">
@@ -35,7 +74,7 @@ const Register = () => {
             </div>
 
             <div className="form-control mt-2">
-              <button className="btn bg-webcolor text-text-light hover:text-black border-none">Register</button>
+              <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Register</button>
             </div>
 
             <div className="form-control mt-2">
