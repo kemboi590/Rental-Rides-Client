@@ -27,13 +27,13 @@ const schema = yup.object().shape({
 })
 
 const Register = () => {
-  const [createUser, { isLoading, error }] = useCreateUserMutation()
+  const [createUser, { error }] = useCreateUserMutation()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    // reset
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
