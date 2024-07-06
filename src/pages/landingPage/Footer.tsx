@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-    <footer className="footer bg-webcolor text-text-light p-10">
+    <footer className="footer bg-gray-800 text-text-light p-10">
     <nav>
       <h6 className="footer-title">Services</h6>
       <a className="link link-hover">Car Rental</a>
