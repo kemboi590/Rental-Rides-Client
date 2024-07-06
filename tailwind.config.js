@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         'text-light': '#f7fafc',
+        'webcolor': '#FF914D',
       }
     },
   },

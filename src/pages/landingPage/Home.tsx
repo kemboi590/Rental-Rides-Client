@@ -1,6 +1,7 @@
 import Navbar from "../../components/navbar/Navbar"
 import About from "./About";
 import Card from "./Card";
+import Footer from "./Footer";
 import Hero from './Hero';
 import Services from "./Services";
 
@@ -12,6 +13,7 @@ const Home = () => {
             <Card />
             <About />
             <Services />
+            <Footer />
         </div>
     )
 }
