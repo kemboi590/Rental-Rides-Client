@@ -34,7 +34,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100 border-b-2">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">RentalRides</a>
+                <a className="btn btn-ghost text-xl 2 ml-6 md:ml-12">RentalRides</a>
             </div>
 
             <div className="flex-none gap-2">
