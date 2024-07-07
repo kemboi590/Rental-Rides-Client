@@ -45,10 +45,10 @@ export const usersAPI = createApi({
     }),
 });
 
-export const useGetUsersQuery: typeof usersAPI.useGetUsersQuery = usersAPI.useGetUsersQuery;
-export const useCreateUserMutation: typeof usersAPI.useCreateUserMutation = usersAPI.useCreateUserMutation;
-export const useUpdateUserMutation: typeof usersAPI.useUpdateUserMutation = usersAPI.useUpdateUserMutation;
-export const useDeleteUserMutation: typeof usersAPI.useDeleteUserMutation = usersAPI.useDeleteUserMutation;
+// export const useGetUsersQuery: typeof usersAPI.useGetUsersQuery = usersAPI.useGetUsersQuery;
+// export const useCreateUserMutation: typeof usersAPI.useCreateUserMutation = usersAPI.useCreateUserMutation;
+// export const useUpdateUserMutation: typeof usersAPI.useUpdateUserMutation = usersAPI.useUpdateUserMutation;
+// export const useDeleteUserMutation: typeof usersAPI.useDeleteUserMutation = usersAPI.useDeleteUserMutation;
 
 // // Explicit type exports
 // export type UseGetUsersQuery = typeof useGetUsersQuery;

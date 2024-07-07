@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
-import { useLoginUserMutation } from "../../features/login/loginAPI"
+import { loginAPI } from "../../features/login/loginAPI"
 import { useNavigate } from "react-router-dom";
 
 type FormData = {
@@ -18,7 +18,7 @@ const schema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loginUser, { error }] = useLoginUserMutation()
+  const [loginUser, { error }] = loginAPI.useLoginUserMutation();
 
   const {
     register,

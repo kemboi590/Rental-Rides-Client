@@ -22,7 +22,7 @@ export const loginAPI = createApi({
     }),
 });
 
-export const useLoginUserMutation: typeof loginAPI.useLoginUserMutation = loginAPI.useLoginUserMutation;
+// export const useLoginUserMutation: typeof loginAPI.useLoginUserMutation = loginAPI.useLoginUserMutation;
 
 // Explicit type exports
 // export type UseLoginUserMutation = typeof useLoginUserMutation;
