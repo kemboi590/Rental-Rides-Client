@@ -6,6 +6,8 @@ import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
 import { usersAPI } from "../../features/users/usersAPI"
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner'
+
 
 type FormData = {
   full_name: string
@@ -41,11 +43,13 @@ const Register = () => {
     try {
       const response = await createUser(data);
       console.log("Response data:", response); // success
+      toast.success("Registration successful")
       navigate('/login')
     } catch (err) {
       if (error) {
         console.error("API error:", error); // error
         if ('data' in error && error.data) { //parse and display error details from the response
+          toast.error("Invalid credentials")
           console.error("Error details:", error.data);
         }
       }
@@ -53,6 +57,15 @@ const Register = () => {
   };
   return (
     <div>
+      <Toaster
+        toastOptions={{
+          classNames: {
+            error: 'bg-red-400',
+            success: 'text-green-400',
+            warning: 'text-yellow-400',
+            info: 'bg-blue-400',
+          },
+        }} />
       < Navbar />
 
       <div className="hero-content flex-col lg:flex-row-reverse gap-8 h-fit">

@@ -5,6 +5,8 @@ import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
 import { loginAPI } from "../../features/login/loginAPI"
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'sonner'
+
 
 type FormData = {
   email: string
@@ -33,9 +35,11 @@ const Login = () => {
       const response = await loginUser(data);
       console.log("Response data:", response); // success
       if (response.error) {
+        toast.error("Invalid credentials")
         console.log("Invalid credentials")
         return
       }
+      toast.success("Login successful")
       navigate('/')
     } catch (err) {
       if (error) {
@@ -50,6 +54,16 @@ const Login = () => {
 
   return (
     <div>
+
+      <Toaster
+        toastOptions={{
+          classNames: {
+            error: 'bg-red-400',
+            success: 'text-green-400',
+            warning: 'text-yellow-400',
+            info: 'bg-blue-400',
+          },
+        }} />
       < Navbar />
       <div className="hero-content flex-col lg:flex-row-reverse gap-8 h-fit">
         <div className="card bg-base-100 w-full lg:w-[40%] shadow-2xl">
