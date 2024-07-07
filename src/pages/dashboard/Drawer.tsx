@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronsRight , ChevronsLeft  } from 'lucide-react';
 import { drawerData } from '../../components/drawer/drawerData';
 
 
@@ -20,7 +20,7 @@ const Drawer: React.FC = () => {
         type="button"
         onClick={toggleDrawer}
       >
-        {isOpen ? <ChevronLeft className=" dark:text-white text-webcolor" size={45} /> : <ChevronRight className= " text-webcolor" size={45}/>}
+        {isOpen ? <ChevronsLeft  className=" dark:text-white text-webcolor" size={45} /> : <ChevronsRight  className= " text-webcolor" size={45}/>}
       </button>
 
       {/* Drawer */}
@@ -43,7 +43,7 @@ const Drawer: React.FC = () => {
             type="button"
             onClick={toggleDrawer}
           >
-            <ChevronLeft />
+            <ChevronsLeft />
           </button>
         </div>
         <div className="py-4 overflow-y-auto">
@@ -51,7 +51,8 @@ const Drawer: React.FC = () => {
 
             {drawerData.map((item) => (
               <li key={item.id}>
-                <a href="#" className="text-gray-900 dark:text-white hover:bg-blue-200 dark:hover:bg-blue-700 block px-3 py-2 rounded-md">
+                <a href="#" className="text-gray-900 dark:text-white hover:bg-blue-200 block px-3 py-2 rounded-md text-justify">
+                  {item.icon && <item.icon className="inline-block mr-2" size={30} />}
                   {item.name}
                 </a>
               </li>
