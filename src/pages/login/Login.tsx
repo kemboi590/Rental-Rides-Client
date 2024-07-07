@@ -32,12 +32,15 @@ const Login = () => {
     try {
       const response = await loginUser(data);
       console.log("Response data:", response); // success
+      if (response.error) {
+        console.log("Invalid credentials")
+        return
+      }
       navigate('/')
     } catch (err) {
       if (error) {
         console.error("API error:", error); // error
-        //parse and display error details from the response
-        if ('data' in error && error.data) {
+        if ('data' in error && error.data) {  //parse and display error details from the response
           console.error("Error details:", error.data);
         }
       }

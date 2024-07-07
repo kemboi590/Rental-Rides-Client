@@ -7,7 +7,6 @@ import authImage from "../../assets/images/auth/authimg.png"
 import { usersAPI } from "../../features/users/usersAPI"
 import { useNavigate } from "react-router-dom";
 
-
 type FormData = {
   full_name: string
   email: string
@@ -38,7 +37,7 @@ const Register = () => {
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    console.log("Submitting data:", data); 
+    console.log("Submitting data:", data);
     try {
       const response = await createUser(data);
       console.log("Response data:", response); // success
@@ -46,8 +45,7 @@ const Register = () => {
     } catch (err) {
       if (error) {
         console.error("API error:", error); // error
-        //parse and display error details from the response
-        if ('data' in error && error.data) {
+        if ('data' in error && error.data) { //parse and display error details from the response
           console.error("Error details:", error.data);
         }
       }
@@ -107,7 +105,6 @@ const Register = () => {
         </div>
 
 
-        {/* on small screens, do not show the image */}
         <div className="hidden lg:block w-full lg:w-[40%] h-96 ">
           <img src={authImage} alt="auth" className="w-full h-full object-cover lg:object-fill rounded-lg" />
         </div>
