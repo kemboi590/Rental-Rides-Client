@@ -11,6 +11,11 @@ import Dashboard from './pages/dashboard/Dashboard.tsx'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistedStore } from './app/store.ts'
+import BookVehicle from './pages/dashboard/main/BookVehicle.tsx'
+import Vehicles from './pages/dashboard/main/Vehicles.tsx'
+import AllBookings from './pages/dashboard/main/AllBookings.tsx'
+import SupportTickets from './pages/dashboard/main/SupportTickets.tsx'
+import Account from './pages/dashboard/main/Account.tsx'
 
 const router = createBrowserRouter([
   {
@@ -27,7 +32,29 @@ const router = createBrowserRouter([
   },
   {
     path: 'dashboard',
-    element: <Dashboard />
+    element: <Dashboard />,
+    children: [
+      {
+        path: 'book-vehicle',
+        element: <BookVehicle />
+      },
+      {
+        path: 'more-vehicles',
+        element: <Vehicles />
+      },
+      {
+        path: 'allbookings',
+        element: <AllBookings />
+      },
+      {
+        path: 'support-tickets',
+        element: <SupportTickets />
+      },
+      {
+        path: 'account',
+        element: <Account />
+      }
+    ]
   }
 ])
 

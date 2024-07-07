@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ChevronsRight , ChevronsLeft  } from 'lucide-react';
 import { drawerData } from '../../components/drawer/drawerData';
+import { Link } from "react-router-dom"
+
 
 
 const Drawer: React.FC = () => {
@@ -11,7 +13,7 @@ const Drawer: React.FC = () => {
   };
 
   return (
-    <div className="relative text-center">
+    <div className="relative text-center  ">
       {/* Drawer toggle button always visible */}
       <button
         className={`fixed left-0 top-0 z-50 p-3 ${
@@ -20,7 +22,7 @@ const Drawer: React.FC = () => {
         type="button"
         onClick={toggleDrawer}
       >
-        {isOpen ? <ChevronsLeft  className=" dark:text-white text-webcolor" size={45} /> : <ChevronsRight  className= " text-webcolor" size={45}/>}
+        {isOpen ? <ChevronsLeft  className=" dark:text-white text-webcolor block lg:hidden" size={45} /> : <ChevronsRight  className= " text-webcolor block lg:hidden" size={45}/>}
       </button>
 
       {/* Drawer */}
@@ -43,7 +45,7 @@ const Drawer: React.FC = () => {
             type="button"
             onClick={toggleDrawer}
           >
-            <ChevronsLeft />
+            <ChevronsLeft  className=' block lg:hidden'/>
           </button>
         </div>
         <div className="py-4 overflow-y-auto">
@@ -51,10 +53,10 @@ const Drawer: React.FC = () => {
 
             {drawerData.map((item) => (
               <li key={item.id}>
-                <a href="#" className="text-gray-900 dark:text-white hover:bg-blue-200 block px-3 py-2 rounded-md text-justify">
+                <Link to={item.link} className="text-gray-900 dark:text-white hover:bg-blue-200 block px-3 py-2 rounded-md text-justify">
                   {item.icon && <item.icon className="inline-block mr-2" size={30} />}
                   {item.name}
-                </a>
+                </Link>
               </li>
             ))}
       
