@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
-
 import { useCreateUserMutation } from "../../features/users/usersAPI"
+import { useNavigate } from "react-router-dom";
 
 
 type FormData = {
@@ -27,6 +27,7 @@ const schema = yup.object().shape({
 })
 
 const Register = () => {
+  const navigate = useNavigate();
   const [createUser, { error }] = useCreateUserMutation()
 
   const {
@@ -41,6 +42,7 @@ const Register = () => {
     try {
       const response = await createUser(data);
       console.log("Response data:", response); // success
+      navigate('/login')
     } catch (err) {
       if (error) {
         console.error("API error:", error); // error

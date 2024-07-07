@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { usersAPI } from "../features/users/usersAPI";
+import { loginAPI } from "../features/login/loginAPI";
 
 
 // persist configuration
@@ -13,6 +14,7 @@ const persistConfig = {
 // combine reducers
 const rootReducer = combineReducers({
     [usersAPI.reducerPath]: usersAPI.reducer,
+    [loginAPI.reducerPath]: loginAPI.reducer,
 });
 
 // add persist reducer
@@ -23,7 +25,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }).concat(usersAPI.middleware),
+    }).concat(usersAPI.middleware).concat(loginAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

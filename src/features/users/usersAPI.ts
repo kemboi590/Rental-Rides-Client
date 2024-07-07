@@ -13,7 +13,7 @@ export interface TUser {
 export const usersAPI = createApi({
     reducerPath: 'usersAPI',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
-    tagTypes: ['Users'], // Declare tag types
+    tagTypes: ['Users'],
     endpoints: (builder) => ({
         getUsers: builder.query<TUser[], void>({
             query: () => 'users',
@@ -50,8 +50,8 @@ export const useCreateUserMutation: typeof usersAPI.useCreateUserMutation = user
 export const useUpdateUserMutation: typeof usersAPI.useUpdateUserMutation = usersAPI.useUpdateUserMutation;
 export const useDeleteUserMutation: typeof usersAPI.useDeleteUserMutation = usersAPI.useDeleteUserMutation;
 
-// Explicit type exports
-export type UseGetUsersQuery = typeof useGetUsersQuery;
-export type UseCreateUserMutation = typeof useCreateUserMutation;
-export type UseUpdateUserMutation = typeof useUpdateUserMutation;
-export type UseDeleteUserMutation = typeof useDeleteUserMutation;
+// // Explicit type exports
+// export type UseGetUsersQuery = typeof useGetUsersQuery;
+// export type UseCreateUserMutation = typeof useCreateUserMutation;
+// export type UseUpdateUserMutation = typeof useUpdateUserMutation;
+// export type UseDeleteUserMutation = typeof useDeleteUserMutation;
