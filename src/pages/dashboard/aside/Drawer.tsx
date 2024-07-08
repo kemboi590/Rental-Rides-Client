@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronsRight , ChevronsLeft  } from 'lucide-react';
-import { drawerData } from '../../components/drawer/drawerData';
+import { ChevronsRight, ChevronsLeft } from 'lucide-react';
+import { drawerData } from '../../../components/drawer/drawerData';
 import { Link } from "react-router-dom"
 
 
@@ -16,20 +16,18 @@ const Drawer: React.FC = () => {
     <div className="relative text-center  ">
       {/* Drawer toggle button always visible */}
       <button
-        className={`fixed left-0 top-0 z-50 p-3 ${
-          isOpen ? '' : ''
-        }`}
+        className={`fixed left-0 top-0 z-50 p-3 ${isOpen ? '' : ''
+          }`}
         type="button"
         onClick={toggleDrawer}
       >
-        {isOpen ? <ChevronsLeft  className=" dark:text-white text-webcolor block lg:hidden" size={45} /> : <ChevronsRight  className= " text-webcolor block lg:hidden" size={45}/>}
+        {isOpen ? <ChevronsLeft className=" dark:text-white text-webcolor block lg:hidden" size={45} /> : <ChevronsRight className=" text-webcolor block lg:hidden" size={45} />}
       </button>
 
       {/* Drawer */}
       <div
-        className={`fixed left-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-200 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } bg-white w-64 dark:bg-gray-800 border-2`}
+        className={`fixed left-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-200 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } bg-white w-64 dark:bg-gray-800 border-2`}
         tabIndex={-1}
         aria-labelledby="drawer-body-scrolling-label"
       >
@@ -45,7 +43,7 @@ const Drawer: React.FC = () => {
             type="button"
             onClick={toggleDrawer}
           >
-            <ChevronsLeft  className=' block lg:hidden'/>
+            <ChevronsLeft className=' block lg:hidden' />
           </button>
         </div>
         <div className="py-4 overflow-y-auto">
@@ -59,7 +57,7 @@ const Drawer: React.FC = () => {
                 </Link>
               </li>
             ))}
-      
+
           </ul>
         </div>
       </div>

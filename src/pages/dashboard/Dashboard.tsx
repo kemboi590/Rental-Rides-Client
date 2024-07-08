@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
-import Drawer from "./Drawer";
+import Drawer from "./aside/Drawer";
 
 const Dashboard = () => {
   return (
@@ -14,8 +14,8 @@ const Dashboard = () => {
           <Drawer />
         </aside>
 
-        <main className="flex-1 bg-webcolor">
-        {/* <main className="w-full bg-webcolor"> */}
+        <main className="flex-1">
+          {/* <main className="w-full bg-webcolor"> */}
           <Outlet />
         </main>
       </div>
