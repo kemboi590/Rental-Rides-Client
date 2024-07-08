@@ -1,6 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { User } from "../users/userSlice";
 
-export interface TLogin {
+
+export interface TLoginResponse {
+    token: string;
+    user: User;
+}
+
+export interface LoginFormData {
     email: string;
     password: string;
 }
@@ -10,7 +17,7 @@ export const loginAPI = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
     tagTypes: ['Login'], 
     endpoints: (builder) => ({
-        loginUser: builder.mutation<TLogin, TLogin>({
+        loginUser: builder.mutation<TLoginResponse, LoginFormData>({
             query: (user) => ({
                 url: 'login',
                 method: 'POST',
@@ -21,8 +28,3 @@ export const loginAPI = createApi({
         
     }),
 });
-
-// export const useLoginUserMutation: typeof loginAPI.useLoginUserMutation = loginAPI.useLoginUserMutation;
-
-// Explicit type exports
-// export type UseLoginUserMutation = typeof useLoginUserMutation;

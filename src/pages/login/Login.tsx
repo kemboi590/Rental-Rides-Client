@@ -3,9 +3,12 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
-import { loginAPI } from "../../features/login/loginAPI"
+import { loginAPI,LoginFormData, TLoginResponse } from "../../features/login/loginAPI"
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner'
+import { useDispatch } from "react-redux"
+import { loginSuccess } from "../../features/users/userSlice"
+
 
 
 type FormData = {
@@ -19,6 +22,7 @@ const schema = yup.object().shape({
 })
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginUser, { error }] = loginAPI.useLoginUserMutation();
 
@@ -29,16 +33,19 @@ const Login = () => {
     // reset
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+
+  // submit form
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     console.log("Submitting data:", data);
     try {
-      const response = await loginUser(data);
+      const response = await loginUser(data).unwrap();
       console.log("Response data:", response); // success
-      if (response.error) {
+      if(!response.token){
         toast.error("Invalid credentials")
         console.log("Invalid credentials")
         return
       }
+      dispatch(loginSuccess(response))
       toast.success("Login successful")
       navigate('/')
     } catch (err) {
