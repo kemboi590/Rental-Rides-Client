@@ -65,7 +65,7 @@ const Login = () => {
           },
         }} />
       < Navbar />
-      <div className="hero-content flex-col lg:flex-row-reverse gap-8 h-fit">
+      <div className="hero-content flex-col lg:flex-row-reverse lg:gap-16 h-screen max-w-full border-2">
         <div className="card bg-base-100 w-full lg:w-[40%] shadow-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
 
@@ -97,7 +97,7 @@ const Login = () => {
         </div>
 
 
-        <div className="hidden lg:block w-full lg:w-[40%] h-96 ">
+        <div className="hidden lg:block w-full lg:w-[25%] ">
           <img src={authImage} alt="auth" className="w-full h-full object-cover lg:object-fill rounded-lg" />
         </div>
 
