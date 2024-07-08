@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
-import { loginAPI,LoginFormData, TLoginResponse } from "../../features/login/loginAPI"
+import { loginAPI,LoginFormData } from "../../features/login/loginAPI"
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner'
 import { useDispatch } from "react-redux"
