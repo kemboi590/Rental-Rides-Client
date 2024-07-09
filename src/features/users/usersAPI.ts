@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { APIDomain } from "../../utils/APIDomain";
 export interface TUser {
     id: number;
     full_name: string;
@@ -12,7 +12,7 @@ export interface TUser {
 // API Slice
 export const usersAPI = createApi({
     reducerPath: 'usersAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
+    baseQuery: fetchBaseQuery({ baseUrl: APIDomain }),
     tagTypes: ['Users'],
     endpoints: (builder) => ({
         getUsers: builder.query<TUser[], void>({

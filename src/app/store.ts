@@ -4,6 +4,8 @@ import storage from "redux-persist/lib/storage";
 import { usersAPI } from "../features/users/usersAPI";
 import { loginAPI } from "../features/login/loginAPI";
 import { vehiclesAPI } from "../features/vehicles/Vehicles";
+import { VehicleSpecificationsAPI } from "../features/vehicles/vehicleSpecs";
+import { vehiclesTableAPI } from "../features/vehicles/vehicleTable";
 import userSlice from "../features/users/userSlice";
 
 // persist configuration
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
     [usersAPI.reducerPath]: usersAPI.reducer,
     [loginAPI.reducerPath]: loginAPI.reducer,
     [vehiclesAPI.reducerPath]: vehiclesAPI.reducer,
+    [VehicleSpecificationsAPI.reducerPath]: VehicleSpecificationsAPI.reducer,
+    [vehiclesTableAPI.reducerPath]: vehiclesTableAPI.reducer,
     user: userSlice,
 });
 
@@ -28,7 +32,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware),
+    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware).concat(VehicleSpecificationsAPI.middleware).concat(vehiclesTableAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);
