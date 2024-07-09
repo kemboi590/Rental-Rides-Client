@@ -1,19 +1,18 @@
-// This are side bar menu items
 import { BookmarkPlus, Car, Album, TicketCheck, SquareUserRound } from 'lucide-react';
 
 type DrawerData = {
     id: number;
     name: string;
     icon?: undefined | any;
-    link: string; //to route to
+    link: string;
 }
 
 export const drawerData: DrawerData[] = [
     {
         id: 1,
-        name: 'Book Vehicle',
+        name: 'Create Vehicle',
         icon: BookmarkPlus,
-        link: 'book-vehicle'
+        link: 'create-vehicle'
     },
     {
         id: 2,

@@ -15,8 +15,7 @@ const Dashboard = () => {
         </aside>
 
         <main className="flex-1">
-          {/* <main className="w-full bg-webcolor"> */}
-          <Outlet />
+         <Outlet />
         </main>
       </div>
     </div>
