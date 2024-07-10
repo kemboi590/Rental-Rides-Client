@@ -38,4 +38,4 @@ export const drawerData: DrawerData[] = [
         icon: SquareUserRound,
         link: 'account'
     }
-]
+];

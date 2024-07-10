@@ -6,6 +6,7 @@ import { loginAPI } from "../features/login/loginAPI";
 import { vehiclesAPI } from "../features/vehicles/Vehicles";
 import { VehicleSpecificationsAPI } from "../features/vehicles/vehicleSpecs";
 import { vehiclesTableAPI } from "../features/vehicles/vehicleTable";
+import { bookingVehicleAPI } from "../features/booking/bookingPI";
 import userSlice from "../features/users/userSlice";
 
 // persist configuration
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     [vehiclesAPI.reducerPath]: vehiclesAPI.reducer,
     [VehicleSpecificationsAPI.reducerPath]: VehicleSpecificationsAPI.reducer,
     [vehiclesTableAPI.reducerPath]: vehiclesTableAPI.reducer,
+    [bookingVehicleAPI.reducerPath]: bookingVehicleAPI.reducer,
     user: userSlice,
 });
 
@@ -32,7 +34,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware).concat(VehicleSpecificationsAPI.middleware).concat(vehiclesTableAPI.middleware),
+    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware).concat(VehicleSpecificationsAPI.middleware).concat(vehiclesTableAPI.middleware).concat(bookingVehicleAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);

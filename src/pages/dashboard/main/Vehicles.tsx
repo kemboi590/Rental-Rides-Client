@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import imageForAllCards from "../../../assets/images/landingPage/Mazda.jpeg";
 import { vehiclesAPI } from "../../../features/vehicles/Vehicles";
 
@@ -19,17 +20,24 @@ function Vehicles() {
               <img src={imageForAllCards} alt={`${vehicle.vehicle_specifications?.manufacturer} ${vehicle.vehicle_specifications.model}`} />
             </figure>
             <div className="card-body">
-              <h2 className="card-title">
-                {vehicle.vehicle_specifications.manufacturer} {vehicle.vehicle_specifications.model}
-              </h2>
+
+              <div className="flex justify-between">
+                <h3 className="card-title">{vehicle.vehicle_specifications.manufacturer} {vehicle.vehicle_specifications.model}</h3>
+      
+                <div className={`badge ${vehicle.availability ? 'badge-success' : 'badge-error'}`}>
+                  {vehicle.availability ? 'Available' : 'Unavailable'}
+                </div>
+              </div>
+
               <p>Fuel Type: {vehicle.vehicle_specifications.fuel_type}</p>
               <p>Engine Capacity: {vehicle.vehicle_specifications.engine_capacity}</p>
               <p>Color: {vehicle.vehicle_specifications.color}</p>
               <p>Rental Rate: {vehicle.rental_rate}</p>
-              <div className="card-actions justify-end">
-                <div className={`badge ${vehicle.availability ? 'badge-success' : 'badge-error'}`}>
-                  {vehicle.availability ? 'Available' : 'Unavailable'}
-                </div>
+              {/* book now button */}
+              <div className="justify-start">
+                <Link to={`booking/${vehicle.vehicle_id}`}>
+                <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book Now</button>
+                </Link>
               </div>
             </div>
           </div>
