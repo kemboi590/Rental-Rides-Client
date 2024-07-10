@@ -18,6 +18,7 @@ export interface VSpecifications {
 export const VehicleSpecificationsAPI  = createApi({
     reducerPath: 'VehicleSpecificationsAPI',
     baseQuery: fetchBaseQuery({ baseUrl: APIDomain }),
+    refetchOnReconnect: true,
     tagTypes: ['VehicleSpecifications'],
     endpoints: (builder) => ({
         getVehicleSpecifications: builder.query<VSpecifications[], void>({

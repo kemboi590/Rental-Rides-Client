@@ -1,9 +1,10 @@
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
-import CreateVehicleForm from "./createVehicle/CreateVehicle"
+import CreateVehicleForm from "./createVehicle/CreateVehicle";
 
 type FormData = {
   manufacturer: string;
@@ -16,7 +17,6 @@ type FormData = {
   color: string;
   features: string;
 };
-
 
 const schema = yup.object().shape({
   manufacturer: yup.string().required("Manufacturer is required"),
@@ -31,13 +31,33 @@ const schema = yup.object().shape({
 });
 
 const CreateVehicle = () => {
-  const [createVehicleSpecifications, { error }] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
+  const [models, setModels] = useState<string[]>([
+    "Corolla",
+    "Camry",
+    "Rav4"
+  ]);
+  const [manufacturerOptions] = useState<string[]>([
+    "Toyota",
+    "Honda",
+    "Mercedes-Benz",
+    "Tesla"
+  ]);
+
+  const [fuelTypeOptions] = useState<string[]>([
+    "Gasoline",
+    "Diesel",
+    "Electric",
+    "Hybrid",
+  ]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({ resolver: yupResolver(schema) });
+
+  const [createVehicleSpecifications, { error }] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log("Submitting data:", data);
@@ -51,6 +71,30 @@ const CreateVehicle = () => {
     }
   };
 
+  const years = Array.from({ length: 25 }, (_, i) => 2000 + i);
+
+  const handleManufacturerChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedManufacturer = event.target.value;
+    switch (selectedManufacturer) {
+      case "Toyota":
+        setModels(["Corolla", "Camry", "Rav4"]);
+        break;
+      case "Honda":
+        setModels(["Civic", "Accord", "CR-V"]);
+        break;
+      case "Mercedes-Benz":
+        setModels(["C-Class", "E-Class", "S-Class"]);
+        break;
+      case "Tesla":
+        setModels(["Model S", "Model 3", "Model X"]);
+        break;
+      default:
+        setModels([]);
+        break;
+    }
+    setValue("model", "");
+  };
+
   return (
     <div>
       <Toaster
@@ -61,58 +105,87 @@ const CreateVehicle = () => {
             warning: 'text-yellow-400',
             info: 'bg-blue-400',
           },
-        }} />
+        }}
+      />
       <div className="hero-content flex-col lg:flex-row-reverse lg:gap-16 h-full border-2 max-w-full">
         <div className="card bg-base-100 w-full shadow-2xl">
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap ">
-            <div className="form-control ">
-              <input type="text" placeholder="Manufacturer" className="input input-bordered " required {...register("manufacturer")} />
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap">
+            <div className="form-control">
+              <select className="select select-bordered" {...register("manufacturer", { required: true })} onChange={handleManufacturerChange}>
+                <option disabled value="">Select Manufacturer</option>
+                {manufacturerOptions.map((option, index) => (
+                  <option key={index} value={option}>{option}</option>
+                ))}
+              </select>
               <p className="text-red-500">{errors.manufacturer?.message}</p>
             </div>
+
             <div className="form-control">
-              <input type="text" placeholder="Model" className="input input-bordered" required {...register("model")} />
+              <select className="select select-bordered" {...register("model", { required: true })}>
+                <option disabled value="">Select Model</option>
+                {models.map((modelOption, index) => (
+                  <option key={index} value={modelOption}>{modelOption}</option>
+                ))}
+              </select>
               <p className="text-red-500">{errors.model?.message}</p>
             </div>
+
             <div className="form-control">
-              <input type="number" placeholder="Year" className="input input-bordered" required {...register("year")} />
+              <select className="select select-bordered" {...register("year", { required: true })}>
+                <option disabled value="">Select Year</option>
+                {years.map((year, index) => (
+                  <option key={index} value={year}>{year}</option>
+                ))}
+              </select>
               <p className="text-red-500">{errors.year?.message}</p>
             </div>
+
             <div className="form-control">
-              <input type="text" placeholder="Fuel Type" className="input input-bordered" required {...register("fuel_type")} />
+              <select className="select select-bordered" {...register("fuel_type", { required: true })}>
+                <option disabled value="">Select Fuel Type</option>
+                {fuelTypeOptions.map((fuelType, index) => (
+                  <option key={index} value={fuelType}>{fuelType}</option>
+                ))}
+              </select>
               <p className="text-red-500">{errors.fuel_type?.message}</p>
             </div>
+
             <div className="form-control">
-              <input type="text" placeholder="Engine Capacity" className="input input-bordered" required {...register("engine_capacity")} />
+              <input type="text" placeholder="Engine Capacity" className="input input-bordered" {...register("engine_capacity", { required: true })} />
               <p className="text-red-500">{errors.engine_capacity?.message}</p>
             </div>
+
             <div className="form-control">
-              <input type="text" placeholder="Transmission" className="input input-bordered" required {...register("transmission")} />
+              <label className="form-control w-full max-w-xs">
+                <select className="select select-bordered" {...register("transmission")}>
+                  <option disabled selected>Transmission</option>
+                  <option>Automatic</option>
+                  <option>Manual</option>
+                </select>
+              </label>
               <p className="text-red-500">{errors.transmission?.message}</p>
             </div>
+
+
             <div className="form-control">
-              <input type="number" placeholder="Seating Capacity" className="input input-bordered" required {...register("seating_capacity")} />
+              <input type="number" placeholder="Seating Capacity" className="input input-bordered" {...register("seating_capacity", { required: true })} />
               <p className="text-red-500">{errors.seating_capacity?.message}</p>
             </div>
             <div className="form-control">
-              <input type="text" placeholder="Color" className="input input-bordered" required {...register("color")} />
+              <input type="text" placeholder="Color" className="input input-bordered" {...register("color", { required: true })} />
               <p className="text-red-500">{errors.color?.message}</p>
             </div>
             <div className="form-control">
-              <input type="text" placeholder="Features" className="input input-bordered" required {...register("features")} />
+              <input type="text" placeholder="Features" className="input input-bordered" {...register("features", { required: true })} />
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
-            <div className="form-control mt-2 ">
+            <div className="form-control mt-2">
               <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Specification</button>
             </div>
           </form>
         </div>
-
-
-
-
-
       </div>
-        <CreateVehicleForm/>
+      <CreateVehicleForm />
     </div>
   );
 };

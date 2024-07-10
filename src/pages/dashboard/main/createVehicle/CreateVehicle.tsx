@@ -61,10 +61,22 @@ function CreateVehicleForm() {
                             <input type="text" placeholder="Rental Rate" className="input input-bordered" required {...register("rental_rate")} />
                             <p className="text-red-500">{errors.rental_rate?.message}</p>
                         </div>
-                        <div className="form-control">
+
+                        
+            <div className="form-control">
+              <label className="form-control w-full max-w-xs">
+                <select className="select select-bordered" {...register("availability")}>
+                  <option disabled selected>Availability</option>
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+              </label>
+              <p className="text-red-500">{errors.availability?.message}</p>
+            </div>
+                        {/* <div className="form-control">
                             <input type="text" placeholder="Availability" className="input input-bordered" required {...register("availability")} />
                             <p className="text-red-500">{errors.availability?.message}</p>
-                        </div>
+                        </div> */}
                         <div className="form-control mt-2">
                             <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Vehicle</button>
                         </div>

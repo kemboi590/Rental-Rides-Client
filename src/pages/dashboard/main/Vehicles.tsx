@@ -2,8 +2,10 @@ import imageForAllCards from "../../../assets/images/landingPage/Mazda.jpeg";
 import { vehiclesAPI } from "../../../features/vehicles/Vehicles";
 
 function Vehicles() {
-  const { data: vehicleData, isLoading } = vehiclesAPI.useGetVehiclesQuery();
-  // console.log(vehicleData);
+  const page = void 0;
+  const { data: vehicleData, isLoading } = vehiclesAPI.useGetVehiclesQuery(page, {
+    pollingInterval: 6000, refetchOnMountOrArgChange: true
+  });
 
   return (
     <div className="overflow-x-auto text-base-content rounded-lg p-4">
