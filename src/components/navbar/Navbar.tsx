@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux"
+import { logOut } from "../../features/users/userSlice";
+
 
 
 const Navbar = () => {
+    const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const username = user.user?.name;
 
@@ -36,6 +40,10 @@ const Navbar = () => {
             document.removeEventListener('click', closeMenu);
         };
     }, [isDropdownOpen]);
+
+    const handleLogout = () => {
+        dispatch(logOut());
+    }
 
     return (
         <div className="navbar bg-base-100 border-b-2">
@@ -109,7 +117,8 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><a className="justify-between">Profile</a></li>
-                        <li><a>Logout</a></li>
+                        {/* handle logout */}
+                        <li><a onClick={handleLogout}>Logout</a></li>
                     </ul>
                 </div>
             </div>
