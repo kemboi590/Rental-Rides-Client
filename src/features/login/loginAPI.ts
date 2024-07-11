@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { User } from "../users/userSlice";
+import { APIDomain } from "../../utils/APIDomain";
 
 
 export interface TLoginResponse {
@@ -14,7 +15,7 @@ export interface LoginFormData {
 
 export const loginAPI = createApi({
     reducerPath: 'loginAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
+    baseQuery: fetchBaseQuery({ baseUrl: APIDomain }),
     tagTypes: ['Login'], 
     endpoints: (builder) => ({
         loginUser: builder.mutation<TLoginResponse, LoginFormData>({
