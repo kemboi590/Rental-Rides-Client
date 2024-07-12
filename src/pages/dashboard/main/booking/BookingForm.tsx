@@ -4,11 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Toaster, toast } from 'sonner';
 import imageForAllCards from "../../../../assets/images/landingPage/Mazda.jpeg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
 import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
+import { ArrowLeft } from 'lucide-react';
+
+
 
 type BookingFormData = {
   booking_date: Date;
@@ -142,6 +145,9 @@ const BookingForm = () => {
       ) : (
         <div className="text-center p-5">
           <p className="text-xl">Vehicle is not available for booking</p>
+          {/* link to go back */}
+          <Link to="/dashboard/vehicles" className="btn bg-webcolor text-text-light hover:text-black border-none mt-4"> <ArrowLeft /> ArrowLeft Go Back</Link>
+
         </div>
       )}
     </div>
