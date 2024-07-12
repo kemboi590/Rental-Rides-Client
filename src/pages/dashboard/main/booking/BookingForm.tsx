@@ -1,13 +1,14 @@
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
-import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
 import { Toaster, toast } from 'sonner';
 import imageForAllCards from "../../../../assets/images/landingPage/Mazda.jpeg";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
+import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
+import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
 
 type BookingFormData = {
   booking_date: Date;
@@ -104,37 +105,45 @@ const BookingForm = () => {
         )}
       </div>
 
-      <h1 className="text-xl font-bold mb-4 text-webcolor text-center p-5">Booking Vehicle</h1>
-      <div className="p-5 rounded-lg shadow-lg card lg:w-3/4 border-2 m-auto">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="flex flex-col lg:flex-row space-x-4 w-full">
-            <div className="form-control lg:w-1/2">
-              <label htmlFor="booking_date" className="label">Booking Date</label>
-              <input type="date" id="booking_date" className="input input-bordered" {...register("booking_date")} />
-              <p className="text-red-500">{errors.booking_date?.message}</p>
-            </div>
-            <div className="form-control lg:w-1/2">
-              <label htmlFor="return_date" className="label">Return Date</label>
-              <input type="date" id="return_date" className="input input-bordered" {...register("return_date")} />
-              <p className="text-red-500">{errors.return_date?.message}</p>
-            </div>
-          </div>
+      {vehicleData && vehicleData.availability ? (
+        <>
+          <h1 className="text-xl font-bold mb-4 text-webcolor text-center p-5">Booking Vehicle</h1>
+          <div className="p-5 rounded-lg shadow-lg card lg:w-3/4 border-2 m-auto">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="flex flex-col lg:flex-row space-x-4 w-full">
+                <div className="form-control lg:w-1/2">
+                  <label htmlFor="booking_date" className="label">Booking Date</label>
+                  <input type="date" id="booking_date" className="input input-bordered" {...register("booking_date")} />
+                  <p className="text-red-500">{errors.booking_date?.message}</p>
+                </div>
+                <div className="form-control lg:w-1/2">
+                  <label htmlFor="return_date" className="label">Return Date</label>
+                  <input type="date" id="return_date" className="input input-bordered" {...register("return_date")} />
+                  <p className="text-red-500">{errors.return_date?.message}</p>
+                </div>
+              </div>
 
-          <div className="form-control">
-            <label htmlFor="booking_status" className="label">Booking Status</label>
-            <select id="booking_status" className="select select-bordered" {...register("booking_status")}>
-              <option disabled value="">Select Booking Status</option>
-              <option value="Confirmed">Confirmed</option>
-              <option value="Pending">Pending</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
-            <p className="text-red-500">{errors.booking_status?.message}</p>
+              <div className="form-control">
+                <label htmlFor="booking_status" className="label">Booking Status</label>
+                <select id="booking_status" className="select select-bordered" {...register("booking_status")}>
+                  <option disabled value="">Select Booking Status</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+                <p className="text-red-500">{errors.booking_status?.message}</p>
+              </div>
+              <div className="form-control mt-4">
+                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Booking</button>
+              </div>
+            </form>
           </div>
-          <div className="form-control mt-4">
-            <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Booking</button>
-          </div>
-        </form>
-      </div>
+        </>
+      ) : (
+        <div className="text-center p-5">
+          <p className="text-xl">Vehicle is not available for booking</p>
+        </div>
+      )}
     </div>
   );
 };
