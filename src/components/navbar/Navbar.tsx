@@ -47,12 +47,13 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100 border-b-2">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl 2 ml-6 md:ml-12">RentalRides</a>
+                {/* Rental rides */}
+                <Link to="/" className="btn btn-ghost text-2xl font-bold text-webcolor ml-6 md:ml-12">RentalRides</Link>
             </div>
 
             <div className="flex-none gap-2">
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1 text-base">
                         <li><Link to="/">Home</Link> </li>
                         <li><a href="#">About</a> </li>
                         <li><Link to="/dashboard/vehicles">Dashboard</Link></li>
@@ -63,7 +64,7 @@ const Navbar = () => {
                                 <li><Link to="/login">Login</Link></li>
                             </>
                         )}
-                        <li>
+                        <li className="flex items-center justify-center ">
                             {username ? `${username}` : ''}
                         </li>
 
