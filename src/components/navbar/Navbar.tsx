@@ -1,15 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { logOut } from "../../features/users/userSlice";
-
-
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
+    console.log("from Navbar", user.user);
     const username = user.user?.name;
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -58,8 +57,12 @@ const Navbar = () => {
                         <li><a href="#">About</a> </li>
                         <li><Link to="/dashboard/vehicles">Dashboard</Link></li>
                         <li><a href="#">Contact</a> </li>
-                        <li><Link to="/register">Register</Link></li>
-                        <li><Link to="/login">Login</Link></li>
+                        {!username && (
+                            <>
+                                <li><Link to="/register">Register</Link></li>
+                                <li><Link to="/login">Login</Link></li>
+                            </>
+                        )}
                         <li>
                             {username ? `${username}` : ''}
                         </li>
@@ -100,27 +103,33 @@ const Navbar = () => {
                         <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">about</a> </li>
                         <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/dashboard/vehicles">Dashboard</Link></li>
                         <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">Contact</a> </li>
-                        <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/register">Register</Link></li>
-                        <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/login">Login</Link></li>
+                        {!username && (
+                            <>
+                                <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/register">Register</Link></li>
+                                <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/login">Login</Link></li>
+                            </>
+                        )}
                     </ul>
                 </div>
 
-                <div className="dropdown dropdown-end">
-                    <div tabIndex={0} className="btn btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                {username && (
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} className="btn btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img
+                                    alt="User Avatar"
+                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            </div>
                         </div>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <li><a className="justify-between">Profile</a></li>
+                            {/* handle logout */}
+                            <li><a onClick={handleLogout}>Logout</a></li>
+                        </ul>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a className="justify-between">Profile</a></li>
-                        {/* handle logout */}
-                        <li><a onClick={handleLogout}>Logout</a></li>
-                    </ul>
-                </div>
+                )}
             </div>
         </div>
     );
