@@ -64,7 +64,7 @@ const Navbar = () => {
                                 <li><Link to="/login">Login</Link></li>
                             </>
                         )}
-                        <li className="flex items-center justify-center ">
+                        <li className="flex items-center justify-center ml-3 ">
                             {username ? `${username}` : ''}
                         </li>
 

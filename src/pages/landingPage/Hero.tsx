@@ -20,7 +20,7 @@ const Hero = () => {
             <div className="hero-overlay bg-opacity-50 rounded-lg"></div>
             <div className="hero-content text-neutral-content text-center">
                 <div>
-                    <h1 className="mb-5 text-5xl font-bold">Welcome to Rental Rides,
+                    <h1 className="mb-5 text-3xl lg:text-5xl font-bold">Welcome to Rental Rides,
                         <span className='text-webcolor'>
                             {name ? ` ${name}` : ''}
                         </span>
