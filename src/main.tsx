@@ -17,7 +17,7 @@ import AllBookings from './pages/dashboard/main/AllBookings.tsx';
 import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
 import CreateVehicle from './pages/dashboard/main/CreateVehicle.tsx';
-import BookingForm from './pages/dashboard/main/BookingForm.tsx';
+import BookingForm from './pages/dashboard/main/booking/BookingForm.tsx';
 
 const router = createBrowserRouter([
   {

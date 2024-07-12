@@ -1,13 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { bookingVehicleAPI } from "../../../features/booking/bookingPI";
-import { vehiclesAPI } from "../../../features/vehicles/Vehicles";
+import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
+import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
 import { Toaster, toast } from 'sonner';
-import imageForAllCards from "../../../assets/images/landingPage/Mazda.jpeg";
+import imageForAllCards from "../../../../assets/images/landingPage/Mazda.jpeg";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
+import { RootState } from "../../../../app/store";
 
 type BookingFormData = {
   booking_date: Date;
@@ -119,7 +119,7 @@ const BookingForm = () => {
               <p className="text-red-500">{errors.return_date?.message}</p>
             </div>
           </div>
-         
+
           <div className="form-control">
             <label htmlFor="booking_status" className="label">Booking Status</label>
             <select id="booking_status" className="select select-bordered" {...register("booking_status")}>

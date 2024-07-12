@@ -6,7 +6,7 @@ import { loginAPI } from "../features/login/loginAPI";
 import { vehiclesAPI } from "../features/vehicles/Vehicles";
 import { VehicleSpecificationsAPI } from "../features/vehicles/vehicleSpecs";
 import { vehiclesTableAPI } from "../features/vehicles/vehicleTable";
-import { bookingVehicleAPI } from "../features/booking/bookingPI";
+import { bookingVehicleAPI } from "../features/booking/bookingAPI";
 import userSlice from "../features/users/userSlice";
 
 // persist configuration

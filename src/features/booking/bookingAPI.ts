@@ -3,6 +3,7 @@ import { APIDomain } from "../../utils/APIDomain";
 
 
 export interface Tbooking {
+    booking_id: number;
     user_id: number;
     vehicle_id: number;
     location_id: number;
