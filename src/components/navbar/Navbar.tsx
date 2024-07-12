@@ -56,7 +56,7 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1">
                         <li><Link to="/">Home</Link> </li>
                         <li><a href="#">About</a> </li>
-                        <li><Link to="/dashboard">Dashboard</Link></li>
+                        <li><Link to="/dashboard/vehicles">Dashboard</Link></li>
                         <li><a href="#">Contact</a> </li>
                         <li><Link to="/register">Register</Link></li>
                         <li><Link to="/login">Login</Link></li>
@@ -98,7 +98,7 @@ const Navbar = () => {
                     <ul className="menu p-4">
                         <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/">Home</Link> </li>
                         <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">about</a> </li>
-                        <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/dashboard">Dashboard</Link></li>
+                        <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/dashboard/vehicles">Dashboard</Link></li>
                         <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">Contact</a> </li>
                         <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/register">Register</Link></li>
                         <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/login">Login</Link></li>

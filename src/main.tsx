@@ -41,11 +41,11 @@ const router = createBrowserRouter([
         element: <CreateVehicle />
       },
       {
-        path: 'more-vehicles',
+        path: 'vehicles',
         element: <Vehicles />
       },
       {
-        path: 'more-vehicles/booking/:vehicle_id',
+        path: 'vehicles/booking/:vehicle_id',
         element: <BookingForm />
       },
       {

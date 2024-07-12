@@ -9,16 +9,16 @@ type DrawerData = {
 
 export const drawerData: DrawerData[] = [
     {
+        id: 2,
+        name: 'More Vehicles',
+        icon: Car,
+        link: 'vehicles'
+    },
+    {
         id: 1,
         name: 'Create Vehicle',
         icon: BookmarkPlus,
         link: 'create-vehicle'
-    },
-    {
-        id: 2,
-        name: 'More Vehicles',
-        icon: Car,
-        link: 'more-vehicles'
     },
     {
         id: 3,
