@@ -42,6 +42,11 @@ export const usersAPI = createApi({
             }),
             invalidatesTags: ['Users'],
         }),
+        getUserById: builder.query<TUser, number>({
+            query: (id) => `users/${id}`,
+        }),
+        
+
     }),
 });
 

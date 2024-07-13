@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const Hero = () => {
     const user = useSelector((state: RootState) => state.user);
 
-    console.log("from Hero", user.user?.name);
+    console.log("from Hero", user.user);
 
     const name = user.user?.name;
     return (

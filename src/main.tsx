@@ -18,6 +18,7 @@ import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
 import CreateVehicle from './pages/dashboard/main/CreateVehicle.tsx';
 import BookingForm from './pages/dashboard/main/booking/BookingForm.tsx';
+import Profile from './pages/profile/Profile.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: 'login',
     element: <Login />
+  },
+  {
+    path: 'profile',
+    element: <Profile />
   },
   {
     path: 'dashboard',

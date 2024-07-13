@@ -45,5 +45,10 @@ export const bookingVehicleAPI = createApi({
             }),
             invalidatesTags: ['bookingVehicle'],
         }),
+        getUserBooking: builder.query<Tbooking[], number>({
+            query: (user_id) => `bookings/user/all/${user_id}`,
+        }),
     }),
 });
+
+// export const { useGetBookingVehicleQuery, useCreateBookingVehicleMutation, useUpdateBookingVehicleMutation, useDeleteBookingVehicleMutation, useGetUserBookingQuery } = bookingVehicleAPI;

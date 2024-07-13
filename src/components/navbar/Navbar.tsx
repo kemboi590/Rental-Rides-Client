@@ -8,7 +8,7 @@ import { logOut } from "../../features/users/userSlice";
 const Navbar = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-    console.log("from Navbar", user.user);
+    // console.log("from Navbar", user.user);
     const username = user.user?.name;
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -125,7 +125,11 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a className="justify-between">Profile</a></li>
+                            <li>
+                                {/* linkk to profile */}
+                                <Link to="/profile" className="justify-between"> Profile</Link>
+                                
+                            </li>
                             {/* handle logout */}
                             <li><a onClick={handleLogout}>Logout</a></li>
                         </ul>
