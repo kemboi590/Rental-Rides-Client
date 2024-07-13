@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { Toaster, toast } from 'sonner';
 import UserBookings from './UserBookings';
 
-
 type UserFormData = {
     full_name: string;
     email: string;
@@ -34,6 +33,7 @@ const Profile = () => {
     });
     const [updateUser] = usersAPI.useUpdateUserMutation();
     const [isEditMode, setIsEditMode] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false); // State for loading spinner
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<UserFormData>({
         resolver: yupResolver(schema),
@@ -52,6 +52,7 @@ const Profile = () => {
 
     const onSubmit: SubmitHandler<UserFormData> = async (formData) => {
         try {
+            setIsUpdating(true); // Show loading spinner
             await updateUser({ id: user_id, ...formData }).unwrap();
             setIsEditMode(false);
             refetch();
@@ -59,6 +60,8 @@ const Profile = () => {
         } catch (err) {
             console.error("Error updating user", err);
             toast.error("Error updating user");
+        } finally {
+            setIsUpdating(false); // Hide loading spinner
         }
     };
 
@@ -133,7 +136,16 @@ const Profile = () => {
                                 {/* cancel btn */}
                                 <button onClick={() => setIsEditMode(false)} className="btn bg-red-400 text-text-light hover:text-black border-none">Cancel</button>
                                 {/* save changes btn */}
-                                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Save Changes</button>
+                                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">
+                                    {isUpdating ? (
+                                        <>
+                                            <span className="loading loading-spinner text-text-light"></span>
+                                            <span className="ml-2">Please wait...</span>
+                                        </>
+                                    ) : (
+                                        "Save Changes"
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>

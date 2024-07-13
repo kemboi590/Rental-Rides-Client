@@ -25,8 +25,6 @@ const UserBookings = () => {
     // Function to get vehicle details by vehicle_id
     const getVehicleDetails = (vehicleId: number) => {
         if (vehicleData) {
-            console.log('Vehicle Data:', vehicleData);
-            
             const vehicle = vehicleData.find(v => v.vehicle_id === vehicleId);
             if (vehicle) {
                 return `${vehicle.vehicle_specifications?.manufacturer} ${vehicle.vehicle_specifications?.model}`;
@@ -50,33 +48,30 @@ const UserBookings = () => {
     }
 
     return (
-        <div className='card shadow-xl h-fit bg-base-100 w-1/2 m-auto rounded-md'>
+        <div className='card shadow-xl mx-auto mt-8 bg-slate-200 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 rounded-md mb-4 border-2 '>
             <div className="overflow-x-auto">
-                <table className="table">
+                <table className="table-auto w-full">
                     <thead>
-                        <tr>
-                            <th>Booking ID</th>
-                            <th>Vehicle Details</th>
-                            <th>Booking Date</th>
-                            <th>Return Date</th>
-                            <th>Total Amount</th>
-                            <th>Booking Status</th>
+                        <tr className="bg-slate-800">
+                            <th className="px-4 py-2 text-left text-text-light">Booking ID</th>
+                            <th className="px-4 py-2 text-left text-text-light">Vehicle Details</th>
+                            <th className="px-4 py-2 text-left text-text-light">Booking Date</th>
+                            <th className="px-4 py-2 text-left text-text-light">Return Date</th>
+                            <th className="px-4 py-2 text-left text-text-light">Total Amount</th>
+                            <th className="px-4 py-2 text-left text-text-light">Booking Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {bookingData.map((booking) => {
-                            console.log('Booking:', booking);
-                            return (
-                                <tr key={booking.booking_id}>
-                                    <td>{booking.booking_id}</td>
-                                    <td>{getVehicleDetails(booking.vehicle_id)}</td>
-                                    <td>{formatDate(booking.booking_date)}</td>
-                                    <td>{formatDate(booking.return_date)}</td>
-                                    <td>{booking.total_amount}</td>
-                                    <td>{booking.booking_status}</td>
-                                </tr>
-                            );
-                        })}
+                        {bookingData.map((booking) => (
+                            <tr key={booking.booking_id} className="border-b border-slate-600">
+                                <td className="px-4 py-2">{booking.booking_id}</td>
+                                <td className="px-4 py-2">{getVehicleDetails(booking.vehicle_id)}</td>
+                                <td className="px-4 py-2">{formatDate(booking.booking_date)}</td>
+                                <td className="px-4 py-2">{formatDate(booking.return_date)}</td>
+                                <td className="px-4 py-2">{booking.total_amount}</td>
+                                <td className="px-4 py-2">{booking.booking_status}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
