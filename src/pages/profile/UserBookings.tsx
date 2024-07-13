@@ -48,7 +48,7 @@ const UserBookings = () => {
     }
 
     return (
-        <div className='card shadow-xl mx-auto mt-8 bg-slate-200 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 rounded-md mb-4 border-2 '>
+        <div className='card shadow-xl mx-auto mt-8 bg-slate-200 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 rounded-md mb-5 border-2'>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full">
                     <thead>

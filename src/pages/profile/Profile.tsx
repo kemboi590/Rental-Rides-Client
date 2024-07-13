@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import React, { useState, useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { RootState } from '../../app/store';
 import Navbar from '../../components/navbar/Navbar';
 import { usersAPI } from '../../features/users/usersAPI';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { Toaster, toast } from 'sonner';
 import UserBookings from './UserBookings';
+import Footer from './../landingPage/Footer';
 
 type UserFormData = {
     full_name: string;
@@ -17,10 +18,10 @@ type UserFormData = {
 };
 
 const schema = yup.object().shape({
-    full_name: yup.string().required("Full name is required"),
-    email: yup.string().email("Invalid email address").required("Email is required"),
-    contact_phone: yup.string().required("Phone number is required"),
-    address: yup.string().required("Address is required"),
+    full_name: yup.string().required('Full name is required'),
+    email: yup.string().email('Invalid email address').required('Email is required'),
+    contact_phone: yup.string().required('Phone number is required'),
+    address: yup.string().required('Address is required'),
 });
 
 const Profile = () => {
@@ -33,7 +34,7 @@ const Profile = () => {
     });
     const [updateUser] = usersAPI.useUpdateUserMutation();
     const [isEditMode, setIsEditMode] = useState(false);
-    const [isUpdating, setIsUpdating] = useState(false); // State for loading spinner
+    const [isUpdating, setIsUpdating] = useState(false); // State for updating loader
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<UserFormData>({
         resolver: yupResolver(schema),
@@ -52,29 +53,29 @@ const Profile = () => {
 
     const onSubmit: SubmitHandler<UserFormData> = async (formData) => {
         try {
-            setIsUpdating(true); // Show loading spinner
+            setIsUpdating(true); // Show updating loader
             await updateUser({ id: user_id, ...formData }).unwrap();
             setIsEditMode(false);
             refetch();
-            toast.success("User updated successfully");
+            toast.success('User updated successfully');
         } catch (err) {
-            console.error("Error updating user", err);
-            toast.error("Error updating user");
+            console.error('Error updating user', err);
+            toast.error('Error updating user');
         } finally {
-            setIsUpdating(false); // Hide loading spinner
+            setIsUpdating(false); // Hide updating loader
         }
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>; // Show a loading indicator while fetching user data
     }
 
     if (error) {
-        return <div>Error loading user data.</div>;
+        return <div>Error loading user data.</div>; // Handle error state
     }
 
     if (!userData) {
-        return <div>No user data available.</div>;
+        return <div>No user data available.</div>; // Handle case when userData is not available
     }
 
     return (
@@ -90,23 +91,21 @@ const Profile = () => {
                 }}
             />
             <Navbar />
-            <div className="card shadow-xl h-fit bg-base-100 w-1/2 m-auto rounded-md">
-                <div className="card-body flex-row justify-evenly border-b-2 border-slate-600 w-full">
-                    <div className="w-28 flex justify-center items-center">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="rounded-full" />
+            <div className="card shadow-xl mx-auto mt-8 md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 rounded-md bg-slate-200">
+                <div className="border-b-2 border-slate-600 pb-4">
+                    <div className="flex justify-center">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="rounded-full h-28 w-28 object-cover border-4 border-white" alt="User Avatar" />
                     </div>
-
-                    <div className="flex flex-col justify-center mt-2 w-1/2">
-                        <h1 className="text-2xl font-bold">{userData.full_name}
-                            <span className="badge bg-webcolor text-text-light mx-4 p-3">{role}</span></h1>
+                    <div className="flex flex-col justify-center mt-4 text-center">
+                        <h1 className="text-3xl font-bold">{userData.full_name} <span className="badge bg-webcolor text-text-light mx-4 p-3">{role}</span></h1>
                         <p className="text-lg">Email: {userData.email}</p>
                         <p className="text-lg">Phone: {userData.contact_phone}</p>
                         <p className="text-lg">Address: {userData.address}</p>
                     </div>
                 </div>
 
-                <div className="flex justify-end p-4">
-                    <button onClick={() => setIsEditMode(true)} className="btn bg-webcolor text-text-light hover:text-black border-none">Update Profile</button>
+                <div className="flex justify-end mt-4">
+                    <button onClick={() => setIsEditMode(true)} className="btn bg-webcolor text-text-light hover:text-black">Update Profile</button>
                 </div>
 
                 {isEditMode && (
@@ -132,15 +131,13 @@ const Profile = () => {
                                 <input type="text" id="address" className="input input-bordered" {...register("address")} />
                                 <p className="text-red-500">{errors.address?.message}</p>
                             </div>
-                            <div className="mt-4 flex justify-around p-4">
-                                {/* cancel btn */}
-                                <button onClick={() => setIsEditMode(false)} className="btn bg-red-400 text-text-light hover:text-black border-none">Cancel</button>
-                                {/* save changes btn */}
-                                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">
+                            <div className="mt-4 flex justify-around">
+                                <button onClick={() => setIsEditMode(false)} className="btn bg-red-400 text-text-light hover:text-black">Cancel</button>
+                                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black">
                                     {isUpdating ? (
                                         <>
-                                            <span className="loading loading-spinner text-text-light"></span>
-                                            <span className="ml-2">Please wait...</span>
+                                            <span className="loading loading-spinner text-text-light"></span> 
+                                            <span className='text-text-light'>Updating...</span>
                                         </>
                                     ) : (
                                         "Save Changes"
@@ -154,8 +151,9 @@ const Profile = () => {
 
             {/* User Bookings */}
             <UserBookings />
+            <Footer />
         </>
     );
-}
+};
 
 export default Profile;
