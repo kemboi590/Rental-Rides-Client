@@ -183,10 +183,10 @@ const CreateVehicle = () => {
               <input type="text" placeholder="Features" className="input input-bordered bg-slate-200" {...register("features", { required: true })} />
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
-          </form>
             <div className="mt-2 flex justify-center">
               <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Specification</button>
             </div>
+          </form>
         </div>
       </div>
       <CreateVehicleForm />

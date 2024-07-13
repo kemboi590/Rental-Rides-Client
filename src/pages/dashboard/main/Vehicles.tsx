@@ -15,28 +15,30 @@ function Vehicles() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {vehicleData && vehicleData.map((vehicle) => (
-          <div key={vehicle.vehicle_id} className="card bg-base-100 shadow-xl">
-            <figure>
-              <img src={imageForAllCards} alt={`${vehicle.vehicle_specifications?.manufacturer} ${vehicle.vehicle_specifications.model}`} />
+          <div key={vehicle.vehicle_id} className="card bg-base-100 shadow-xl h-full">
+            <figure className='h-[35%]'>
+              <img src={imageForAllCards} alt="image for the car" className='w-full' />
             </figure>
-            <div className="card-body">
+            <div className="card-body px-2">
 
               <div className="flex justify-between">
                 <h3 className="card-title">{vehicle.vehicle_specifications.manufacturer} {vehicle.vehicle_specifications.model}</h3>
-      
-                <div className={`badge ${vehicle.availability ? 'badge-success' : 'badge-error'}`}>
+
+                <div className={`badge ${vehicle.availability ? 'badge-success' : 'badge-error'} text-base py-3`} >
                   {vehicle.availability ? 'Available' : 'Unavailable'}
                 </div>
               </div>
 
-              <p>Fuel Type: {vehicle.vehicle_specifications.fuel_type}</p>
-              <p>Engine Capacity: {vehicle.vehicle_specifications.engine_capacity}</p>
-              <p>Color: {vehicle.vehicle_specifications.color}</p>
-              <p>Rental Rate: {vehicle.rental_rate}</p>
-              {/* book now button */}
-              <div className="justify-start">
+              <div className="text-lg m-2">
+                <p><strong>Fuel Type</strong>: {vehicle.vehicle_specifications.fuel_type}</p>
+                <p> <strong>Engine Capacity</strong>: {vehicle.vehicle_specifications.engine_capacity}</p>
+                <p><strong>Color</strong>: {vehicle.vehicle_specifications.color}</p>
+                <p><strong>Rental Rate</strong>: {vehicle.rental_rate}</p>
+              </div>
+
+              <div className="flex justify-center items-center">
                 <Link to={`booking/${vehicle.vehicle_id}`}>
-                <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book Now</button>
+                  <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book Now</button>
                 </Link>
               </div>
             </div>

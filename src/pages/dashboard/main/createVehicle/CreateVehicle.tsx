@@ -92,11 +92,11 @@ function CreateVehicleForm() {
                             </select>
                             <p className="text-red-500">{errors.availability?.message}</p>
                         </div>
-                    </form>
-                    
                         <div className=" mt-2 flex justify-center w-full">
                             <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Vehicle</button>
                         </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
