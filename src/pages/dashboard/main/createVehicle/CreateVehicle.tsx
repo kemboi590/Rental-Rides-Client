@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { vehiclesTableAPI } from "../../../../features/vehicles/vehicleTable";
 import { Toaster, toast } from 'sonner';
+import { VehicleSpecificationsAPI } from "../../../../features/vehicles/vehicleSpecs";
 
 type FormData = {
     vehicleSpec_id: number;
@@ -11,14 +12,17 @@ type FormData = {
 };
 
 const schema = yup.object().shape({
-    vehicleSpec_id: yup.number().required("Vehicle Spec ID is required"),
+    vehicleSpec_id: yup.number().required("Vehicle Spec is required"),
     rental_rate: yup.string().required("Rental Rate is required"),
     availability: yup.boolean().required("Availability is required"),
 });
 
-
 function CreateVehicleForm() {
+    // Create vehicle
     const [createVehicle, { error: vehicleError }] = vehiclesTableAPI.useCreateVehiclesTableMutation();
+
+    // Fetch vehicle specifications
+    const { data: vehicleSpecs } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery();
 
     const {
         register,
@@ -38,7 +42,6 @@ function CreateVehicleForm() {
         }
     };
 
-
     return (
         <div>
             <Toaster
@@ -50,41 +53,54 @@ function CreateVehicleForm() {
                         info: 'bg-blue-400',
                     },
                 }} />
-            <div className="hero-content flex-col lg:flex-row-reverse lg:gap-16 h-full border-2 max-w-full">
-                <div className="card bg-base-100 w-full shadow-2xl">
+            <div className="flex-col lg:flex-row-reverse lg:gap-16 h-full max-w-full">
+                <div className="bg-base-100 w-full shadow-2xl">
+                    <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap ">
+
                         <div className="form-control">
-                            <input type="number" placeholder="Vehicle Spec ID" className="input input-bordered" required {...register("vehicleSpec_id")} />
+                            <label className="label">
+                                <span className="label-text">Vehicle Specification</span>
+                            </label>
+                            <select className="select select-bordered bg-slate-200" {...register("vehicleSpec_id")}>
+                                <option disabled selected>Select Vehicle </option>
+                                {vehicleSpecs && vehicleSpecs.map(spec => (
+                                    <option key={spec.vehicleSpec_id} value={spec.vehicleSpec_id}>
+                                        {spec.manufacturer} - {spec.model}
+                                    </option>
+                                ))}
+                            </select>
                             <p className="text-red-500">{errors.vehicleSpec_id?.message}</p>
                         </div>
+
                         <div className="form-control">
-                            <input type="text" placeholder="Rental Rate" className="input input-bordered" required {...register("rental_rate")} />
+                            <label className="label ">
+                                <span className="label-text">Rental Rate</span>
+                            </label>
+                            <input type="text" placeholder="Rental Rate" className="input input-bordered bg-slate-200" required {...register("rental_rate")} />
                             <p className="text-red-500">{errors.rental_rate?.message}</p>
                         </div>
 
-                        
-            <div className="form-control">
-              <label className="form-control w-full max-w-xs">
-                <select className="select select-bordered" {...register("availability")}>
-                  <option disabled selected>Availability</option>
-                  <option>true</option>
-                  <option>false</option>
-                </select>
-              </label>
-              <p className="text-red-500">{errors.availability?.message}</p>
-            </div>
-                        {/* <div className="form-control">
-                            <input type="text" placeholder="Availability" className="input input-bordered" required {...register("availability")} />
+                        <div className="form-control ">
+                            <label className="label">
+                                <span className="label-text">Availability</span>
+                            </label>
+                            <select className="select select-bordered bg-slate-200" {...register("availability")}>
+                                <option disabled selected>Availability</option>
+                                <option value="true">Available</option>
+                                <option value="false">Not Available</option>
+                            </select>
                             <p className="text-red-500">{errors.availability?.message}</p>
-                        </div> */}
-                        <div className="form-control mt-2">
-                            <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Vehicle</button>
                         </div>
                     </form>
+                    
+                        <div className=" mt-2 flex justify-center w-full">
+                            <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Vehicle</button>
+                        </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default CreateVehicleForm
+export default CreateVehicleForm;

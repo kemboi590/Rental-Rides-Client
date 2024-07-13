@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { APIDomain } from "../../utils/APIDomain";
 
 export interface VSpecifications {
+    vehicleSpec_id: number;
     manufacturer: string;
     model: string;
     year: number;
@@ -47,6 +48,10 @@ export const VehicleSpecificationsAPI  = createApi({
             method: 'DELETE',
         }),
         invalidatesTags: ['VehicleSpecifications'],
+        }),
+        getVehicleSpecificationById: builder.query<VSpecifications, number>({
+        query: (id) => `vehicleSpecifications/${id}`,
+        providesTags: ['VehicleSpecifications'],
         }),
     }),
 })

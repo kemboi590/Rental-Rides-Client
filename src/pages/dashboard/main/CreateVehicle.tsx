@@ -6,6 +6,7 @@ import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpec
 import { Toaster, toast } from 'sonner';
 import CreateVehicleForm from "./createVehicle/CreateVehicle";
 
+
 type FormData = {
   manufacturer: string;
   model: string;
@@ -59,6 +60,7 @@ const CreateVehicle = () => {
 
   const [createVehicleSpecifications, { error }] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
 
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log("Submitting data:", data);
     try {
@@ -96,7 +98,7 @@ const CreateVehicle = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <Toaster
         toastOptions={{
           classNames: {
@@ -107,11 +109,13 @@ const CreateVehicle = () => {
           },
         }}
       />
-      <div className="hero-content flex-col lg:flex-row-reverse lg:gap-16 h-full border-2 max-w-full">
-        <div className="card bg-base-100 w-full shadow-2xl">
+
+      <div className=" flex-col lg:flex-row-reverse lg:gap-16 h-full max-w-full">
+        <div className=" bg-base-100 w-full shadow-2xl">
+          <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap">
             <div className="form-control">
-              <select className="select select-bordered" {...register("manufacturer", { required: true })} onChange={handleManufacturerChange}>
+              <select className="select select-bordered bg-slate-200" {...register("manufacturer", { required: true })} onChange={handleManufacturerChange}>
                 <option disabled value="">Select Manufacturer</option>
                 {manufacturerOptions.map((option, index) => (
                   <option key={index} value={option}>{option}</option>
@@ -121,7 +125,7 @@ const CreateVehicle = () => {
             </div>
 
             <div className="form-control">
-              <select className="select select-bordered" {...register("model", { required: true })}>
+              <select className="select select-bordered bg-slate-200" {...register("model", { required: true })}>
                 <option disabled value="">Select Model</option>
                 {models.map((modelOption, index) => (
                   <option key={index} value={modelOption}>{modelOption}</option>
@@ -131,7 +135,7 @@ const CreateVehicle = () => {
             </div>
 
             <div className="form-control">
-              <select className="select select-bordered" {...register("year", { required: true })}>
+              <select className="select select-bordered bg-slate-200" {...register("year", { required: true })}>
                 <option disabled value="">Select Year</option>
                 {years.map((year, index) => (
                   <option key={index} value={year}>{year}</option>
@@ -141,7 +145,7 @@ const CreateVehicle = () => {
             </div>
 
             <div className="form-control">
-              <select className="select select-bordered" {...register("fuel_type", { required: true })}>
+              <select className="select select-bordered bg-slate-200" {...register("fuel_type", { required: true })}>
                 <option disabled value="">Select Fuel Type</option>
                 {fuelTypeOptions.map((fuelType, index) => (
                   <option key={index} value={fuelType}>{fuelType}</option>
@@ -150,14 +154,14 @@ const CreateVehicle = () => {
               <p className="text-red-500">{errors.fuel_type?.message}</p>
             </div>
 
-            <div className="form-control">
-              <input type="text" placeholder="Engine Capacity" className="input input-bordered" {...register("engine_capacity", { required: true })} />
+            <div className="form-control ">
+              <input type="text" placeholder="Engine Capacity" className="input input-bordered bg-slate-200" {...register("engine_capacity", { required: true })} />
               <p className="text-red-500">{errors.engine_capacity?.message}</p>
             </div>
 
             <div className="form-control">
               <label className="form-control w-full max-w-xs">
-                <select className="select select-bordered" {...register("transmission")}>
+                <select className="select select-bordered bg-slate-200" {...register("transmission")}>
                   <option disabled selected>Transmission</option>
                   <option>Automatic</option>
                   <option>Manual</option>
@@ -168,21 +172,21 @@ const CreateVehicle = () => {
 
 
             <div className="form-control">
-              <input type="number" placeholder="Seating Capacity" className="input input-bordered" {...register("seating_capacity", { required: true })} />
+              <input type="number" placeholder="Seating Capacity" className="input input-bordered bg-slate-200" {...register("seating_capacity", { required: true })} />
               <p className="text-red-500">{errors.seating_capacity?.message}</p>
             </div>
             <div className="form-control">
-              <input type="text" placeholder="Color" className="input input-bordered" {...register("color", { required: true })} />
+              <input type="text" placeholder="Color" className="input input-bordered bg-slate-200" {...register("color", { required: true })} />
               <p className="text-red-500">{errors.color?.message}</p>
             </div>
             <div className="form-control">
-              <input type="text" placeholder="Features" className="input input-bordered" {...register("features", { required: true })} />
+              <input type="text" placeholder="Features" className="input input-bordered bg-slate-200" {...register("features", { required: true })} />
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
-            <div className="form-control mt-2">
+          </form>
+            <div className="mt-2 flex justify-center">
               <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Specification</button>
             </div>
-          </form>
         </div>
       </div>
       <CreateVehicleForm />
