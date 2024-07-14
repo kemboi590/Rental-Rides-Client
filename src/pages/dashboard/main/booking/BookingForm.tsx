@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,7 +10,7 @@ import { RootState } from "../../../../app/store";
 import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
 import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
 import { ArrowLeft } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
 
 
 type BookingFormData = {
@@ -25,6 +26,7 @@ const schema = yup.object().shape({
 });
 
 const BookingForm = () => {
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user);
   const { vehicle_id } = useParams<{ vehicle_id: string }>();
   const parsedVehicleId = vehicle_id ? parseInt(vehicle_id, 10) : NaN;
@@ -35,7 +37,8 @@ const BookingForm = () => {
   }
 
   const { data: vehicleData, isLoading, error: vehicleError } = vehiclesAPI.useGetVehicleByIdQuery(parsedVehicleId);
-  const [bookingVehicle,] = bookingVehicleAPI.useCreateBookingVehicleMutation();
+  const [bookingVehicle] = bookingVehicleAPI.useCreateBookingVehicleMutation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const externalData = {
     user_id: user.user?.userID,
@@ -52,12 +55,20 @@ const BookingForm = () => {
     };
 
     try {
-      const response = await bookingVehicle(dataToSubmit);
+      setIsSubmitting(true);
+      const response = await bookingVehicle(dataToSubmit).unwrap();
       console.log("Booking created successfully", response);
       toast.success("Booking created successfully");
+
+      setTimeout(() => {
+        navigate('/dashboard/your-bookings');
+      }, 1000);
+
     } catch (err) {
       console.error("Error creating booking", err);
       toast.error("Error creating booking");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -86,7 +97,7 @@ const BookingForm = () => {
               <img src={imageForAllCards} alt="cardetails" className="rounded-lg" />
             </figure>
 
-            <div className="card-body justify-center items-center text-justify space-y-4 p-6  rounded-lg">
+            <div className="card-body justify-center items-center text-justify space-y-4 p-6 rounded-lg">
               <h3 className="card-title text-2xl font-semibold">
                 {vehicleData.vehicle_specifications.manufacturer} {vehicleData.vehicle_specifications.model}
                 <span className={`ml-4 badge ${vehicleData.availability ? 'badge-success' : 'badge-error'}`}>
@@ -136,7 +147,16 @@ const BookingForm = () => {
                 <p className="text-red-500">{errors.booking_status?.message}</p>
               </div>
               <div className="form-control mt-4">
-                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Booking</button>
+                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">
+                  {isSubmitting ? (
+                    <>
+                      <span className="loading loading-spinner text-text-light"></span>
+                      <span className='text-text-light'>Submitting...</span>
+                    </>
+                  ) : (
+                    "Create Booking"
+                  )}
+                </button>
               </div>
             </form>
           </div>
@@ -144,9 +164,9 @@ const BookingForm = () => {
       ) : (
         <div className="text-center p-5">
           <p className="text-xl">Vehicle is not available for booking</p>
-          {/* link to go back */}
-          <Link to="/dashboard/vehicles" className="btn bg-webcolor text-text-light hover:text-black border-none mt-4"> <ArrowLeft /> ArrowLeft Go Back</Link>
-
+          <Link to="/dashboard/vehicles" className="btn bg-webcolor text-text-light hover:text-black border-none mt-4">
+            <ArrowLeft className="inline-block mr-2" /> Go Back
+          </Link>
         </div>
       )}
     </div>
