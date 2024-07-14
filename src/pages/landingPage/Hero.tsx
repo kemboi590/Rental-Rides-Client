@@ -1,11 +1,11 @@
+import { Link } from 'react-router-dom';
 import { RootState } from '../../app/store';
 import bgrides from '../../assets/images/bgrides.jpeg'
 import { useSelector } from 'react-redux';
 
 const Hero = () => {
     const user = useSelector((state: RootState) => state.user);
-
-    console.log("from Hero", user.user);
+    // console.log("from Hero", user.user);
 
     const name = user.user?.name;
     return (
@@ -29,7 +29,8 @@ const Hero = () => {
                         Rent a car from our extensive range of vehicles. We have every type of car available to meet your needs. <br />
                         We offer affordable Pricing to our Customers
                     </p>
-                    <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book a Ride</button>
+                    <Link to="/dashboard/vehicles" className="btn bg-webcolor text-text-light hover:text-black border-none">Book a Ride</Link>
+                    {/* <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book a Ride</button> */}
                 </div>
             </div>
         </div>

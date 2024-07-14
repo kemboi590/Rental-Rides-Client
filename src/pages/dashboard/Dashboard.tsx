@@ -1,8 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import Drawer from "./aside/Drawer";
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (!user || !user.user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
   return (
     <div className="h-screen flex flex-col">
       <Navbar />
@@ -21,6 +33,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-
