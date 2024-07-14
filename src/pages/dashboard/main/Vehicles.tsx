@@ -38,7 +38,7 @@ function Vehicles() {
 
               <div className="flex justify-center items-center">
                 <Link to={`booking/${vehicle.vehicle_id}`}>
-                  <button className="btn bg-webcolor text-text-light hover:text-black border-none">Book Now</button>
+                  <button className="btn bg-webcolor text-text-light hover:text-black border-none">View Details</button>
                 </Link>
               </div>
             </div>

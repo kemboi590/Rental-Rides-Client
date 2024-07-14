@@ -7,6 +7,7 @@ import { vehiclesAPI } from "../features/vehicles/Vehicles";
 import { VehicleSpecificationsAPI } from "../features/vehicles/vehicleSpecs";
 import { vehiclesTableAPI } from "../features/vehicles/vehicleTable";
 import { bookingVehicleAPI } from "../features/booking/bookingAPI";
+import { paymentAPI } from "../features/payment/paymentAPI";
 import userSlice from "../features/users/userSlice";
 
 // persist configuration
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     [VehicleSpecificationsAPI.reducerPath]: VehicleSpecificationsAPI.reducer,
     [vehiclesTableAPI.reducerPath]: vehiclesTableAPI.reducer,
     [bookingVehicleAPI.reducerPath]: bookingVehicleAPI.reducer,
+    [paymentAPI.reducerPath]: paymentAPI.reducer,
     user: userSlice,
 });
 
