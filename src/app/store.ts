@@ -36,7 +36,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false,
-    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware).concat(VehicleSpecificationsAPI.middleware).concat(vehiclesTableAPI.middleware).concat(bookingVehicleAPI.middleware),
+    }).concat(usersAPI.middleware).concat(loginAPI.middleware).concat(vehiclesAPI.middleware).concat(VehicleSpecificationsAPI.middleware).concat(vehiclesTableAPI.middleware).concat(bookingVehicleAPI.middleware).concat(paymentAPI.middleware),
 });
 
 export const persistedStore = persistStore(store);
