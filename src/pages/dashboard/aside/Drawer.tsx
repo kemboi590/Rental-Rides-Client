@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronsRight, ChevronsLeft } from 'lucide-react';
-import { drawerData } from '../../../components/drawer/drawerData';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store';
+import { DrawerData } from '../../../components/drawer/drawerData'; //DrawerData type
+import { drawerData } from '../../../components/drawer/drawerData';
 
-const Drawer: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false); // Start with drawer closed
+const Drawer = () => { 
+  const [isOpen, setIsOpen] = useState(false); 
+  const [isAdmin, setIsAdmin] = useState(false); // Placeholder for admin status
+  const user = useSelector((state: RootState) => state.user);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -24,6 +29,26 @@ const Drawer: React.FC = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Function to determine if user is admin
+  const checkAdminStatus = () => {
+    if (user.user?.role === 'admin') {
+      setIsAdmin(true);
+    }
+  };
+
+  useEffect(() => {
+    checkAdminStatus();
+  }, [user]); // Trigger effect on user change
+
+  // Function to filter drawer items based on user role
+  const filterDrawerItems = (item: DrawerData): boolean => {
+    if (isAdmin) {
+      return true; // Show all items to admin
+    } else {
+      return !item.adminOnly; // Show only non-admin items to non-admin users
+    }
+  };
 
   return (
     <div className="relative text-center">
@@ -63,17 +88,19 @@ const Drawer: React.FC = () => {
         {/* Drawer items */}
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
-            {drawerData.map((item) => (
-              <li key={item.id}>
-                <Link
-                  to={item.link}
-                  className="text-gray-900 dark:text-white hover:bg-blue-200 block px-3 py-2 rounded-md text-justify"
-                >
-                  {item.icon && <item.icon className="inline-block mr-2" size={30} />}
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+            {drawerData
+              .filter(filterDrawerItems)
+              .map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.link}
+                    className="text-gray-900 dark:text-white hover:bg-blue-200 block px-3 py-2 rounded-md text-justify"
+                  >
+                    {item.icon && <item.icon className="inline-block mr-2" size={30} />}
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
