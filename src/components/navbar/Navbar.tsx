@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { logOut } from "../../features/users/userSlice";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     // console.log("from Navbar", user.user);
@@ -42,6 +43,8 @@ const Navbar = () => {
 
     const handleLogout = () => {
         dispatch(logOut());
+        navigate('/login');
+
     }
 
     return (
@@ -128,7 +131,7 @@ const Navbar = () => {
                             <li>
                                 {/* linkk to profile */}
                                 <Link to="/profile" className="justify-between"> Profile</Link>
-                                
+
                             </li>
                             {/* handle logout */}
                             <li><a onClick={handleLogout}>Logout</a></li>
