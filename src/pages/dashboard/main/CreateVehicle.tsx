@@ -6,7 +6,6 @@ import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpec
 import { Toaster, toast } from 'sonner';
 import CreateVehicleForm from "./createVehicle/CreateVehicle";
 
-
 type FormData = {
   manufacturer: string;
   model: string;
@@ -32,44 +31,27 @@ const schema = yup.object().shape({
 });
 
 const CreateVehicle = () => {
-  const [models, setModels] = useState<string[]>([
-    "Corolla",
-    "Camry",
-    "Rav4"
-  ]);
-  const [manufacturerOptions] = useState<string[]>([
-    "Toyota",
-    "Honda",
-    "Mercedes-Benz",
-    "Tesla"
-  ]);
+  const [models, setModels] = useState<string[]>(["Corolla", "Camry", "Rav4"]);
+  const [manufacturerOptions] = useState<string[]>(["Toyota", "Honda", "Mercedes-Benz", "Tesla"]);
+  const [fuelTypeOptions] = useState<string[]>(["Gasoline", "Diesel", "Electric", "Hybrid"]);
 
-  const [fuelTypeOptions] = useState<string[]>([
-    "Gasoline",
-    "Diesel",
-    "Electric",
-    "Hybrid",
-  ]);
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormData>({ resolver: yupResolver(schema) });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<FormData>({ resolver: yupResolver(schema) });
-
-  const [createVehicleSpecifications, { error }] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
-
+  const [createVehicleSpecifications] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setIsLoading(true);
     console.log("Submitting data:", data);
     try {
-      const response = await createVehicleSpecifications(data);
+      const response = await createVehicleSpecifications(data).unwrap();
       console.log("Response data:", response);
       toast.success("Vehicle specification created successfully");
     } catch (err) {
-      console.error("API error:", error);
+      console.error("API error:", err);
       toast.error("Failed to create vehicle specification");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -110,8 +92,8 @@ const CreateVehicle = () => {
         }}
       />
 
-      <div className=" flex-col lg:flex-row-reverse lg:gap-16 h-full max-w-full">
-        <div className=" bg-base-100 w-full shadow-2xl">
+      <div className="flex-col lg:flex-row-reverse lg:gap-16 h-full max-w-full">
+        <div className="bg-base-100 w-full shadow-2xl">
           <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap">
             <div className="form-control">
@@ -170,7 +152,6 @@ const CreateVehicle = () => {
               <p className="text-red-500">{errors.transmission?.message}</p>
             </div>
 
-
             <div className="form-control">
               <input type="number" placeholder="Seating Capacity" className="input input-bordered bg-slate-200" {...register("seating_capacity", { required: true })} />
               <p className="text-red-500">{errors.seating_capacity?.message}</p>
@@ -184,7 +165,16 @@ const CreateVehicle = () => {
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
             <div className="mt-2 flex justify-center">
-              <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Specification</button>
+              <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <span className="loading loading-spinner text-text-light"></span>
+                    <span> Processing...</span>
+                  </>
+                ) : (
+                  "Create Specification"
+                )}
+              </button>
             </div>
           </form>
         </div>

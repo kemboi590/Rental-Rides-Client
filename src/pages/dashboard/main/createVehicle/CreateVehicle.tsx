@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -19,7 +20,7 @@ const schema = yup.object().shape({
 
 function CreateVehicleForm() {
     // Create vehicle
-    const [createVehicle, { error: vehicleError }] = vehiclesTableAPI.useCreateVehiclesTableMutation();
+    const [createVehicle] = vehiclesTableAPI.useCreateVehiclesTableMutation();
 
     // Fetch vehicle specifications
     const { data: vehicleSpecs } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery();
@@ -30,15 +31,20 @@ function CreateVehicleForm() {
         formState: { errors },
     } = useForm<FormData>({ resolver: yupResolver(schema) });
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const onSubmit: SubmitHandler<FormData> = async (data) => {
+        setIsLoading(true);
         console.log("Submitting data:", data);
         try {
-            const response = await createVehicle(data);
+            const response = await createVehicle(data).unwrap();
             console.log("Response data:", response);
             toast.success("Vehicle created successfully");
         } catch (err) {
-            console.error("API error:", vehicleError);
+            console.error("API error:", err);
             toast.error("Failed to create vehicle");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -92,8 +98,17 @@ function CreateVehicleForm() {
                             </select>
                             <p className="text-red-500">{errors.availability?.message}</p>
                         </div>
-                        <div className=" mt-2 flex justify-center w-full">
-                            <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">Create Vehicle</button>
+                        <div className="mt-2 flex justify-center w-full">
+                            <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" disabled={isLoading}>
+                                {isLoading ? (
+                                    <>
+                                        <span className="loading loading-spinner text-text-light"></span>
+                                        <span> Processing...</span>
+                                    </>
+                                ) : (
+                                    "Create Vehicle"
+                                )}
+                            </button>
                         </div>
                     </form>
                     
