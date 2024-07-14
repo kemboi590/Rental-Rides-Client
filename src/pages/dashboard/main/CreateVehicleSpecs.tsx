@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
-import CreateVehicleForm from "./createVehicle/CreateVehicle";
+import CreateVehicleForm from "./CreateVehicleForm";
 
 type FormData = {
   manufacturer: string;

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { vehiclesTableAPI } from "../../../../features/vehicles/vehicleTable";
+import { vehiclesTableAPI } from "../../../features/vehicles/vehicleTable";
 import { Toaster, toast } from 'sonner';
-import { VehicleSpecificationsAPI } from "../../../../features/vehicles/vehicleSpecs";
+import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 
 type FormData = {
     vehicleSpec_id: number;

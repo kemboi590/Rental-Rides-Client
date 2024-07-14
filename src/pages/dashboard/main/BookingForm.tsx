@@ -3,12 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Toaster, toast } from 'sonner';
-import imageForAllCards from "../../../../assets/images/landingPage/Mazda.jpeg";
+import imageForAllCards from "../../../assets/images/landingPage/Mazda.jpeg";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../app/store";
-import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
-import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
+import { RootState } from "../../../app/store";
+import { bookingVehicleAPI } from "../../../features/booking/bookingAPI";
+import { vehiclesAPI } from "../../../features/vehicles/Vehicles";
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 

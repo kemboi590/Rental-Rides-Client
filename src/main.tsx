@@ -16,8 +16,8 @@ import Vehicles from './pages/dashboard/main/Vehicles.tsx';
 import AllBookings from './pages/dashboard/main/AllBookings.tsx';
 import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
-import CreateVehicle from './pages/dashboard/main/CreateVehicle.tsx';
-import BookingForm from './pages/dashboard/main/booking/BookingForm.tsx';
+import CreateVehicle from './pages/dashboard/main/CreateVehicleSpecs.tsx';
+import BookingForm from './pages/dashboard/main/BookingForm.tsx';
 import Profile from './pages/profile/Profile.tsx';
 import UserBookings from './pages/dashboard/main/Payments';
 import SuccessPayment from './pages/dashboard/Success.Payment.tsx';
@@ -74,11 +74,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'payment-successful',
-        element: <SuccessPayment/>
+        element: <SuccessPayment />
       },
       {
         path: 'payment-failed',
-        element: <PaymentFailed/>
+        element: <PaymentFailed />
       }
     ]
   }
