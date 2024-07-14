@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { RootState } from '../../../app/store';
@@ -19,7 +20,8 @@ const UserBookings = () => {
     // Fetch vehicles data
     const { data: vehicleData, isLoading: vehicleLoading, error: vehicleError } = vehiclesAPI.useGetVehiclesQuery();
 
-    const [createPayment, { error: paymentError }] = paymentAPI.useCreatePaymentMutation();
+    const [createPayment] = paymentAPI.useCreatePaymentMutation();
+    const [isPaymentLoading, setIsPaymentLoading] = useState<number | null>(null);
 
     // Function to format ISO date string
     const formatDate = (isoDate: string | number | Date) => {
@@ -40,25 +42,21 @@ const UserBookings = () => {
     };
 
     const handleMakePayment = async (booking_id: number, amount: string) => {
+        setIsPaymentLoading(booking_id);
         try {
-            const paymentResponse = await createPayment({ booking_id, amount });
-            
-            if (paymentError) {
-                console.error('Error initiating payment:', paymentError);
-                toast.error('Error initiating payment');
-                return;
-            }
-
+            const paymentResponse = await createPayment({ booking_id, amount }).unwrap();
             toast.success('Payment initiated successfully');
-            console.log('Payment response:', paymentResponse.data);
+            console.log('Payment response:', paymentResponse);
 
             // Redirect to the Stripe checkout URL
-            if (paymentResponse.data.url) {
-                window.location.href = paymentResponse.data.url;
+            if (paymentResponse.url) {
+                window.location.href = paymentResponse.url;
             }
         } catch (error) {
             console.error('Error initiating payment:', error);
             toast.error('Error initiating payment');
+        } finally {
+            setIsPaymentLoading(null);
         }
     };
 
@@ -86,7 +84,7 @@ const UserBookings = () => {
                     },
                 }}
             />
-            <div className='card shadow-xl mx-auto  bg-slate-200 w-full rounded-md mb-10 border-2'>
+            <div className='card shadow-xl mx-auto bg-slate-200 w-full rounded-md mb-10 border-2'>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
@@ -113,8 +111,16 @@ const UserBookings = () => {
                                         <button
                                             className="btn bg-webcolor text-text-light hover:text-black border-none"
                                             onClick={() => handleMakePayment(booking.booking_id, booking.total_amount)}
+                                            disabled={isPaymentLoading === booking.booking_id}
                                         >
-                                            Make Payment
+                                            {isPaymentLoading === booking.booking_id ? (
+                                                <>
+                                                    <span className="loading loading-spinner text-text-light"></span>
+                                                    <span> Processing...</span>
+                                                </>
+                                            ) : (
+                                                "Make Payment"
+                                            )}
                                         </button>
                                     </td>
                                 </tr>
