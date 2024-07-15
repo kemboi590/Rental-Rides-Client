@@ -61,7 +61,7 @@ const BookingForm = () => {
       toast.success("Booking created successfully");
 
       setTimeout(() => {
-        navigate('/dashboard/your-bookings');
+        navigate('/dashboard/payments');
       }, 1000);
 
     } catch (err) {
