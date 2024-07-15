@@ -6,7 +6,6 @@ import { RootState } from '../../../app/store';
 import { usersAPI } from '../../../features/users/usersAPI';
 import { useSelector } from 'react-redux';
 import { Toaster, toast } from 'sonner';
-import UserBookings from './MyBookings';
 import Footer from '../../landingPage/Footer';
 
 type UserFormData = {

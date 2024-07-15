@@ -1,4 +1,3 @@
-import React from "react";
 import { TicketAPI } from "../../../features/Tickets/AllTickets";
 import { usersAPI } from "../../../features/users/usersAPI";
 
