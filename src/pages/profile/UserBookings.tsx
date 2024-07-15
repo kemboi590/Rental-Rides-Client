@@ -49,7 +49,7 @@ const UserBookings = () => {
 
     return (
         <>
-        <div className='card shadow-xl mx-auto mt-8 bg-slate-200 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 rounded-md mb-5 border-2'>
+        <div className='card shadow-xl mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
         <h2 className="text-center text-2xl font-semibold text-text-light mt-5 bg-webcolor p-3 rounded-t-md"
         >Your Bookings</h2>
             <div className="overflow-x-auto">

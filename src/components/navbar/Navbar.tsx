@@ -127,14 +127,14 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 pt-4 shadow">
                             <li>
                                 {/* linkk to profile */}
-                                <Link to="/profile" className="justify-between"> Profile</Link>
+                                <Link to="/dashboard/profile" className="justify-between pb-2"> Profile</Link>
 
                             </li>
                             {/* handle logout */}
-                            <li><a onClick={handleLogout}>Logout</a></li>
+                            <li><a onClick={handleLogout} className="pt-2">Logout</a></li>
                         </ul>
                     </div>
                 )}

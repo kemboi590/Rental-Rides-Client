@@ -25,6 +25,13 @@ export const drawerData: DrawerData[] = [
         adminOnly: false
     },
     {
+        id: 7,
+        name: 'Profile',
+        icon: SquareUserRound,
+        link: 'profile',
+        adminOnly: false
+    },
+    {
         id: 2,
         name: 'Create Vehicle',
         icon: BookmarkPlus,

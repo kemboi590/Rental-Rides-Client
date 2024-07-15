@@ -60,7 +60,7 @@ function CreateVehicleForm() {
                     },
                 }} />
             <div className="flex-col lg:flex-row-reverse lg:gap-16 h-full max-w-full">
-                <div className="bg-base-100 w-full shadow-2xl">
+                <div className="bg-base-200 w-full shadow-2xl">
                     <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap ">
 

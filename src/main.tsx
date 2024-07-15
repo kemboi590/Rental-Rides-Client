@@ -18,31 +18,32 @@ import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
 import CreateVehicle from './pages/dashboard/main/CreateVehicleSpecs.tsx';
 import BookingForm from './pages/dashboard/main/BookingForm.tsx';
-import Profile from './pages/profile/Profile.tsx';
+import Profile from './pages/dashboard/main/Profile.tsx';
 import UserBookings from './pages/dashboard/main/Payments';
 import SuccessPayment from './pages/dashboard/Success.Payment.tsx';
 import PaymentFailed from './pages/dashboard/PaymentFailed.tsx';
+import Error from './pages/Error.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />
+    element: <Home />,
+    errorElement: <Error />
   },
   {
     path: 'register',
-    element: <Register />
+    element: <Register />,
+    errorElement: <Error />
   },
   {
     path: 'login',
-    element: <Login />
-  },
-  {
-    path: 'profile',
-    element: <Profile />
+    element: <Login />,
+    errorElement: <Error />
   },
   {
     path: 'dashboard',
     element: <Dashboard />,
+    errorElement: <Error />,
     children: [
       {
         path: 'create-vehicle',
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: 'payment-failed',
         element: <PaymentFailed />
+      },
+      {
+        path: 'profile',
+        element: <Profile />
       }
     ]
   }

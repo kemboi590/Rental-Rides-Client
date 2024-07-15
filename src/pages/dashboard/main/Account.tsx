@@ -1,5 +1,6 @@
 import { usersAPI } from "../../../features/users/usersAPI";
 import { TUser } from "../../../features/users/usersAPI"; 
+import Footer from "../../landingPage/Footer";
 
 function Account() {
     const { data: usersData, isLoading: usersLoading, error: usersError } = usersAPI.useGetUsersQuery();
@@ -31,7 +32,7 @@ function Account() {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table>    
         </div>
     );
 }

@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { RootState } from '../../app/store';
-import Navbar from '../../components/navbar/Navbar';
-import { usersAPI } from '../../features/users/usersAPI';
+import { RootState } from '../../../app/store';
+import { usersAPI } from '../../../features/users/usersAPI';
 import { useSelector } from 'react-redux';
 import { Toaster, toast } from 'sonner';
-import UserBookings from './UserBookings';
-import Footer from './../landingPage/Footer';
+import UserBookings from '../../profile/UserBookings';
+import Footer from '../../landingPage/Footer';
 
 type UserFormData = {
     full_name: string;
@@ -90,8 +89,7 @@ const Profile = () => {
                     },
                 }}
             />
-            <Navbar />
-            <div className="card shadow-xl mx-auto mt-8 md:w-3/4 lg:w-2/3 xl:w-1/2 p-4 rounded-md bg-slate-200">
+            <div className="card shadow-xl mx-auto p-4 rounded-md bg-slate-200">
                 <div className="border-b-2 border-slate-600 pb-4">
                     <div className="flex justify-center">
                         <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="rounded-full h-28 w-28 object-cover border-4 border-white" alt="User Avatar" />
@@ -136,7 +134,7 @@ const Profile = () => {
                                 <button type="submit" className="btn bg-webcolor text-text-light hover:text-black">
                                     {isUpdating ? (
                                         <>
-                                            <span className="loading loading-spinner text-text-light"></span> 
+                                            <span className="loading loading-spinner text-text-light"></span>
                                             <span className='text-text-light'>Updating...</span>
                                         </>
                                     ) : (
@@ -150,7 +148,7 @@ const Profile = () => {
             </div>
 
             {/* User Bookings */}
-            <UserBookings />
+            {/* <UserBookings /> */}
             <Footer />
         </>
     );
