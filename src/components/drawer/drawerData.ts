@@ -1,4 +1,4 @@
-import { BookmarkPlus, Car, Album, TicketCheck, SquareUserRound, BadgeDollarSign, NotebookPen } from 'lucide-react';
+import { BookmarkPlus, Car, Album, TicketCheck, SquareUserRound, BadgeDollarSign, NotebookPen, Ticket } from 'lucide-react';
 
 export type DrawerData = {
     id: number;
@@ -32,11 +32,17 @@ export const drawerData: DrawerData[] = [
         adminOnly: false
     },
     {
-
         id: 8,
         name: 'My-bookings',
         icon: NotebookPen,
         link: 'mybookings',
+        adminOnly: false
+    },
+    {
+        id: 9,
+        name: 'My-tickets',
+        icon: Ticket,
+        link: 'my-tickets',
         adminOnly: false
     },
     {

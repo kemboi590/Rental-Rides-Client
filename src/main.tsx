@@ -24,6 +24,7 @@ import SuccessPayment from './pages/dashboard/main/Success.Payment.tsx';
 import PaymentFailed from './pages/dashboard/main/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
 import MyBookings from './pages/dashboard/main/MyBookings';
+import MyTickets from './pages/dashboard/main/MyTickets.tsx';
 
 const router = createBrowserRouter([
   {
@@ -89,9 +90,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'mybookings',
-        element: <MyBookings />,
-        errorElement: <Error />
+        element: <MyBookings />
       },
+      {
+        path: 'my-tickets',
+        element: <MyTickets />
+      }
     ]
   }
 ]);
