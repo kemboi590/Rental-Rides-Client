@@ -23,6 +23,7 @@ import UserBookings from './pages/dashboard/main/Payments';
 import SuccessPayment from './pages/dashboard/Success.Payment.tsx';
 import PaymentFailed from './pages/dashboard/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
+import MyBookings from './pages/dashboard/main/MyBookings';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
     element: <Login />,
     errorElement: <Error />
   },
+
   {
     path: 'dashboard',
     element: <Dashboard />,
@@ -70,7 +72,7 @@ const router = createBrowserRouter([
         element: <Account />
       },
       {
-        path: 'your-bookings',
+        path: 'payments',
         element: <UserBookings />
       },
       {
@@ -84,7 +86,12 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile />
-      }
+      },
+      {
+        path: 'mybookings',
+        element: <MyBookings />,
+        errorElement: <Error />
+      },
     ]
   }
 ]);
