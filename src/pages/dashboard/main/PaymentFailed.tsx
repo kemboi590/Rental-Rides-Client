@@ -7,7 +7,7 @@ const PaymentFailed = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-red-50">
         <div className="flex items-center mb-4">
           <ArrowLeftToLine className="h-6 w-6 text-red-500" />
-          <Link to="/dashboard/your-bookings" className="text-red-500 ml-2">Back to Dashboard</Link>
+          <Link to="/dashboard/payments" className="text-red-500 ml-2">Back to Dashboard</Link>
         </div>
         <div className="bg-white p-10 rounded-lg shadow-md text-center">
            

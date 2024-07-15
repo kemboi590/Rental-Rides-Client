@@ -114,10 +114,11 @@ const UserBookings = () => {
                                             disabled={isPaymentLoading === booking.booking_id}
                                         >
                                             {isPaymentLoading === booking.booking_id ? (
-                                                <>
+                                                <div className='flex items-center'
+                                            >
                                                     <span className="loading loading-spinner text-text-light"></span>
                                                     <span> Processing...</span>
-                                                </>
+                                                </div>
                                             ) : (
                                                 "Make Payment"
                                             )}

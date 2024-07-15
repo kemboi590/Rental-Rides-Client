@@ -20,8 +20,8 @@ import CreateVehicle from './pages/dashboard/main/CreateVehicleSpecs.tsx';
 import BookingForm from './pages/dashboard/main/BookingForm.tsx';
 import Profile from './pages/dashboard/main/Profile.tsx';
 import UserBookings from './pages/dashboard/main/Payments';
-import SuccessPayment from './pages/dashboard/Success.Payment.tsx';
-import PaymentFailed from './pages/dashboard/PaymentFailed.tsx';
+import SuccessPayment from './pages/dashboard/main/Success.Payment.tsx';
+import PaymentFailed from './pages/dashboard/main/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
 import MyBookings from './pages/dashboard/main/MyBookings';
 

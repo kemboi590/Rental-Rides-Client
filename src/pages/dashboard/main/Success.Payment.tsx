@@ -6,8 +6,7 @@ const SuccessPayment = () => {
         <div className="flex flex-col items-center justify-center min-h-screen bg-green-50">
             <div className="flex items-center mb-4">
                 <ArrowLeftToLine className="h-6 w-6 text-green-500" />
-                <Link to="/dashboard/your-bookings" className="text-green-500 ml-2">Back to Dashboard</Link>
-                {/* <a href="/dashboard" className="text-green-500 ml-2">Back to Dashboard</a> */}
+                <Link to="/dashboard/payments" className="text-green-500 ml-2">Back to Dashboard</Link>
             </div>
             <div className="bg-white p-10 rounded-lg shadow-md text-center">
                 <svg
