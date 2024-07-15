@@ -1,5 +1,6 @@
 import { Link, useRouteError } from "react-router-dom";
 import { ArrowLeft } from 'lucide-react';
+// Error page
 
 function Error() {
     const error = useRouteError();
