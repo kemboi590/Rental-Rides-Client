@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <Login />,
     errorElement: <Error />
   },
-
+  // DASHBOARD ROUTES
   {
     path: 'dashboard',
     element: <Dashboard />,
