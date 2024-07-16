@@ -12,6 +12,7 @@ export interface VSpecifications {
     transmission: string;
     features: string;
     seating_capacity: number;
+    image_url: string;
 }
 
 

@@ -10,6 +10,7 @@ export interface VehicleSpecifications {
   transmission: string;
   features: string;
   seating_capacity: number;
+  image_url: string;
 }
 
 export interface VehicleDataTypes {
@@ -23,11 +24,12 @@ export interface VehicleDataTypes {
 export const vehiclesAPI = createApi({
   reducerPath: 'vehiclesAPI',
   baseQuery: fetchBaseQuery({ baseUrl: APIDomain }),
-  tagTypes: ['Vehicles'],
+  refetchOnReconnect: true,
+  tagTypes: ['fetchCarSpecs'],
   endpoints: (builder) => ({
-    getVehicles: builder.query<VehicleDataTypes[], void>({
+    fetchCarSpecs: builder.query({
       query: () => 'vehiclesSpecs',
-      providesTags: ['Vehicles'],
+      providesTags: ['fetchCarSpecs'],
     }),
     createVehicle: builder.mutation<VehicleDataTypes, Partial<VehicleDataTypes>>({
       query: (newVehicle) => ({
@@ -35,7 +37,7 @@ export const vehiclesAPI = createApi({
         method: 'POST',
         body: newVehicle,
       }),
-      invalidatesTags: ['Vehicles'],
+      invalidatesTags: ['fetchCarSpecs'],
     }),
     updateVehicle: builder.mutation<VehicleDataTypes, Partial<VehicleDataTypes & { vehicle_id: number }>>({
       query: ({ vehicle_id, ...rest }) => ({
@@ -43,18 +45,18 @@ export const vehiclesAPI = createApi({
         method: 'PUT',
         body: rest,
       }),
-      invalidatesTags: ['Vehicles'],
+      invalidatesTags: ['fetchCarSpecs'],
     }),
     deleteVehicle: builder.mutation<{ success: boolean; vehicle_id: number }, number>({
       query: (vehicle_id) => ({
         url: `vehicles/${vehicle_id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Vehicles'],
+      invalidatesTags: ['fetchCarSpecs'],
     }),
     getVehicleById: builder.query<VehicleDataTypes, number>({
       query: (vehicle_id) => `vehicle-specs/${vehicle_id}`,
-      providesTags: ['Vehicles'],
+      providesTags: ['fetchCarSpecs'],
   }),
   }),
 });

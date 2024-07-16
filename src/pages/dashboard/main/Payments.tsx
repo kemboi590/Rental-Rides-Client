@@ -18,7 +18,7 @@ const UserBookings = () => {
     });
 
     // Fetch vehicles data
-    const { data: vehicleData, isLoading: vehicleLoading, error: vehicleError } = vehiclesAPI.useGetVehiclesQuery();
+    const { data: vehicleData, isLoading: vehicleLoading, error: vehicleError } = vehiclesAPI.useFetchCarSpecsQuery({});
 
     const [createPayment] = paymentAPI.useCreatePaymentMutation();
     const [isPaymentLoading, setIsPaymentLoading] = useState<number | null>(null);
@@ -31,7 +31,7 @@ const UserBookings = () => {
     // Function to get vehicle details by vehicle_id
     const getVehicleDetails = (vehicleId: number) => {
         if (vehicleData) {
-            const vehicle = vehicleData.find(v => v.vehicle_id === vehicleId);
+            const vehicle = vehicleData.find((v: { vehicle_id: number; }) => v.vehicle_id === vehicleId);
             if (vehicle) {
                 return `${vehicle.vehicle_specifications?.manufacturer} ${vehicle.vehicle_specifications?.model}`;
             } else {

@@ -4,7 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
+import axios from 'axios';
 import CreateVehicleForm from "./CreateVehicleForm";
+//V0DO01wfD8cOsXb9gNyVpIFc-kM
+
 
 type FormData = {
   manufacturer: string;
@@ -16,6 +19,7 @@ type FormData = {
   seating_capacity: number;
   color: string;
   features: string;
+  image_url?: string;
 };
 
 const schema = yup.object().shape({
@@ -34,17 +38,42 @@ const CreateVehicle = () => {
   const [models, setModels] = useState<string[]>(["Corolla", "Camry", "Rav4"]);
   const [manufacturerOptions] = useState<string[]>(["Toyota", "Honda", "Mercedes-Benz", "Tesla"]);
   const [fuelTypeOptions] = useState<string[]>(["Gasoline", "Diesel", "Electric", "Hybrid"]);
+  const [image, setImage] = useState<File | null>(null);
 
   const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormData>({ resolver: yupResolver(schema) });
 
   const [createVehicleSpecifications] = VehicleSpecificationsAPI.useCreateVehicleSpecificationsMutation();
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsLoading(true);
     console.log("Submitting data:", data);
     try {
-      const response = await createVehicleSpecifications(data).unwrap();
+      let imageUrl = '';
+      if (image) {
+        const formData = new FormData();
+        formData.append('file', image); //jw44anbu
+        formData.append('upload_preset', 'upload'); // Replace with your Cloudinary upload preset
+
+        const response = await axios.post('https://api.cloudinary.com/v1_1/dl3ovuqjn/image/upload', formData);
+
+        if (response.status === 200) {
+          imageUrl = response.data.secure_url;
+        } else {
+          throw new Error('Failed to upload image');
+        }
+      }
+
+      const submissionData = { ...data, image_url: imageUrl };
+
+      const response = await createVehicleSpecifications(submissionData).unwrap();
       console.log("Response data:", response);
       toast.success("Vehicle specification created successfully");
     } catch (err) {
@@ -164,6 +193,12 @@ const CreateVehicle = () => {
               <input type="text" placeholder="Features" className="input input-bordered bg-slate-200" {...register("features", { required: true })} />
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
+
+            {/* Image upload input */}
+            <div className="form-control">
+              <input type="file" className="input input-bordered bg-slate-200" accept="image/*" name="vehicle_image" onChange={handleImageUpload} />
+            </div>
+
             <div className="mt-2 flex justify-center">
               <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" disabled={isLoading}>
                 {isLoading ? (

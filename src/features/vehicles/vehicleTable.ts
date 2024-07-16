@@ -6,6 +6,7 @@ export interface Tvehicles {
     vehicleSpec_id: number;
     rental_rate: string;
     availability: boolean;
+    
 }
 
 export const vehiclesTableAPI = createApi({
