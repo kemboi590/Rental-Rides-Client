@@ -6,6 +6,7 @@ import { RootState } from '../../../app/store';
 import { usersAPI } from '../../../features/users/usersAPI';
 import { useSelector } from 'react-redux';
 import { Toaster, toast } from 'sonner';
+import axios from 'axios';
 import Footer from '../../landingPage/Footer';
 
 type UserFormData = {
@@ -13,6 +14,7 @@ type UserFormData = {
     email: string;
     contact_phone: string;
     address: string;
+    image_url?: string;
 };
 
 const schema = yup.object().shape({
@@ -33,6 +35,7 @@ const Profile = () => {
     const [updateUser] = usersAPI.useUpdateUserMutation();
     const [isEditMode, setIsEditMode] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false); // State for updating loader
+    const [image, setImage] = useState<File | null>(null); // State for storing selected image
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<UserFormData>({
         resolver: yupResolver(schema),
@@ -45,14 +48,37 @@ const Profile = () => {
                 email: userData.email,
                 contact_phone: userData.contact_phone,
                 address: userData.address,
+                image_url: userData.image_url,
             });
         }
     }, [userData, reset]);
 
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setImage(file);
+        }
+    };
+
     const onSubmit: SubmitHandler<UserFormData> = async (formData) => {
         try {
             setIsUpdating(true); // Show updating loader
-            await updateUser({ id: user_id, ...formData }).unwrap();
+            let imageUrl = formData.image_url || '';
+            if (image) {
+                const formData = new FormData();
+                formData.append('file', image);
+                formData.append('upload_preset', 'upload'); // Replace with your Cloudinary upload preset
+
+                const response = await axios.post('https://api.cloudinary.com/v1_1/dl3ovuqjn/image/upload', formData);
+
+                if (response.status === 200) {
+                    imageUrl = response.data.secure_url;
+                } else {
+                    throw new Error('Failed to upload image');
+                }
+            }
+
+            await updateUser({ id: user_id, ...formData, image_url: imageUrl }).unwrap();
             setIsEditMode(false);
             refetch();
             toast.success('User updated successfully');
@@ -91,7 +117,7 @@ const Profile = () => {
             <div className="card shadow-xl mx-auto p-4 rounded-md bg-slate-200">
                 <div className="border-b-2 border-slate-600 pb-4">
                     <div className="flex justify-center">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" className="rounded-full h-28 w-28 object-cover border-4 border-white" alt="User Avatar" />
+                        <img src={userData.image_url || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} className="rounded-full h-28 w-28 object-cover border-4 border-white" alt="User Avatar" />
                     </div>
                     <div className="flex flex-col justify-center mt-4 text-center">
                         <h1 className="text-3xl font-bold">{userData.full_name} <span className="badge bg-webcolor text-text-light mx-4 p-3">{role}</span></h1>
@@ -128,6 +154,10 @@ const Profile = () => {
                                 <input type="text" id="address" className="input input-bordered" {...register("address")} />
                                 <p className="text-red-500">{errors.address?.message}</p>
                             </div>
+                            <div className="form-control">
+                                <label htmlFor="profile_image" className="label">Profile Image</label>
+                                <input type="file" id="profile_image" className="input input-bordered bg-slate-200" accept="image/*" onChange={handleImageUpload} />
+                            </div>
                             <div className="mt-4 flex justify-around">
                                 <button onClick={() => setIsEditMode(false)} className="btn bg-red-400 text-text-light hover:text-black">Cancel</button>
                                 <button type="submit" className="btn bg-webcolor text-text-light hover:text-black">
@@ -146,8 +176,6 @@ const Profile = () => {
                 )}
             </div>
 
-            {/* User Bookings */}
-            {/* <UserBookings /> */}
             <Footer />
         </>
     );

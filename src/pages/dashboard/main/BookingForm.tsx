@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Toaster, toast } from 'sonner';
-import imageForAllCards from "../../../assets/images/landingPage/Mazda.jpeg";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
@@ -94,7 +93,7 @@ const BookingForm = () => {
         {!isLoading && !vehicleError && vehicleData && (
           <div className="card shadow-xl lg:gap-10 border-2 lg:flex-row justify-center items-center bg-gray-100 ">
             <figure className="w-[50%] lg:w-[35%] p-3 ">
-              <img src={imageForAllCards} alt="cardetails" className="rounded-lg" />
+              <img src={vehicleData.vehicle_specifications.image_url}  alt="cardetails" className="rounded-lg" />
             </figure>
 
             <div className="card-body justify-center items-center text-justify space-y-4 p-6 rounded-lg">
