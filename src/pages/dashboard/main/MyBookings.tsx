@@ -19,7 +19,7 @@ const MyBookings = () => {
 
     // Function to format ISO date string
     const formatDate = (isoDate: string | number | Date) => {
-        return format(new Date(isoDate), 'MM/dd/yyyy HH:mm:ss');
+        return format(new Date(isoDate), 'MM/dd/yyyy');
     };
 
     // Function to get vehicle details by vehicle_id

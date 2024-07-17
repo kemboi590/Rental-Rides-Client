@@ -15,7 +15,7 @@ const UserBookings = () => {
   const id = user.user?.userID;
   const user_id = id ? id : 0;
 
-  // Fetch user-specific bookings data
+  // get user-specific bookings data
   const { data: bookingData, isLoading: bookingLoading, error: bookingError } = bookingVehicleAPI.useGetUserBookingQuery(user_id, {
     refetchOnMountOrArgChange: true,
   });
@@ -28,7 +28,7 @@ const UserBookings = () => {
 
   // Function to format ISO date string
   const formatDate = (isoDate: string | number | Date) => {
-    return format(new Date(isoDate), 'MM/dd/yyyy HH:mm:ss');
+    return format(new Date(isoDate), 'MM/dd/yyyy');
   };
 
   // Function to get vehicle details by vehicle_id
@@ -41,9 +41,10 @@ const UserBookings = () => {
         console.log(`Vehicle with ID ${vehicleId} not found`);
       }
     }
-    return 'Unknown Vehicle';
+    return 'Vehicle id not found';
   };
 
+  // handle payment initiation
   const handleMakePayment = async (booking_id: number, amount: string) => {
     console.log('Initiating payment with booking_id:', booking_id, 'and amount:', amount);
 
@@ -136,7 +137,7 @@ const UserBookings = () => {
                     <button
                       className="btn bg-webcolor text-text-light hover:text-black border-none"
                       onClick={() => handleMakePayment(booking.booking_id, booking.total_amount)}
-                      disabled={isPaymentLoading === booking.booking_id}
+                      disabled={isPaymentLoading === booking.booking_id || (booking.payments.length > 0 && booking.payments[0].payment_status === 'Paid')}
                     >
                       {isPaymentLoading === booking.booking_id ? (
                         <div className='flex items-center'>

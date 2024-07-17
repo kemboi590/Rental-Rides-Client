@@ -9,8 +9,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-    // console.log("from Navbar", user.user);
     const username = user.user?.name;
+    const userRole = user.user?.role;
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -44,33 +44,32 @@ const Navbar = () => {
     const handleLogout = () => {
         dispatch(logOut());
         navigate('/login');
-
     }
 
     return (
         <div className="navbar bg-base-100 border-b-2">
             <div className="flex-1">
-                {/* Rental rides */}
                 <Link to="/" className="btn btn-ghost text-2xl font-bold text-webcolor ml-6 md:ml-12">RentalRides</Link>
             </div>
 
             <div className="flex-none gap-2">
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-base">
-                        <li><Link to="/">Home</Link> </li>
-                        <li><a href="#">About</a> </li>
-                        <li><Link to="/dashboard/vehicles">Dashboard</Link></li>
-                        <li><a href="#">Contact</a> </li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><a href="#">About</a></li>
+                        {userRole !== 'disabled' && (
+                            <li><Link to="/dashboard/vehicles">Dashboard</Link></li>
+                        )}
+                        <li><a href="#">Contact</a></li>
                         {!username && (
                             <>
                                 <li><Link to="/register">Register</Link></li>
                                 <li><Link to="/login">Login</Link></li>
                             </>
                         )}
-                        <li className="flex items-center justify-center ml-3 ">
+                        <li className="flex items-center justify-center ml-3">
                             {username ? `${username}` : ''}
                         </li>
-
                     </ul>
                 </div>
 
@@ -99,18 +98,19 @@ const Navbar = () => {
                     </button>
                 </div>
 
-
-                {/* small devices */}
+                {/* Small devices */}
                 <div className={`fixed top-0 left-0 w-[60%] h-screen bg-gray-800 border-r border-gray-900 transform ${isDropdownOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-500 ease-in-out lg:hidden z-50`}>
                     <ul className="menu p-4">
-                        <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/">Home</Link> </li>
-                        <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">about</a> </li>
-                        <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/dashboard/vehicles">Dashboard</Link></li>
-                        <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">Contact</a> </li>
+                        <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/">Home</Link></li>
+                        <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">about</a></li>
+                        {userRole !== 'disabled' && (
+                            <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/dashboard/vehicles">Dashboard</Link></li>
+                        )}
+                        <li className="border-b border-gray-300 py-2 text-text-light"><a href="#">Contact</a></li>
                         {!username && (
                             <>
-                                <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/register">Register</Link></li>
-                                <li className="border-b border-gray-300 py-2  text-text-light"><Link to="/login">Login</Link></li>
+                                <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/register">Register</Link></li>
+                                <li className="border-b border-gray-300 py-2 text-text-light"><Link to="/login">Login</Link></li>
                             </>
                         )}
                     </ul>
@@ -129,11 +129,8 @@ const Navbar = () => {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 pt-4 shadow">
                             <li>
-                                {/* linkk to profile */}
                                 <Link to="/dashboard/profile" className="justify-between pb-2"> Profile</Link>
-
                             </li>
-                            {/* handle logout */}
                             <li><a onClick={handleLogout} className="pt-2">Logout</a></li>
                         </ul>
                     </div>
