@@ -147,7 +147,7 @@ const BookingForm = () => {
                 <p className="text-red-500">{errors.booking_status?.message}</p>
               </div>
               <div className="form-control mt-4">
-                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none">
+                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" >
                   {isSubmitting ? (
                     <>
                       <span className="loading loading-spinner text-text-light"></span>

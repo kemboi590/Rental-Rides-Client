@@ -2,7 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { APIDomain } from "../../utils/APIDomain";
 
 
-export interface Tbooking {
+export interface Payment {
+    amount: number;
+    payment_date: string;
+    payment_method: string;
+    payment_status: string;
+  }
+
+
+  export interface Tbooking {
     booking_id: number;
     user_id: number;
     vehicle_id: number;
@@ -11,7 +19,9 @@ export interface Tbooking {
     return_date: string;
     total_amount: string;
     booking_status: string;
-}
+    payments: Payment[];
+  }
+
 
 export const bookingVehicleAPI = createApi({
     reducerPath: 'bookingVehicleAPI',

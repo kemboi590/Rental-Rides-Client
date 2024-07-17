@@ -4,9 +4,9 @@ import { format } from 'date-fns';
 import { RootState } from '../../../app/store';
 import { bookingVehicleAPI } from '../../../features/booking/bookingAPI';
 import { vehiclesAPI } from '../../../features/vehicles/Vehicles';
-import { paymentAPI } from '../../../features/payment/paymentAPI';
 import { toast, Toaster } from 'sonner';
 import { loadStripe } from '@stripe/stripe-js';
+import { paymentAPI } from '../../../features/payment/paymentAPI';
 
 const stripePromise = loadStripe('pk_test_51O0yZQFnVjhMqK7vwrYX1wz3VThFWgoAEjafFFKVNSv0KQ76YMKbFW0dWDWOOs9DSXcp3zeNvRt14lVPO4C5FmyW00iLYryWNn');
 
@@ -44,44 +44,42 @@ const UserBookings = () => {
     return 'Unknown Vehicle';
   };
 
-
   const handleMakePayment = async (booking_id: number, amount: string) => {
     console.log('Initiating payment with booking_id:', booking_id, 'and amount:', amount);
-    
+
     // Convert amount to number to ensure it's valid
     const amountNumber = parseFloat(amount);
     if (isNaN(amountNumber)) {
-        toast.error('Invalid amount');
-        console.error('Invalid amount:', amount);
-        return;
+      toast.error('Invalid amount');
+      console.error('Invalid amount:', amount);
+      return;
     }
-  
+
     setIsPaymentLoading(booking_id);
     try {
-        const paymentResponse = await createPayment({ booking_id, total_amount: amountNumber }).unwrap();
-        toast.success('Payment initiated successfully');
-        console.log('Payment response:', paymentResponse);
-  
-        const stripe = await stripePromise;
-  
-        // Redirect to the Stripe checkout URL
-        if (paymentResponse.url && stripe) {
-            const { error } = await stripe.redirectToCheckout({
-                sessionId: paymentResponse.sessionId,
-            });
-            if (error) {
-                console.error('Error redirecting to checkout:', error);
-                toast.error('Error redirecting to checkout');
-            }
-        }
-    } catch (error) {
-        console.error('Error initiating payment:', error);
-        toast.error('Error initiating payment');
-    } finally {
-        setIsPaymentLoading(null);
-    }
-};
+      const paymentResponse = await createPayment({ booking_id, total_amount: amountNumber }).unwrap();
+      toast.success('Payment initiated successfully');
+      console.log('Payment response:', paymentResponse);
 
+      const stripe = await stripePromise;
+
+      // Redirect to the Stripe checkout URL
+      if (paymentResponse.url && stripe) {
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: paymentResponse.sessionId,
+        });
+        if (error) {
+          console.error('Error redirecting to checkout:', error);
+          toast.error('Error redirecting to checkout');
+        }
+      }
+    } catch (error) {
+      console.error('Error initiating payment:', error);
+      toast.error('Error initiating payment');
+    } finally {
+      setIsPaymentLoading(null);
+    }
+  };
 
   if (bookingLoading || vehicleLoading) {
     return <div>Loading...</div>;
@@ -118,6 +116,7 @@ const UserBookings = () => {
                 <th className="px-4 py-2 text-left text-text-light">Return Date</th>
                 <th className="px-4 py-2 text-left text-text-light">Total Amount</th>
                 <th className="px-4 py-2 text-left text-text-light">Booking Status</th>
+                <th className="px-4 py-2 text-left text-text-light">Payment Status</th>
                 <th className="px-4 py-2 text-left text-text-light">Action</th>
               </tr>
             </thead>
@@ -130,6 +129,9 @@ const UserBookings = () => {
                   <td className="px-4 py-2">{formatDate(booking.return_date)}</td>
                   <td className="px-4 py-2">{booking.total_amount}</td>
                   <td className="px-4 py-2">{booking.booking_status}</td>
+                  <td className="px-4 py-2">
+                    {booking.payments.length > 0 ? booking.payments[0].payment_status : 'Not paid'}
+                  </td>
                   <td className="px-4 py-2">
                     <button
                       className="btn bg-webcolor text-text-light hover:text-black border-none"
