@@ -55,7 +55,7 @@ const MyBookings = () => {
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
-                            <tr className="bg-slate-800">
+                            <tr className="bg-slate-700">
                                 <th className="px-4 py-2 text-left text-text-light">Booking ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Vehicle Details</th>
                                 <th className="px-4 py-2 text-left text-text-light">Booking Date</th>

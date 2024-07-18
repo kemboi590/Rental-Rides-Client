@@ -55,7 +55,7 @@ const VehicleSpecificationsTable = () => {
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
-                            <tr className="bg-slate-800">
+                            <tr className="bg-slate-700">
                                 <th className="px-4 py-2 text-left text-text-light">ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Manufacturer</th>
                                 <th className="px-4 py-2 text-left text-text-light">Model</th>
@@ -71,7 +71,7 @@ const VehicleSpecificationsTable = () => {
                         </thead>
                         <tbody>
                             {currentVehicleSpecs.map((spec) => (
-                                <tr key={spec.vehicleSpec_id} className="border-b border-slate-600">
+                                <tr key={spec.vehicleSpec_id} className="border-b border-slate-700">
                                     <td className="px-4 py-2">{spec.vehicleSpec_id}</td>
                                     <td className="px-4 py-2">{spec.manufacturer}</td>
                                     <td className="px-4 py-2">{spec.model}</td>
@@ -104,7 +104,7 @@ const VehicleSpecificationsTable = () => {
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
-                            <tr className="bg-slate-800">
+                            <tr className="bg-slate-700">
                                 <th className="px-4 py-2 text-left text-text-light">ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Vehicle Specification ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Rental Rate</th>
@@ -113,7 +113,7 @@ const VehicleSpecificationsTable = () => {
                         </thead>
                         <tbody>
                             {currentVehicles.map((vehicle) => (
-                                <tr key={vehicle.vehicle_id} className="border-b border-slate-600">
+                                <tr key={vehicle.vehicle_id} className="border-b border-slate-700">
                                     <td className="px-4 py-2">{vehicle.vehicle_id}</td>
                                     <td className="px-4 py-2">{vehicle.vehicleSpec_id}</td>
                                     <td className="px-4 py-2">{vehicle.rental_rate}</td>

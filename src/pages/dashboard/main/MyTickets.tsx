@@ -31,7 +31,7 @@ const MyTickets = () => {
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
-                            <tr className="bg-slate-800">
+                            <tr className="bg-slate-700">
                                 <th className="px-4 py-2 text-left text-text-light">Ticket ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Subject</th>
                                 <th className="px-4 py-2 text-left text-text-light">Description</th>
