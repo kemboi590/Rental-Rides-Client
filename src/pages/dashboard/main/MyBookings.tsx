@@ -48,9 +48,10 @@ const MyBookings = () => {
     }
 
     return (
-        <>
-            <h2 className="text-center text-xl font-semibold text-text-light bg-webcolor p-2 rounded-t-md">Your Bookings</h2>
-            <div className='card shadow-xl mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
+        <div className='bg-slate-200 min-h-screen'>
+    
+            <div className='mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
+            <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Bookings</h2>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>
@@ -78,7 +79,7 @@ const MyBookings = () => {
                     </table>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

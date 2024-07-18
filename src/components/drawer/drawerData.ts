@@ -25,53 +25,53 @@ export const drawerData: DrawerData[] = [
         adminOnly: false
     },
     {
-        id: 7,
-        name: 'Profile',
-        icon: SquareUserRound,
-        link: 'profile',
-        adminOnly: false
-    },
-    {
-        id: 8,
+        id: 3,
         name: 'My-bookings',
         icon: NotebookPen,
         link: 'mybookings',
         adminOnly: false
     },
     {
-        id: 9,
+        id: 4,
         name: 'My-tickets',
         icon: Ticket,
         link: 'my-tickets',
         adminOnly: false
     },
     {
-        id: 2,
-        name: 'Create Vehicle',
+        id: 5,
+        name: 'Manage Vehicles',
         icon: BookmarkPlus,
-        link: 'create-vehicle',
+        link: 'manage-vehicles',
         adminOnly: true
     },
     {
-        id: 3,
+        id: 6,
         name: 'All Bookings',
         icon: Album,
         link: 'allbookings',
         adminOnly: true
     },
     {
-        id: 4,
+        id: 7,
         name: 'Support Tickets',
         icon: TicketCheck,
         link: 'support-tickets',
         adminOnly: true
     },
     {
-        id: 5,
+        id: 8,
         name: 'Account',
         icon: SquareUserRound,
         link: 'account',
         adminOnly: true
-    }
+    },
+    {
+        id: 2,
+        name: 'Profile',
+        icon: SquareUserRound,
+        link: 'profile',
+        adminOnly: false
+    },
 ];
 

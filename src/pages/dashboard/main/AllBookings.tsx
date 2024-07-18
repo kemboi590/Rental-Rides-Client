@@ -5,7 +5,7 @@ import { usersAPI } from '../../../features/users/usersAPI';
 
 function AllBookings() {
   const page = void 0;
-  const fetchDuration =10000;
+  const fetchDuration = 10000;
 
   // Fetch bookings data
   const { data: bookings, isLoading: bookingLoading, error: bookingError } = bookingVehicleAPI.useGetBookingVehicleQuery(page, {
@@ -51,7 +51,9 @@ function AllBookings() {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto bg-slate-200 min-h-screen">
+      <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">All User Bookings</h2>
+
       {(bookingLoading || vehicleLoading || usersLoading) && <div>Loading...</div>}
       {(bookingError || vehicleError || usersError) && <div>Error loading data</div>}
       {bookings && bookings.length === 0 && <div>No bookings</div>}

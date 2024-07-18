@@ -3,6 +3,7 @@ import { APIDomain } from "../../utils/APIDomain";
 
 
 export interface Tvehicles {
+    vehicle_id: number;
     vehicleSpec_id: number;
     rental_rate: string;
     availability: boolean;

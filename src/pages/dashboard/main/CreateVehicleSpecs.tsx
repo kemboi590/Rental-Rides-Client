@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
-import CreateVehicleForm from "./CreateVehicleForm";
 //V0DO01wfD8cOsXb9gNyVpIFc-kM
 
 
@@ -214,7 +213,7 @@ const CreateVehicle = () => {
           </form>
         </div>
       </div>
-      <CreateVehicleForm />
+      {/* <CreateVehicleForm /> */}
     </div>
   );
 };
