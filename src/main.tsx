@@ -16,7 +16,6 @@ import Vehicles from './pages/dashboard/main/Vehicles.tsx';
 import AllBookings from './pages/dashboard/main/AllBookings.tsx';
 import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
-import CreateVehicle from './pages/dashboard/main/CreateVehicleSpecs.tsx';
 import BookingForm from './pages/dashboard/main/BookingForm.tsx';
 import Profile from './pages/dashboard/main/Profile.tsx';
 import UserBookings from './pages/dashboard/main/Payments';
@@ -25,6 +24,7 @@ import PaymentFailed from './pages/dashboard/main/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
 import MyBookings from './pages/dashboard/main/MyBookings';
 import MyTickets from './pages/dashboard/main/MyTickets.tsx';
+import ManageVehicle from './pages/dashboard/main/ManageVehicle.tsx';
 
 const router = createBrowserRouter([
   {
@@ -48,10 +48,6 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     errorElement: <Error />,
     children: [
-      {
-        path: 'create-vehicle',
-        element: <CreateVehicle />
-      },
       {
         path: 'vehicles',
         element: <Vehicles />
@@ -95,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: 'my-tickets',
         element: <MyTickets />
+      },
+      {
+        path: 'manage-vehicles',
+        element: <ManageVehicle />
       }
     ]
   }
