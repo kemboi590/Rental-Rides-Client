@@ -9,6 +9,8 @@ const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
+    const image_url = user.user?.image_url;
+    console.log("image url:", image_url);
     const username = user.user?.name;
     const userRole = user.user?.role;
 
@@ -122,7 +124,8 @@ const Navbar = () => {
                             <div className="w-10 rounded-full">
                                 <img
                                     alt="User Avatar"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    src={image_url ? image_url : 'https://ui-avatars.com/api/?name=' + username} ></img> // default image
+
                             </div>
                         </div>
                         <ul

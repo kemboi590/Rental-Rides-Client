@@ -6,6 +6,7 @@ export interface User{
     role: string;
     userID: number;
     address: string;
+    image_url: string;
 }
 
 export interface UserState {
