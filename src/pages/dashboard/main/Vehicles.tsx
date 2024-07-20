@@ -4,26 +4,26 @@ import { VehicleDataTypes } from '../../../features/vehicles/Vehicles';
 import Loader from '../../Loader';
 
 function Vehicles() {
-  const { data: vehicleData = [], isLoading, isError } = vehiclesAPI.useFetchCarSpecsQuery(undefined, {
-    pollingInterval: 6000,
+  const page = 1;
+  const { data: vehicleData = [], isLoading, isError } = vehiclesAPI.useFetchCarSpecsQuery(page, {
     refetchOnMountOrArgChange: true,
-    refetchOnFocus: true,
-    refetchOnReconnect: true
+    pollingInterval: 6000,
   });
-
-  console.log(vehicleData);
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (isError) {
+    console.error('Error loading vehicles data.');
     return <div>Error loading vehicles data.</div>;
   }
 
   if (vehicleData.length === 0) {
     return <div>No vehicles available</div>;
   }
+
+  console.log('Vehicle Data:', vehicleData); 
 
   return (
     <div className="overflow-x-auto text-base-content rounded-lg p-4">

@@ -30,7 +30,10 @@ const Profile = () => {
     const id = user.user?.userID;
     const user_id = id ? id : 0;
     const { data: userData, isLoading, error, refetch } = usersAPI.useGetUserByIdQuery(user_id, {
+        pollingInterval: 6000,
         refetchOnMountOrArgChange: true,
+        refetchOnFocus: true,
+        refetchOnReconnect: true
     });
     const [updateUser] = usersAPI.useUpdateUserMutation();
     const [isEditMode, setIsEditMode] = useState(false);

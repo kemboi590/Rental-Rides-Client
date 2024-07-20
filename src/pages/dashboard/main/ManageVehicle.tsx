@@ -3,9 +3,12 @@ import { VehicleSpecificationsAPI } from '../../../features/vehicles/vehicleSpec
 import { vehiclesTableAPI } from '../../../features/vehicles/vehicleTable';
 import CreateVehicle from './CreateVehicleSpecs';
 import CreateVehicleForm from './CreateVehicleForm';
+import EditSpecsForm from './EditSpecsForm';
+import DeleteSpecsForm from './DeleteSpecsForm';
+import { VSpecifications } from '../../../features/vehicles/vehicleSpecs';
 
 const VehicleSpecificationsTable = () => {
-    const { data: vehicleSpecsData=[], isLoading: vehicleSpecsLoading, error: vehicleSpecsError } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery(undefined, {
+    const { data: vehicleSpecsData = [], isLoading: vehicleSpecsLoading, error: vehicleSpecsError } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery(undefined, {
         refetchOnMountOrArgChange: true,
     });
 
@@ -15,6 +18,7 @@ const VehicleSpecificationsTable = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 5;
+    const [selectedSpec, setSelectedSpec] = useState<VSpecifications | null>(null);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -45,6 +49,15 @@ const VehicleSpecificationsTable = () => {
         return <div>No vehicle specifications</div>;
     }
 
+    const handleEdit = () => {
+        (document.getElementById('edit_specs_modal') as HTMLDialogElement)?.showModal();
+    }
+
+    const handleDelete = (spec: VSpecifications) => {
+        setSelectedSpec(spec);
+        (document.getElementById('delete_specs_modal') as HTMLDialogElement)?.showModal();
+    }
+
     return (
         <div className='bg-slate-200 min-h-screen'>
             <div className='card mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
@@ -66,7 +79,7 @@ const VehicleSpecificationsTable = () => {
                                 <th className="px-4 py-2 text-left text-text-light">Seating Capacity</th>
                                 <th className="px-4 py-2 text-left text-text-light">Color</th>
                                 <th className="px-4 py-2 text-left text-text-light">Features</th>
-                                <th className="px-4 py-2 text-left text-text-light">Image</th>
+                                <th className="px-4 py-2 text-left text-text-light">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,8 +95,9 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{spec.seating_capacity}</td>
                                     <td className="px-4 py-2">{spec.color}</td>
                                     <td className="px-4 py-2">{spec.features}</td>
-                                    <td className="px-4 py-2 min-w-35 max-w-35 h-24">
-                                        {spec.image_url && <img src={spec.image_url} alt={`${spec.model}`} className="w-full h-full rounded-md object-cover" />}
+                                    <td className='flex gap-4'>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={handleEdit}>Edit</button>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDelete(spec)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -146,6 +160,26 @@ const VehicleSpecificationsTable = () => {
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <CreateVehicleForm />
+                </div>
+            </dialog>
+
+            {/* edit_specs_modal */}
+            <dialog id="edit_specs_modal" className='modal'>
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <EditSpecsForm />
+                </div>
+            </dialog>
+
+            {/* delete_specs_modal */}
+            <dialog id="delete_specs_modal" className='modal'>
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <DeleteSpecsForm spec={selectedSpec} modalId="delete_specs_modal" />
                 </div>
             </dialog>
         </div>

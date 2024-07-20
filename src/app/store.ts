@@ -15,6 +15,7 @@ import userSlice from "../features/users/userSlice";
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist: ['user'], // only user will be persisted
 }
 
 // combine reducers
