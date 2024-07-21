@@ -1,30 +1,30 @@
+import { TicketAPI } from "../../../../features/Tickets/AllTickets";
 import { Toaster, toast } from 'sonner';
-import { vehiclesTableAPI } from '../../../../features/vehicles/vehicleTable';
-import { Tvehicles } from '../../../../features/vehicles/vehicleTable';
-
-interface DeleteVehicleFormProps {
-    vehicle: Tvehicles | null;
+import { TypeTicket } from "../../../../features/Tickets/AllTickets";
+interface DeleteUserTicketProps {
+    ticket: TypeTicket | null;
     modalId: string;
 }
 
-const DeleteVehicleForm = ({ vehicle, modalId }: DeleteVehicleFormProps) => {
-    const [deleteVehicle] = vehiclesTableAPI.useDeleteVehiclesTableMutation();
+const DeleteUserTicket = ({ ticket, modalId  }: DeleteUserTicketProps) => {
+    const [deleteTicket] = TicketAPI.useDeleteTicketMutation();
 
     const handleDelete = async () => {
-        if (vehicle) {
+        if (ticket) {
             try {
-                await deleteVehicle(vehicle.vehicle_id).unwrap();
-                toast.success('Vehicle deleted successfully!');
+                await deleteTicket(ticket.ticket_id).unwrap();
+                toast.success('Ticket deleted successfully!');
                 (document.getElementById(modalId) as HTMLDialogElement)?.close();
             } catch (err) {
-                toast.error('Failed to delete vehicle.');
+                toast.error('Failed to delete ticket.');
             }
         }
     };
 
     const handleCloseModal = () => {
-        (document.getElementById(modalId) as HTMLDialogElement)?.close();
         toast.warning('Deletion cancelled');
+        
+        (document.getElementById(modalId) as HTMLDialogElement)?.close();
     };
 
     return (
@@ -40,23 +40,27 @@ const DeleteVehicleForm = ({ vehicle, modalId }: DeleteVehicleFormProps) => {
                 }}
             />
             <h3 className='text-center text-base lg:text-lg py-3 text-webcolor font-semibold'>
-                Are you sure you want to delete the following vehicle?
+                Are you sure you want to delete the following ticket?
             </h3>
-            {vehicle && (
+            {ticket && (
                 <div>
                     <table className='table-auto m-auto w-full lg:w-[80%]'>
                         <tbody>
                             <tr>
                                 <td className='border px-4 py-1'>ID</td>
-                                <td className='border px-4 py-1'>{vehicle.vehicle_id}</td>
+                                <td className='border px-4 py-1'>{ticket.ticket_id}</td>
                             </tr>
                             <tr>
-                                <td className='border px-4 py-1'>Rental Rate</td>
-                                <td className='border px-4 py-1'>{vehicle.rental_rate}</td>
+                                <td className='border px-4 py-1'>Subject</td>
+                                <td className='border px-4 py-1'>{ticket.subject}</td>
                             </tr>
                             <tr>
-                                <td className='border px-4 py-1'>Availability</td>
-                                <td className='border px-4 py-1'>{vehicle.availability}</td>
+                                <td className='border px-4 py-1'>Description</td>
+                                <td className='border px-4 py-1'>{ticket.description}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Status</td>
+                                <td className='border px-4 py-1'>{ticket.status}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -74,4 +78,4 @@ const DeleteVehicleForm = ({ vehicle, modalId }: DeleteVehicleFormProps) => {
     );
 };
 
-export default DeleteVehicleForm;
+export default DeleteUserTicket;

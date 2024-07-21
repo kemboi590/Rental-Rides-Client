@@ -111,8 +111,8 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{spec.color}</td>
                                     <td className="px-4 py-2">{spec.features}</td>
                                     <td className='flex gap-4'>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEditSpec(spec)}>Edit</button>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDeleteSpec(spec)}>Delete</button>
+                                        <button className="btn bg-blue-500 text-text-light hover:text-black" onClick={() => handleEditSpec(spec)}>Edit</button>
+                                        <button className="btn bg-red-500 text-text-light hover:text-black" onClick={() => handleDeleteSpec(spec)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -149,8 +149,8 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{vehicle.rental_rate}</td>
                                     <td className="px-4 py-2">{vehicle.availability ? 'Available' : 'Not Available'}</td>
                                     <td className='flex gap-4'>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEditVehicle(vehicle)}>Edit</button>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDeleteVehicle(vehicle)}>Delete</button>
+                                        <button className="btn bg-blue-500 text-text-light hover:text-black" onClick={() => handleEditVehicle(vehicle)}>Edit</button>
+                                        <button className="btn bg-red-500 text-text-light hover:text-black" onClick={() => handleDeleteVehicle(vehicle)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}

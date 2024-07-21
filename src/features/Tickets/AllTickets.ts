@@ -22,15 +22,15 @@ export const TicketAPI = createApi({
         }),
         createTicket: builder.mutation<TypeTicket, Partial<TypeTicket>>({
             query: (newTicket) => ({
-                url: 'supporttickets/users/all',
+                url: 'support',
                 method: 'POST',
                 body: newTicket,
             }),
             invalidatesTags: ['Ticket'],
         }),
-        updateTicket: builder.mutation<TypeTicket, Partial<TypeTicket & { id: number }>>({
-            query: ({ id, ...rest }) => ({
-                url: `supporttickets/users/all/${id}`,
+        updateTicket: builder.mutation<TypeTicket, Partial<TypeTicket & { ticket_id: number }>>({
+            query: ({ ticket_id, ...rest }) => ({
+                url: `support/${ticket_id}`,
                 method: 'PUT',
                 body: rest,
             }),
@@ -38,13 +38,13 @@ export const TicketAPI = createApi({
         }),
         deleteTicket: builder.mutation<{ success: boolean; id: number }, number>({
             query: (id) => ({
-                url: `supporttickets/users/all/${id}`,
+                url: `support/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['Ticket'],
         }),
         getTicketById: builder.query<TypeTicket, number>({
-            query: (id) => `supporttickets/users/all/${id}`,
+            query: (id) => `support/${id}`,
             providesTags: ['Ticket'],
         }),
         getUserTickets: builder.query<TypeTicket[], number>({
