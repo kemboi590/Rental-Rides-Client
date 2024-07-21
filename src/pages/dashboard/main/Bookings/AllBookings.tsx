@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
-import { bookingVehicleAPI } from "../../../features/booking/bookingAPI";
-import { vehiclesAPI } from './../../../features/vehicles/Vehicles';
-import { usersAPI } from '../../../features/users/usersAPI';
+import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
+import { vehiclesAPI } from '../../../../features/vehicles/Vehicles';
+import { usersAPI } from '../../../../features/users/usersAPI';
 
 function AllBookings() {
   const page = void 0;

@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
-import { RootState } from '../../../app/store';
-import { bookingVehicleAPI } from '../../../features/booking/bookingAPI';
-import { vehiclesAPI } from '../../../features/vehicles/Vehicles';
+import { RootState } from '../../../../app/store';
+import { bookingVehicleAPI } from '../../../../features/booking/bookingAPI';
+import { vehiclesAPI } from '../../../../features/vehicles/Vehicles';
 
 const MyBookings = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -49,9 +49,9 @@ const MyBookings = () => {
 
     return (
         <div className='bg-slate-200 min-h-screen'>
-    
+
             <div className='mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
-            <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Bookings</h2>
+                <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Bookings</h2>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>

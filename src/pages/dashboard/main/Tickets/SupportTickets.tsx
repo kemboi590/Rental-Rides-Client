@@ -1,5 +1,5 @@
-import { TicketAPI } from "../../../features/Tickets/AllTickets";
-import { usersAPI } from "../../../features/users/usersAPI";
+import { TicketAPI } from "../../../../features/Tickets/AllTickets";
+import { usersAPI } from "../../../../features/users/usersAPI";
 
 function SupportTickets() {
   const page = undefined;

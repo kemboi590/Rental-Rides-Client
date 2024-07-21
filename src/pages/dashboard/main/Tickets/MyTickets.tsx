@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/store';
-import { TicketAPI } from "../../../features/Tickets/AllTickets";
+import { RootState } from '../../../../app/store';
+import { TicketAPI } from "../../../../features/Tickets/AllTickets";
 
 const MyTickets = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -27,7 +27,7 @@ const MyTickets = () => {
     return (
         <div className='bg-slate-200 min-h-screen'>
             <div className='mx-auto w-full rounded-md mb-5 border-2'>
-            <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Tickets</h2>
+                <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Tickets</h2>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>

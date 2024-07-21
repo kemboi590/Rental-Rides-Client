@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
-import { RootState } from '../../../app/store';
-import { bookingVehicleAPI } from '../../../features/booking/bookingAPI';
-import { vehiclesAPI } from '../../../features/vehicles/Vehicles';
+import { RootState } from '../../../../app/store';
+import { bookingVehicleAPI } from '../../../../features/booking/bookingAPI';
+import { vehiclesAPI } from '../../../../features/vehicles/Vehicles';
 import { toast, Toaster } from 'sonner';
 import { loadStripe } from '@stripe/stripe-js';
-import { paymentAPI } from '../../../features/payment/paymentAPI';
+import { paymentAPI } from '../../../../features/payment/paymentAPI';
 
 const stripePromise = loadStripe('pk_test_51O0yZQFnVjhMqK7vwrYX1wz3VThFWgoAEjafFFKVNSv0KQ76YMKbFW0dWDWOOs9DSXcp3zeNvRt14lVPO4C5FmyW00iLYryWNn');
 

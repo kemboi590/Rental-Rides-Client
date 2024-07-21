@@ -13,17 +13,17 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistedStore } from './app/store.ts';
 import Vehicles from './pages/dashboard/main/Vehicles.tsx';
-import AllBookings from './pages/dashboard/main/AllBookings.tsx';
-import SupportTickets from './pages/dashboard/main/SupportTickets.tsx';
+import AllBookings from './pages/dashboard/main/Bookings/AllBookings.tsx';
+import SupportTickets from './pages/dashboard/main/Tickets/SupportTickets.tsx';
 import Account from './pages/dashboard/main/Account.tsx';
-import BookingForm from './pages/dashboard/main/BookingForm.tsx';
+import BookingForm from './pages/dashboard/main/Bookings/BookingForm.tsx';
 import Profile from './pages/dashboard/main/Profile.tsx';
-import UserBookings from './pages/dashboard/main/Payments';
-import SuccessPayment from './pages/dashboard/main/Success.Payment.tsx';
-import PaymentFailed from './pages/dashboard/main/PaymentFailed.tsx';
+import UserBookings from './pages/dashboard/main/Payments/Payments.tsx';
+import SuccessPayment from './pages/dashboard/main/Payments/Success.Payment.tsx';
+import PaymentFailed from './pages/dashboard/main/Payments/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
-import MyBookings from './pages/dashboard/main/MyBookings';
-import MyTickets from './pages/dashboard/main/MyTickets.tsx';
+import MyBookings from './pages/dashboard/main/Bookings/MyBookings.tsx';
+import MyTickets from './pages/dashboard/main/Tickets/MyTickets.tsx';
 import ManageVehicle from './pages/dashboard/main/ManageVehicles/ManageVehicle.tsx';
 
 const router = createBrowserRouter([
