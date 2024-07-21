@@ -5,8 +5,6 @@ import * as yup from "yup";
 import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
-//V0DO01wfD8cOsXb9gNyVpIFc-kM
-
 
 type FormData = {
   manufacturer: string;
@@ -120,10 +118,10 @@ const CreateVehicle = () => {
         }}
       />
 
-      <div className="flex-col lg:flex-row-reverse lg:gap-16 h-full  max-w-full ">
-        <div className="bg-base-200 w-full shadow-2xl">
-          <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="card-body flex flex-row flex-wrap">
+      <div className="bg-base-200 w-full">
+        <h2 className="text-center font-bold text-xl lg:text-2xl pt-4">Create Vehicle Specification</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="form-control">
               <select className="select select-bordered bg-slate-200" {...register("manufacturer", { required: true })} onChange={handleManufacturerChange}>
                 <option disabled value="">Select Manufacturer</option>
@@ -170,7 +168,7 @@ const CreateVehicle = () => {
             </div>
 
             <div className="form-control">
-              <label className="form-control w-full max-w-xs">
+              <label className="form-control">
                 <select className="select select-bordered bg-slate-200" {...register("transmission")}>
                   <option disabled selected>Transmission</option>
                   <option>Automatic</option>
@@ -197,23 +195,15 @@ const CreateVehicle = () => {
             <div className="form-control">
               <input type="file" className="input input-bordered bg-slate-200" accept="image/*" name="vehicle_image" onChange={handleImageUpload} />
             </div>
+          </div>
 
-            <div className="mt-2 flex justify-center">
-              <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <span className="loading loading-spinner text-text-light"></span>
-                    <span> Processing...</span>
-                  </>
-                ) : (
-                  "Create Specification"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="mt-2 flex justify-center">
+            <button type="submit" className={`btn btn-primary ${isLoading ? "loading" : ""}`} disabled={isLoading}>
+              {isLoading ? "Creating..." : "Create"}
+            </button>
+          </div>
+        </form>
       </div>
-      {/* <CreateVehicleForm /> */}
     </div>
   );
 };

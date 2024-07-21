@@ -49,7 +49,8 @@ const VehicleSpecificationsTable = () => {
         return <div>No vehicle specifications</div>;
     }
 
-    const handleEdit = () => {
+    const handleEdit = (spec: VSpecifications) => {
+        setSelectedSpec(spec);
         (document.getElementById('edit_specs_modal') as HTMLDialogElement)?.showModal();
     }
 
@@ -96,7 +97,7 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{spec.color}</td>
                                     <td className="px-4 py-2">{spec.features}</td>
                                     <td className='flex gap-4'>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={handleEdit}>Edit</button>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEdit(spec)}>Edit</button>
                                         <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDelete(spec)}>Delete</button>
                                     </td>
                                 </tr>
@@ -163,18 +164,18 @@ const VehicleSpecificationsTable = () => {
                 </div>
             </dialog>
 
-            {/* edit_specs_modal */}
-            <dialog id="edit_specs_modal" className='modal'>
+            {/* Edit Specification Modal */}
+            <dialog id="edit_specs_modal" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <form method="dialog" className="relative">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <EditSpecsForm />
+                    <EditSpecsForm selectedSpec={selectedSpec} modalId="edit_specs_modal"/>
                 </div>
             </dialog>
 
-            {/* delete_specs_modal */}
-            <dialog id="delete_specs_modal" className='modal'>
+            {/* Delete Specification Modal */}
+            <dialog id="delete_specs_modal" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <form method="dialog" className="relative">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>

@@ -44,7 +44,7 @@ const Profile = () => {
         resolver: yupResolver(schema),
     });
 
-    useEffect(() => {
+    useEffect(() => { // Populate form fields with user data when available
         if (userData) {
             reset({
                 full_name: userData.full_name,
@@ -57,9 +57,9 @@ const Profile = () => {
     }, [userData, reset]);
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+        const file = event.target.files?.[0]; // Get the first file selected by the user
         if (file) {
-            setImage(file);
+            setImage(file); // Set the selected file to the state
         }
     };
 
@@ -68,22 +68,22 @@ const Profile = () => {
             setIsUpdating(true); // Show updating loader
             let imageUrl = formData.image_url || '';
             if (image) {
-                const formData = new FormData();
-                formData.append('file', image);
-                formData.append('upload_preset', 'upload'); // Replace with your Cloudinary upload preset
+                const formData = new FormData(); // Create a new FormData instance, form data is in form of key/value pairs ie formdata = {key: value}
+                formData.append('file', image); // Append the file to the FormData instance
+                formData.append('upload_preset', 'upload');// used to upload images to cloudinary
 
-                const response = await axios.post('https://api.cloudinary.com/v1_1/dl3ovuqjn/image/upload', formData);
+                const response = await axios.post('https://api.cloudinary.com/v1_1/dl3ovuqjn/image/upload', formData); // dl3ovuqjn is the cloudinary account name
 
                 if (response.status === 200) {
-                    imageUrl = response.data.secure_url;
+                    imageUrl = response.data.secure_url; // Get the image URL from the response
                 } else {
                     throw new Error('Failed to upload image');
                 }
             }
 
-            await updateUser({ id: user_id, ...formData, image_url: imageUrl }).unwrap();
+            await updateUser({ id: user_id, ...formData, image_url: imageUrl }).unwrap(); // Update user data ...formData is used to spread the form data which contains the updated user data
             setIsEditMode(false);
-            refetch();
+            refetch(); // Refetch user data to display updated data
             toast.success('User updated successfully');
         } catch (err) {
             console.error('Error updating user', err);

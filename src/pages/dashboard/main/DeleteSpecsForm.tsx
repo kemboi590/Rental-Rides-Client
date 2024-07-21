@@ -40,10 +40,11 @@ function DeleteSpecsForm({ spec, modalId }: DeleteSpecsFormProps) {
                 }}
             />
 
-            <h3>Are you sure you want to delete the following specification?</h3>
+            <h3 className='text-center text-base lg:text-lg py-3 text-webcolor font-semibold'>
+                Are you sure you want to delete the following specification?</h3>
             {spec && (
                 <div>
-                    <p>ID: {spec.vehicleSpec_id}</p>
+                    {/* <p>ID: {spec.vehicleSpec_id}</p>
                     <p>Manufacturer: {spec.manufacturer}</p>
                     <p>Model: {spec.model}</p>
                     <p>Year: {spec.year}</p>
@@ -52,11 +53,56 @@ function DeleteSpecsForm({ spec, modalId }: DeleteSpecsFormProps) {
                     <p>Transmission: {spec.transmission}</p>
                     <p>Seating Capacity: {spec.seating_capacity}</p>
                     <p>Color: {spec.color}</p>
-                    <p>Features: {spec.features}</p>
+                    <p>Features: {spec.features}</p> */}
+                    {/* put in a table */}
+                    <table className='table-auto m-auto w-full lg:w-[80%]'>
+                        <tbody>
+                            <tr>
+                                <td className='border px-4 py-1'>ID</td>
+                                <td className='border px-4 py-1'>{spec.vehicleSpec_id}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Manufacturer</td>
+                                <td className='border px-4 py-1'>{spec.manufacturer}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Model</td>
+                                <td className='border px-4 py-1'>{spec.model}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Year</td>
+                                <td className='border px-4 py-1'>{spec.year}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Fuel Type</td>
+                                <td className='border px-4 py-1'>{spec.fuel_type}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Engine Capacity</td>
+                                <td className='border px-4 py-1'>{spec.engine_capacity}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Transmission</td>
+                                <td className='border px-4 py-1'>{spec.transmission}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Seating Capacity</td>
+                                <td className='border px-4 py-1'>{spec.seating_capacity}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Color</td>
+                                <td className='border px-4 py-1'>{spec.color}</td>
+                            </tr>
+                            <tr>
+                                <td className='border px-4 py-1'>Features</td>
+                                <td className='border px-4 py-1'>{spec.features}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             )}
 
-            <div className='flex justify-around'>
+            <div className='flex justify-around  mt-4'>
                 {/* no btn */}
                 <button className="btn bg-webcolor text-text-light hover:text-black" onClick={handleCloseModal}>
                     No, cancel
