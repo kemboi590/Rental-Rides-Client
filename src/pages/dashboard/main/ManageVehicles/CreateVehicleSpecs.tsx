@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { VehicleSpecificationsAPI } from "../../../features/vehicles/vehicleSpecs";
+import { VehicleSpecificationsAPI } from "../../../../features/vehicles/vehicleSpecs";
 import { Toaster, toast } from 'sonner';
 import axios from 'axios';
 

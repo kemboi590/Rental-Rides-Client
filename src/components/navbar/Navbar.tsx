@@ -10,7 +10,6 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
     const image_url = user.user?.image_url;
-    console.log("image url:", image_url);
     const username = user.user?.name;
     const userRole = user.user?.role;
 

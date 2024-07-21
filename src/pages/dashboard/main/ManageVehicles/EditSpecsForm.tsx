@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { VSpecifications } from '../../../features/vehicles/vehicleSpecs';
-import { VehicleSpecificationsAPI } from '../../../features/vehicles/vehicleSpecs';
+import { VSpecifications } from '../../../../features/vehicles/vehicleSpecs';
+import { VehicleSpecificationsAPI } from '../../../../features/vehicles/vehicleSpecs';
 import { Toaster, toast } from 'sonner';
 import { useState, useEffect } from 'react';
 
@@ -51,7 +51,9 @@ const EditSpecsForm = ({ selectedSpec, modalId }: EditSpecsFormProps) => {
       setIsUpdating(true); // Show updating loader
       await updateVehicleSpecifications({ id, ...data }).unwrap();
       toast.success('Specification updated successfully');
-      (document.getElementById(modalId) as HTMLDialogElement).close();
+      setTimeout(() => {
+        (document.getElementById(modalId) as HTMLDialogElement)?.close();
+      }, 1000);
     } catch (error) {
       console.error(error);
       toast.error('Failed to update specification');
@@ -60,9 +62,11 @@ const EditSpecsForm = ({ selectedSpec, modalId }: EditSpecsFormProps) => {
     }
   };
 
-  const handleCloseModal = (event:React.MouseEvent<HTMLButtonElement>) => {
+  const handleCloseModal = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    (document.getElementById(modalId) as HTMLDialogElement).close();
+  setTimeout(() => {
+    (document.getElementById(modalId) as HTMLDialogElement)?.close();
+  }, 1000);
     toast.warning('Update cancelled');
   };
 

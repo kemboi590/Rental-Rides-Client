@@ -1,5 +1,5 @@
-import { VSpecifications } from '../../../features/vehicles/vehicleSpecs';
-import { VehicleSpecificationsAPI } from '../../../features/vehicles/vehicleSpecs';
+import { VSpecifications } from '../../../../features/vehicles/vehicleSpecs';
+import { VehicleSpecificationsAPI } from '../../../../features/vehicles/vehicleSpecs';
 import { Toaster, toast } from 'sonner';
 
 interface DeleteSpecsFormProps {
@@ -15,7 +15,9 @@ function DeleteSpecsForm({ spec, modalId }: DeleteSpecsFormProps) {
         try {
             await deleteVehicleSpecifications(id).unwrap();
             toast.success('Specification deleted successfully');
-            (document.getElementById(modalId) as HTMLDialogElement).close();
+            setTimeout(() => {
+                (document.getElementById(modalId) as HTMLDialogElement).close();
+            }, 1000);
         } catch (error) {
             console.error(error);
             toast.error('Failed to delete specification');
@@ -23,8 +25,10 @@ function DeleteSpecsForm({ spec, modalId }: DeleteSpecsFormProps) {
     };
 
     const handleCloseModal = () => {
-        (document.getElementById(modalId) as HTMLDialogElement).close();
         toast.warning('Deletion cancelled');
+        setTimeout(() => {
+            (document.getElementById(modalId) as HTMLDialogElement).close();
+        }, 1000);
     };
 
     return (
@@ -44,17 +48,6 @@ function DeleteSpecsForm({ spec, modalId }: DeleteSpecsFormProps) {
                 Are you sure you want to delete the following specification?</h3>
             {spec && (
                 <div>
-                    {/* <p>ID: {spec.vehicleSpec_id}</p>
-                    <p>Manufacturer: {spec.manufacturer}</p>
-                    <p>Model: {spec.model}</p>
-                    <p>Year: {spec.year}</p>
-                    <p>Fuel Type: {spec.fuel_type}</p>
-                    <p>Engine Capacity: {spec.engine_capacity}</p>
-                    <p>Transmission: {spec.transmission}</p>
-                    <p>Seating Capacity: {spec.seating_capacity}</p>
-                    <p>Color: {spec.color}</p>
-                    <p>Features: {spec.features}</p> */}
-                    {/* put in a table */}
                     <table className='table-auto m-auto w-full lg:w-[80%]'>
                         <tbody>
                             <tr>

@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { VehicleSpecificationsAPI } from '../../../features/vehicles/vehicleSpecs';
-import { vehiclesTableAPI } from '../../../features/vehicles/vehicleTable';
+import { VehicleSpecificationsAPI } from '../../../../features/vehicles/vehicleSpecs';
+import { vehiclesTableAPI } from '../../../../features/vehicles/vehicleTable';
 import CreateVehicle from './CreateVehicleSpecs';
 import CreateVehicleForm from './CreateVehicleForm';
 import EditSpecsForm from './EditSpecsForm';
 import DeleteSpecsForm from './DeleteSpecsForm';
-import { VSpecifications } from '../../../features/vehicles/vehicleSpecs';
+import EditVehicleForm from './EditVehicleForm';
+import DeleteVehicleForm from './DeleteVehicleForm';
+import { VSpecifications } from '../../../../features/vehicles/vehicleSpecs';
+import { Tvehicles } from '../../../../features/vehicles/vehicleTable';
 
 const VehicleSpecificationsTable = () => {
     const { data: vehicleSpecsData = [], isLoading: vehicleSpecsLoading, error: vehicleSpecsError } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery(undefined, {
@@ -19,6 +22,7 @@ const VehicleSpecificationsTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 5;
     const [selectedSpec, setSelectedSpec] = useState<VSpecifications | null>(null);
+    const [selectedVehicle, setSelectedVehicle] = useState<Tvehicles | null>(null);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -49,15 +53,25 @@ const VehicleSpecificationsTable = () => {
         return <div>No vehicle specifications</div>;
     }
 
-    const handleEdit = (spec: VSpecifications) => {
+    const handleEditSpec = (spec: VSpecifications) => {
         setSelectedSpec(spec);
         (document.getElementById('edit_specs_modal') as HTMLDialogElement)?.showModal();
-    }
+    };
 
-    const handleDelete = (spec: VSpecifications) => {
+    const handleDeleteSpec = (spec: VSpecifications) => {
         setSelectedSpec(spec);
         (document.getElementById('delete_specs_modal') as HTMLDialogElement)?.showModal();
-    }
+    };
+
+    const handleEditVehicle = (vehicle: Tvehicles) => {
+        setSelectedVehicle(vehicle);
+        (document.getElementById('edit_vehicle_modal') as HTMLDialogElement)?.showModal();
+    };
+
+    const handleDeleteVehicle = (vehicle: Tvehicles) => {
+        setSelectedVehicle(vehicle);
+        (document.getElementById('delete_vehicle_modal') as HTMLDialogElement)?.showModal();
+    };
 
     return (
         <div className='bg-slate-200 min-h-screen'>
@@ -97,8 +111,8 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{spec.color}</td>
                                     <td className="px-4 py-2">{spec.features}</td>
                                     <td className='flex gap-4'>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEdit(spec)}>Edit</button>
-                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDelete(spec)}>Delete</button>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEditSpec(spec)}>Edit</button>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDeleteSpec(spec)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -124,6 +138,7 @@ const VehicleSpecificationsTable = () => {
                                 <th className="px-4 py-2 text-left text-text-light">Vehicle Specification ID</th>
                                 <th className="px-4 py-2 text-left text-text-light">Rental Rate</th>
                                 <th className="px-4 py-2 text-left text-text-light">Availability</th>
+                                <th className="px-4 py-2 text-left text-text-light">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,6 +148,10 @@ const VehicleSpecificationsTable = () => {
                                     <td className="px-4 py-2">{vehicle.vehicleSpec_id}</td>
                                     <td className="px-4 py-2">{vehicle.rental_rate}</td>
                                     <td className="px-4 py-2">{vehicle.availability ? 'Available' : 'Not Available'}</td>
+                                    <td className='flex gap-4'>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleEditVehicle(vehicle)}>Edit</button>
+                                        <button className="btn bg-webcolor text-text-light hover:text-black" onClick={() => handleDeleteVehicle(vehicle)}>Delete</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -170,7 +189,7 @@ const VehicleSpecificationsTable = () => {
                     <form method="dialog" className="relative">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <EditSpecsForm selectedSpec={selectedSpec} modalId="edit_specs_modal"/>
+                    <EditSpecsForm selectedSpec={selectedSpec} modalId="edit_specs_modal" />
                 </div>
             </dialog>
 
@@ -181,6 +200,26 @@ const VehicleSpecificationsTable = () => {
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <DeleteSpecsForm spec={selectedSpec} modalId="delete_specs_modal" />
+                </div>
+            </dialog>
+
+            {/* Edit Vehicle Modal */}
+            <dialog id="edit_vehicle_modal" className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <EditVehicleForm vehicle={selectedVehicle} modalId="edit_vehicle_modal" />
+                </div>
+            </dialog>
+
+            {/* Delete Vehicle Modal */}
+            <dialog id="delete_vehicle_modal" className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <DeleteVehicleForm vehicle={selectedVehicle} modalId="delete_vehicle_modal" />
                 </div>
             </dialog>
         </div>

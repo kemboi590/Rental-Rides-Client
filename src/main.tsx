@@ -24,7 +24,7 @@ import PaymentFailed from './pages/dashboard/main/PaymentFailed.tsx';
 import Error from './pages/Error.tsx';
 import MyBookings from './pages/dashboard/main/MyBookings';
 import MyTickets from './pages/dashboard/main/MyTickets.tsx';
-import ManageVehicle from './pages/dashboard/main/ManageVehicle.tsx';
+import ManageVehicle from './pages/dashboard/main/ManageVehicles/ManageVehicle.tsx';
 
 const router = createBrowserRouter([
   {

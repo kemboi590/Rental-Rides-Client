@@ -27,17 +27,17 @@ export const vehiclesTableAPI = createApi({
             }),
             invalidatesTags: ['vehiclesTable'],
         }),
-        updateVehiclesTable: builder.mutation<Tvehicles, Partial<Tvehicles & { vehicleSpec_id: number }>>({
-            query: ({ vehicleSpec_id, ...rest }) => ({
-                url: `vehicles/${vehicleSpec_id}`,
+        updateVehiclesTable: builder.mutation<Tvehicles, Partial<Tvehicles & { vehicle_id: number }>>({
+            query: ({ vehicle_id, ...rest }) => ({
+                url: `vehicles/${vehicle_id}`,
                 method: 'PUT',
                 body: rest,
             }),
             invalidatesTags: ['vehiclesTable'],
         }),
-        deleteVehiclesTable: builder.mutation<{ success: boolean; vehicleSpec_id: number }, number>({
-            query: (vehicleSpec_id) => ({
-                url: `vehicles/${vehicleSpec_id}`,
+        deleteVehiclesTable: builder.mutation<{ success: boolean; vehicle_id: number }, number>({
+            query: (vehicle_id) => ({
+                url: `vehicles/${vehicle_id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['vehiclesTable'],
