@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../../app/store';
 import { TicketAPI } from "../../../../features/Tickets/AllTickets";
 import { useState } from 'react';
-import CreateTicket from './CreateTicket'; // Import your CreateTicket component
-import EditUserTicket from './EditUserTicket'; // Import your EditUserTicket component
-import DeleteUserTicket from './DeleteUserTicket'; // Import your DeleteUserTicket component
+import CreateTicket from './CreateTicket';
+import EditUserTicket from './EditUserTicket';
+import DeleteUserTicket from './DeleteUserTicket';
+import { TypeTicket } from '../../../../features/Tickets/AllTickets';
 
 const MyTickets = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -15,9 +16,20 @@ const MyTickets = () => {
         refetchOnMountOrArgChange: true,
     });
 
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // State to manage create modal visibility
-    const [editTicket, setEditTicket] = useState<any>(null); // State to manage edit modal visibility and data
-    const [deleteTicket, setDeleteTicket] = useState<any>(null); // State to manage delete modal visibility and data
+
+    const [editTicket, setEditTicket] = useState<TypeTicket | null>(null); 
+    const [deleteTicket, setDeleteTicket] = useState<TypeTicket | null>(null);
+
+    const handleDeleteTicket = (ticket: TypeTicket) => {
+        setDeleteTicket(ticket);
+        (document.getElementById('delete_ticket_modal') as HTMLDialogElement)?.showModal();
+    }
+
+    const handleEditTicket = (ticket: TypeTicket) => {
+        setEditTicket(ticket);
+        (document.getElementById('edit_ticket_modal') as HTMLDialogElement)?.showModal();
+    }
+
 
     if (ticketLoading) {
         return <div>Loading...</div>;
@@ -37,8 +49,7 @@ const MyTickets = () => {
                 <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Tickets</h2>
                 <div className="flex justify-between items-center px-4 py-2">
                     <button
-                        className="btn bg-webcolor text-text-light hover:text-black"
-                        onClick={() => setIsCreateModalOpen(true)} // Open the create modal
+                        className="btn bg-webcolor text-text-light hover:text-black" onClick={() => (document.getElementById('create_ticket') as HTMLDialogElement)?.showModal()}
                     >
                         Create Ticket
                     </button>
@@ -64,13 +75,13 @@ const MyTickets = () => {
                                     <td className="px-4 py-2">
                                         <button
                                             className="btn bg-blue-500 text-white mr-2"
-                                            onClick={() => setEditTicket(ticket)} // Open the edit modal
+                                            onClick={() => handleEditTicket(ticket)} // Open the edit modal
                                         >
                                             Edit
                                         </button>
                                         <button
                                             className="btn bg-red-500 text-white"
-                                            onClick={() => setDeleteTicket(ticket)} // Open the delete modal
+                                            onClick={() => handleDeleteTicket(ticket)} // Open the delete modal
                                         >
                                             Delete
                                         </button>
@@ -83,55 +94,37 @@ const MyTickets = () => {
             </div>
 
             {/* Create Ticket Modal */}
-            {isCreateModalOpen && (
-                <dialog className="modal" open>
-                    <div className="modal-box w-11/12 max-w-5xl">
-                        <form method="dialog" className="relative">
-                            <button
-                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                onClick={() => setIsCreateModalOpen(false)} // Close the modal
-                            >
-                                ✕
-                            </button>
-                        </form>
-                        <CreateTicket />
-                    </div>
-                </dialog>
-            )}
+
+            <dialog id='create_ticket' className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <CreateTicket />
+                </div>
+            </dialog>
+
 
             {/* Edit Ticket Modal */}
-            {editTicket && (
-                <dialog className="modal" open>
-                    <div className="modal-box w-11/12 max-w-5xl">
-                        <form method="dialog" className="relative">
-                            <button
-                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                onClick={() => setEditTicket(null)} // Close the modal
-                            >
-                                ✕
-                            </button>
-                        </form>
-                        <EditUserTicket ticket={editTicket} modalId="edit-ticket-modal" />
-                    </div>
-                </dialog>
-            )}
+
+            <dialog id='edit_ticket_modal' className="modal" >
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <EditUserTicket ticket={editTicket} modalId="edit_ticket_modal" />
+                </div>
+            </dialog>
 
             {/* Delete Ticket Modal */}
-            {deleteTicket && (
-                <dialog className="modal" open>
-                    <div className="modal-box w-11/12 max-w-5xl">
-                        <form method="dialog" className="relative">
-                            <button
-                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                onClick={() => setDeleteTicket(null)} // Close the modal
-                            >
-                                ✕
-                            </button>
-                        </form>
-                        <DeleteUserTicket ticket={deleteTicket} modalId="delete-ticket-modal" />
-                    </div>
-                </dialog>
-            )}
+            <dialog id='delete_ticket_modal' className="modal">
+                <div className="modal-box w-11/12 max-w-5xl">
+                    <form method="dialog" className="relative">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <DeleteUserTicket ticket={deleteTicket} modalId="delete_ticket_modal" />
+                </div>
+            </dialog>
         </div>
     );
 };

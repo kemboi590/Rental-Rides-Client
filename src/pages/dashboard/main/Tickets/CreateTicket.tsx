@@ -51,8 +51,8 @@ const CreateTicket = () => {
                     },
                 }}
             />
-            <h3 className="text-lg font-bold mb-4">Create a New Ticket</h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <h3 className="text-center font-bold text-xl lg:text-2xl pt-4">Create a New Ticket</h3>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[80%] m-auto">
                 <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700">Subject</label>
                     <input
@@ -73,6 +73,7 @@ const CreateTicket = () => {
                     />
                     {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
                 </div>
+                
                 <div className="flex justify-end">
                     <button
                         type="submit"

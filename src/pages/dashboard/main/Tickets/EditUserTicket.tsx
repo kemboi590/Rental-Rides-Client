@@ -73,7 +73,7 @@ const EditUserTicket = ({ ticket, modalId }: EditTicketFormProps) => {
                 }}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='flex flex-wrap gap-4'>
+                <div className='flex flex-col w-3/4 m-auto'>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subject">
                             Subject
@@ -93,22 +93,10 @@ const EditUserTicket = ({ ticket, modalId }: EditTicketFormProps) => {
                         <textarea
                             id="description"
                             {...register('description')}
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.description ? 'border-red-500' : ''}`}
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none ${errors.description ? 'border-red-500' : ''}`}
                         />
                         {errors.description && <p className="text-red-500 text-xs italic">{errors.description.message}</p>}
                     </div>
-                    {/* <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
-                            Status
-                        </label>
-                        <input
-                            id="status"
-                            type="text"
-                            {...register('status')}
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.status ? 'border-red-500' : ''}`}
-                        />
-                        {errors.status && <p className="text-red-500 text-xs italic">{errors.status.message}</p>}
-                    </div> */}
                 </div>
                 <div className="flex items-center justify-between">
                     <button className="btn bg-webcolor text-text-light hover:text-black" onClick={handleCloseModal}>
