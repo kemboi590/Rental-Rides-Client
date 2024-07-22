@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Toaster, toast } from 'sonner';
@@ -10,7 +10,7 @@ import { bookingVehicleAPI } from "../../../../features/booking/bookingAPI";
 import { vehiclesAPI } from "../../../../features/vehicles/Vehicles";
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
-
+import dayjs from 'dayjs';
 
 type BookingFormData = {
   booking_date: Date;
@@ -19,8 +19,11 @@ type BookingFormData = {
 };
 
 const schema = yup.object().shape({
-  booking_date: yup.date().required("Booking date is required"),
-  return_date: yup.date().required("Return date is required"),
+  booking_date: yup.date().required("Booking date is required").min(new Date(), "Booking date cannot be in the past"),
+  return_date: yup.date().required("Return date is required").when('booking_date', {
+    is: (booking_date: Date) => !!booking_date,
+    then: (schema) => schema.min(yup.ref('booking_date'), "Return date cannot be before booking date"),
+  })
 });
 
 const BookingForm = () => {
@@ -30,7 +33,6 @@ const BookingForm = () => {
   const parsedVehicleId = vehicle_id ? parseInt(vehicle_id, 10) : NaN;
 
   if (isNaN(parsedVehicleId)) {
-    console.error("Invalid vehicle ID");
     return <div>Invalid vehicle ID</div>;
   }
 
@@ -41,21 +43,35 @@ const BookingForm = () => {
   const externalData = {
     user_id: user.user?.userID,
     vehicle_id: parsedVehicleId,
-    total_amount: vehicleData?.rental_rate
   };
 
-  const { register, handleSubmit, formState: { errors } } = useForm<BookingFormData>({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, formState: { errors }, control } = useForm<BookingFormData>({ resolver: yupResolver(schema) });
+
+  const booking_date = useWatch({ control, name: "booking_date" });
+  const return_date = useWatch({ control, name: "return_date" });
+
+  const calculateTotalAmount = () => {
+    if (booking_date && return_date) {
+      const bookingDate = dayjs(booking_date);
+      const returnDate = dayjs(return_date);
+      const numberOfDays = returnDate.diff(bookingDate, 'day') + 1;
+      return numberOfDays * Number(vehicleData?.rental_rate);
+    }
+    return '😋🤑';
+  };
+
+  const totalAmount = calculateTotalAmount();
 
   const onSubmit: SubmitHandler<BookingFormData> = async (formData) => {
     const dataToSubmit = {
       ...externalData,
-      ...formData
+      ...formData,
+      total_amount: totalAmount.toString(),
     };
 
     try {
       setIsSubmitting(true);
-      const response = await bookingVehicle(dataToSubmit).unwrap();
-      console.log("Booking created successfully", response);
+     await bookingVehicle(dataToSubmit).unwrap();
       toast.success("Booking created successfully");
 
       setTimeout(() => {
@@ -63,7 +79,6 @@ const BookingForm = () => {
       }, 1000);
 
     } catch (err) {
-      console.error("Error creating booking", err);
       toast.error("Error creating booking");
     } finally {
       setIsSubmitting(false);
@@ -110,6 +125,7 @@ const BookingForm = () => {
                 <p className="text-lg"><strong>Seating Capacity:</strong> {vehicleData.vehicle_specifications.seating_capacity}</p>
                 <p className="text-lg"><strong>Transmission:</strong> {vehicleData.vehicle_specifications.transmission}</p>
                 <p className="text-base col-span-1 sm:col-span-2"><strong>Features:</strong> {vehicleData.vehicle_specifications.features}</p>
+                <p className="text-lg text-blue-600"><strong>You will pay:</strong> {totalAmount}</p>
               </div>
             </div>
           </div>
