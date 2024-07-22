@@ -11,11 +11,11 @@ import { VSpecifications } from '../../../../features/vehicles/vehicleSpecs';
 import { Tvehicles } from '../../../../features/vehicles/vehicleTable';
 
 const VehicleSpecificationsTable = () => {
-    const { data: vehicleSpecsData = [], isLoading: vehicleSpecsLoading, error: vehicleSpecsError } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery(undefined, {
+    const { data: vehicleSpecsData = [], isLoading: vehicleSpecsLoading  } = VehicleSpecificationsAPI.useGetVehicleSpecificationsQuery(undefined, {
         refetchOnMountOrArgChange: true,
     });
 
-    const { data: vehiclesData = [], isLoading: vehiclesLoading, error: vehiclesError } = vehiclesTableAPI.useGetVehiclesTableQuery(undefined, {
+    const { data: vehiclesData = [], isLoading: vehiclesLoading } = vehiclesTableAPI.useGetVehiclesTableQuery(undefined, {
         refetchOnMountOrArgChange: true,
     });
 
@@ -45,13 +45,16 @@ const VehicleSpecificationsTable = () => {
         return <div>Loading...</div>;
     }
 
-    if (vehicleSpecsError || vehiclesError) {
-        return <div>Error loading data</div>;
-    }
-
+    
     if (!vehicleSpecsData || vehicleSpecsData.length === 0) {
-        return <div>No vehicle specifications</div>;
+        return <div>No vehicle VehicleSpecifications
+            <CreateVehicle />
+            </div>
     }
+    
+    // if (vehicleSpecsError || vehiclesError) {
+    //     return <div>Error loading data</div>;
+    // }
 
     const handleEditSpec = (spec: VSpecifications) => {
         setSelectedSpec(spec);
