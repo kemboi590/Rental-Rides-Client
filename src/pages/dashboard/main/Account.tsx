@@ -12,7 +12,7 @@ function Account() {
         try {
             await updateUser({ id: userId, role: 'disabled' });
             toast.success('User disabled successfully');
-            refetchUsers(); 
+            refetchUsers();
         } catch (error) {
             console.error('Error disabling user', error);
             toast.error('Error disabling user');
@@ -46,6 +46,8 @@ function Account() {
                 }}
             />
             <div className="overflow-x-auto text-base-content rounded-lg p-4">
+                <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">All User Accounts</h2>
+
                 <table className="table table-zebra">
                     <thead>
                         <tr>

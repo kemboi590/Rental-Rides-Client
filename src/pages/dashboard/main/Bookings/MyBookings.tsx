@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { RootState } from '../../../../app/store';
 import { bookingVehicleAPI } from '../../../../features/booking/bookingAPI';
 import { vehiclesAPI } from '../../../../features/vehicles/Vehicles';
+import { Link } from 'react-router-dom';
 
 const MyBookings = () => {
     const user = useSelector((state: RootState) => state.user);
@@ -44,14 +45,19 @@ const MyBookings = () => {
     }
 
     if (!bookingData || bookingData.length === 0) {
-        return <div>No bookings</div>;
+        return <div className='flex flex-col'>
+        <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">No Booking History</h2>
+        <button>
+         <Link to='/dashboard/vehicles' className='btn bg-webcolor text-text-light hover:text-black'>Book a Vehicle</Link>
+        </button>
+      </div>;
     }
 
     return (
         <div className='bg-slate-200 min-h-screen'>
 
             <div className='mx-auto bg-slate-200 w-full rounded-md mb-5 border-2'>
-                <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Your Bookings</h2>
+                <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">My Bookings History</h2>
                 <div className="overflow-x-auto">
                     <table className="table-auto w-full">
                         <thead>

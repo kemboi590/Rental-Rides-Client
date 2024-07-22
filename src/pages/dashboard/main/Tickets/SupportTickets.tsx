@@ -28,6 +28,8 @@ function SupportTickets() {
 
   return (
     <div className="overflow-x-auto">
+      <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">All Support Ticlets</h2>
+
       {(ticketsLoading || usersLoading) && <div>Loading...</div>}
       {(ticketsError || usersError) && <div>Error loading data</div>}
       {tickets && tickets.length === 0 && <div>No support tickets</div>}

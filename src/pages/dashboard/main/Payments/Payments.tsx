@@ -7,6 +7,7 @@ import { vehiclesAPI } from '../../../../features/vehicles/Vehicles';
 import { toast, Toaster } from 'sonner';
 import { loadStripe } from '@stripe/stripe-js';
 import { paymentAPI } from '../../../../features/payment/paymentAPI';
+import { Link } from 'react-router-dom';
 
 const stripePromise = loadStripe('pk_test_51O0yZQFnVjhMqK7vwrYX1wz3VThFWgoAEjafFFKVNSv0KQ76YMKbFW0dWDWOOs9DSXcp3zeNvRt14lVPO4C5FmyW00iLYryWNn');
 
@@ -91,7 +92,12 @@ const UserBookings = () => {
   }
 
   if (!bookingData || bookingData.length === 0) {
-    return <div>No bookings</div>;
+    return <div className='flex flex-col'>
+      <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">No Payment History</h2>
+      <button>
+       <Link to='/dashboard/vehicles' className='btn bg-webcolor text-text-light hover:text-black'>Book a Vehicle</Link>
+      </button>
+    </div>;
   }
 
   return (
@@ -107,6 +113,8 @@ const UserBookings = () => {
         }}
       />
       <div className='card shadow-xl mx-auto bg-slate-200 w-full rounded-md mb-10 border-2'>
+      <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">My Payment History</h2>
+
         <div className="overflow-x-auto">
           <table className="table-auto w-full">
             <thead>
