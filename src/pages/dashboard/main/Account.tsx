@@ -4,7 +4,7 @@ import { Toaster, toast } from 'sonner';
 
 function Account() {
   const { data: usersData, isLoading: usersLoading, error: usersError, refetch: refetchUsers } = usersAPI.useGetUsersQuery();
-  const [isDisabling, setIsDisabling] = useState<number | null>(null);
+  const [isUpdatingRole, setIsUpdatingRole] = useState<number | null>(null);
   const [updateUser] = usersAPI.useUpdateUserMutation();
 
   const [filters, setFilters] = useState({
@@ -29,17 +29,17 @@ function Account() {
     });
   };
 
-  const handleDisableUser = async (userId: number) => {
-    setIsDisabling(userId);
+  const handleRoleChange = async (userId: number, newRole: "user" | "admin") => {
+    setIsUpdatingRole(userId);
     try {
-      await updateUser({ id: userId, role: 'disabled' });
-      toast.success('User disabled successfully');
+      await updateUser({ id: userId, role: newRole });
+      toast.success('User role updated successfully');
       refetchUsers();
     } catch (error) {
-      console.error('Error disabling user', error);
-      toast.error('Error disabling user');
+      console.error('Error updating user role', error);
+      toast.error('Error updating user role');
     } finally {
-      setIsDisabling(null);
+      setIsUpdatingRole(null);
     }
   };
 
@@ -116,6 +116,7 @@ function Account() {
               <th>Email</th>
               <th>Contact Phone</th>
               <th>Address</th>
+              <th>Role</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -128,18 +129,29 @@ function Account() {
                 <td>{user.contact_phone}</td>
                 <td>{user.address}</td>
                 <td>
+                  <select
+                    className="select select-bordered"
+                    value={user.role}
+                    onChange={(e) => handleRoleChange(user.id, e.target.value as "user" | "admin")}
+                    disabled={isUpdatingRole === user.id}
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </td>
+                <td>
                   <button
                     className="btn bg-webcolor text-text-light hover:text-black border-none"
-                    onClick={() => handleDisableUser(user.id)}
-                    disabled={isDisabling === user.id}
+                    onClick={() => handleRoleChange(user.id, user.role === 'user' ? 'admin' : 'user')}
+                    disabled={isUpdatingRole === user.id}
                   >
-                    {isDisabling === user.id ? (
+                    {isUpdatingRole === user.id ? (
                       <div className='flex items-center'>
                         <span className="loading loading-spinner text-text-light"></span>
-                        <span> Disabling...</span>
+                        <span> Updating...</span>
                       </div>
                     ) : (
-                      "Disable"
+                      "Change Role"
                     )}
                   </button>
                 </td>

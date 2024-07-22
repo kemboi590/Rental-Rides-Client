@@ -7,7 +7,7 @@ export interface TUser {
     contact_phone: string;
     address: string;
     image_url: string;
-    role: "user" | "admin" | "both" | "disabled" | null;
+    role: "user" | "admin";
     password: string;
 }
 

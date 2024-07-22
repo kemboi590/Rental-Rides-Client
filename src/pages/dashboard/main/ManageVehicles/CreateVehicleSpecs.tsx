@@ -191,7 +191,7 @@ const CreateVehicle = () => {
               <p className="text-red-500">{errors.features?.message}</p>
             </div>
 
-            {/* Image upload input */}
+            {/* Imag e upload input */}
             <div className="form-control">
               <input type="file" className="input input-bordered bg-slate-200" accept="image/*" name="vehicle_image" onChange={handleImageUpload} />
             </div>
