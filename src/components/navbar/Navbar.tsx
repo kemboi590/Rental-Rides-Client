@@ -4,14 +4,22 @@ import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { logOut } from "../../features/users/userSlice";
+import { usersAPI } from "../../features/users/usersAPI";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.user);
-    const image_url = user.user?.image_url;
+    // const image_url = user.user?.image_url;
     const username = user.user?.name;
+    const user_id = Number(user.user?.userID);
+    // console.log(user_id)
+    
     const userRole = user.user?.role;
+
+    const { data: userData } = usersAPI.useGetUserByIdQuery(user_id);
+    // console.log(userData.image_url);
+    const image_url = userData?.image_url;
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
