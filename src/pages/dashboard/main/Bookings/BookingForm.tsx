@@ -15,13 +15,12 @@ import { useNavigate } from "react-router-dom";
 type BookingFormData = {
   booking_date: Date;
   return_date: Date;
-  booking_status: string;
+  booking_status?: string;
 };
 
 const schema = yup.object().shape({
   booking_date: yup.date().required("Booking date is required"),
   return_date: yup.date().required("Return date is required"),
-  booking_status: yup.string().required("Booking status is required"),
 });
 
 const BookingForm = () => {
@@ -135,16 +134,6 @@ const BookingForm = () => {
                 </div>
               </div>
 
-              <div className="form-control">
-                <label htmlFor="booking_status" className="label">Booking Status</label>
-                <select id="booking_status" className="select select-bordered" {...register("booking_status")}>
-                  <option disabled value="">Select Booking Status</option>
-                  <option value="Confirmed">Confirmed</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
-                <p className="text-red-500">{errors.booking_status?.message}</p>
-              </div>
               <div className="form-control mt-4">
                 <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" >
                   {isSubmitting ? (
