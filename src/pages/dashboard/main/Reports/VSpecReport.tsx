@@ -54,7 +54,7 @@ const VSpecReport = () => {
                                 fill="#8884d8"
                                 label
                             >
-                                {colorData.map((entry, index) => (
+                                {colorData.map((_entry, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>

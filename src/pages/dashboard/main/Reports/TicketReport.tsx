@@ -97,7 +97,7 @@ const TicketReport = () => {
                 fill="#8884d8"
                 label
               >
-                {pieData.map((entry, index) => (
+                {pieData.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#82ca9d' : '#8884d8'} />
                 ))}
               </Pie>
