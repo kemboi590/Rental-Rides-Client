@@ -73,5 +73,12 @@ export const drawerData: DrawerData[] = [
         link: 'profile',
         adminOnly: false
     },
+    {
+        id: 9,
+        name: 'Report',
+        icon: Album,
+        link: 'report',
+        adminOnly: true
+    }
 ];
 

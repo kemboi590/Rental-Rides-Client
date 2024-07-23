@@ -28,7 +28,7 @@ export const TicketAPI = createApi({
             }),
             invalidatesTags: ['Ticket'],
         }),
-        updateTicket: builder.mutation<TypeTicket, Partial<TypeTicket & { ticket_id: number }>>({
+        updateTicket: builder.mutation({
             query: ({ ticket_id, ...rest }) => ({
                 url: `support/${ticket_id}`,
                 method: 'PUT',

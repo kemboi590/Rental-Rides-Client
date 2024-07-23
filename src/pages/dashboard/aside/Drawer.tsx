@@ -87,7 +87,7 @@ const Drawer = () => {
         </div>
         {/* Drawer items */}
         <div className="py-4 overflow-y-auto">
-          <ul className="space-y-2 font-medium">
+          <ul className="space-y-2 font-medium mb-8">
             {drawerData
               .filter(filterDrawerItems)
               .map((item) => (

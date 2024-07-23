@@ -5,12 +5,14 @@ import { usersAPI } from '../../../../features/users/usersAPI';
 
 function AllBookings() {
   const page = void 0;
-  const fetchDuration = 10000;
+  const fetchDuration = 100000;
 
   // Fetch bookings data
   const { data: bookings, isLoading: bookingLoading, error: bookingError } = bookingVehicleAPI.useGetBookingVehicleQuery(page, {
     pollingInterval: fetchDuration, refetchOnMountOrArgChange: true
   });
+
+  console.log(bookings);
 
   // Fetch vehicles data
   const { data: vehicleData, isLoading: vehicleLoading, error: vehicleError } = vehiclesAPI.useFetchCarSpecsQuery(page, {
@@ -41,7 +43,6 @@ function AllBookings() {
   // Function to get user full name by user_id
   const getUserFullName = (userId: number) => {
     if (usersData) {
-      console.log(usersData);
       const user = usersData.find(u => u.id === userId);
       if (user) {
         return user.full_name;

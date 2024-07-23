@@ -25,6 +25,7 @@ import Error from './pages/Error.tsx';
 import MyBookings from './pages/dashboard/main/Bookings/MyBookings.tsx';
 import MyTickets from './pages/dashboard/main/Tickets/MyTickets.tsx';
 import ManageVehicle from './pages/dashboard/main/ManageVehicles/ManageVehicle.tsx';
+import Reports from './pages/dashboard/main/Reports/Reports.tsx';
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: 'manage-vehicles',
         element: <ManageVehicle />
+      },
+      {
+        path: 'report',
+        element: <Reports />
       }
     ]
   }

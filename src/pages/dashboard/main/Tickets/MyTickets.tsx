@@ -12,10 +12,12 @@ const MyTickets = () => {
     const user_id = user.user?.userID ?? 0;
 
     // Fetch user-specific tickets data
-    const { data: ticketData, isLoading: ticketLoading, error: ticketError } = TicketAPI.useGetUserTicketsQuery(user_id, {
+    const { data: ticketData, isLoading: ticketLoading, error: ticketError, refetch: refetchTickets } = TicketAPI.useGetUserTicketsQuery(user_id, {
         refetchOnMountOrArgChange: true,
     });
 
+    // Update Ticket
+    const [updateTicket] = TicketAPI.useUpdateTicketMutation();
     const [editTicket, setEditTicket] = useState<TypeTicket | null>(null);
     const [deleteTicket, setDeleteTicket] = useState<TypeTicket | null>(null);
 
@@ -27,6 +29,15 @@ const MyTickets = () => {
     const handleEditTicket = (ticket: TypeTicket) => {
         setEditTicket(ticket);
         (document.getElementById('edit_ticket_modal') as HTMLDialogElement)?.showModal();
+    }
+
+    const handleReopenTicket = async (ticket: TypeTicket) => {
+        try {
+            await updateTicket({ ...ticket, status: 'Open' });
+            refetchTickets()
+        } catch (error) {
+            console.error('Error reopening ticket', error);
+        }
     }
 
     if (ticketLoading) {
@@ -67,8 +78,20 @@ const MyTickets = () => {
                                         <td className="px-4 py-2">{ticket.ticket_id}</td>
                                         <td className="px-4 py-2">{ticket.subject}</td>
                                         <td className="px-4 py-2">{ticket.description}</td>
-                                        <td className="px-4 py-2">{ticket.status}</td>
                                         <td className="px-4 py-2">
+                                            <span className={`inline-block px-2 py-1 rounded ${getStatusClassName(ticket.status)}`}>
+                                                {ticket.status}
+                                            </span>
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {ticket.status === 'Closed' ? (
+                                                <button
+                                                    className="btn bg-yellow-500 text-white mr-2"
+                                                    onClick={() => handleReopenTicket(ticket)} // Reopen ticket
+                                                >
+                                                    Reopen
+                                                </button>
+                                            ) : null}
                                             <button
                                                 className="btn bg-blue-500 text-white mr-2"
                                                 onClick={() => handleEditTicket(ticket)} // Open the edit modal
@@ -89,7 +112,6 @@ const MyTickets = () => {
                     ) : (
                         <div className="text-center p-4">
                             You currently have no tickets. Click the button above to create a ticket.
-
                         </div>
                     )}
                 </div>
@@ -128,6 +150,18 @@ const MyTickets = () => {
             </dialog>
         </div>
     );
+};
+
+// Utility function for status styling
+const getStatusClassName = (status: string) => {
+    switch (status) {
+        case 'Closed':
+            return 'bg-green-200 text-green-800';
+        case 'Open':
+            return 'bg-red-200 text-red-800'; 
+        default:
+            return '';
+    }
 };
 
 export default MyTickets;
