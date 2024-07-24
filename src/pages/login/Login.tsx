@@ -5,7 +5,7 @@ import * as yup from "yup";
 import Navbar from "../../components/navbar/Navbar";
 import authImage from "../../assets/images/auth/authimg.png";
 import { loginAPI, LoginFormData } from "../../features/login/loginAPI";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner';
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../features/users/userSlice";
@@ -99,7 +99,7 @@ const Login = () => {
             </div>
 
             <div className="form-control mt-2">
-              <a href="#" className="label-text-alt link link-hover">Don't have an account? Register</a>
+              <Link to="/register" className="label-text-alt link link-hover">Don't have an account? Register </Link>
             </div>
           </form>
         </div>

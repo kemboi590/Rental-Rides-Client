@@ -5,7 +5,7 @@ import * as yup from "yup"
 import Navbar from "../../components/navbar/Navbar"
 import authImage from "../../assets/images/auth/authimg.png"
 import { usersAPI } from "../../features/users/usersAPI"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'sonner'
 
 
@@ -111,7 +111,7 @@ const Register = () => {
             </div>
 
             <div className="form-control mt-2">
-              <a href="#" className="label-text-alt link link-hover">Already have an account? Login</a>
+            <Link to="/login" className="label-text-alt link link-hover">Already have an account? Login </Link>
             </div>
 
           </form>
