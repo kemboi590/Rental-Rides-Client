@@ -16,6 +16,20 @@ const VSpecReport = () => {
 
     const [colorData, setColorData] = useState<ChartData[]>([]);
     const [manufacturerData, setManufacturerData] = useState<ChartData[]>([]);
+    const [chartWidth, setChartWidth] = useState<number>(window.innerWidth < 768 ? 300 : 500);
+    const [chartHeight, setChartHeight] = useState<number>(window.innerWidth < 768 ? 250 : 300);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setChartWidth(window.innerWidth < 768 ? 300 : 500);
+            setChartHeight(window.innerWidth < 768 ? 250 : 300);
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Call the function to set the initial dimensions
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (!vehicleSpecsLoading && vehicleSpecsData.length > 0) {
@@ -37,13 +51,13 @@ const VSpecReport = () => {
     }
 
     return (
-        <div className='bg-slate-200 min-h-screen p-4'>
+        <div className='bg-slate-200 p-4'>
             <div className='card mx-auto bg-white w-full rounded-md mb-5 border-2 p-4'>
                 <h2 className="text-center text-xl mb-4 text-webcolor font-bold">Vehicle Specifications Report</h2>
-                <div className='flex flex-col gap-4 md:flex-row'>
+                <div className='flex flex-col gap-2 md:flex-row justify-around'>
                     <div className='w-full md:w-1/2'>
                         <h3 className="text-center text-lg mb-2">Vehicle Colors Distribution</h3>
-                        <PieChart width={window.innerWidth < 768 ? 300 : 400} height={window.innerWidth < 768 ? 300 : 400}>
+                        <PieChart width={chartWidth} height={chartHeight}>
                             <Pie
                                 data={colorData}
                                 dataKey="value"
@@ -63,7 +77,7 @@ const VSpecReport = () => {
                     </div>
                     <div className='w-full md:w-1/2'>
                         <h3 className="text-center text-lg mb-2">Number of Vehicles by Manufacturer</h3>
-                        <BarChart width={window.innerWidth < 768 ? 300 : 500} height={window.innerWidth < 768 ? 250 : 300} data={manufacturerData}>
+                        <BarChart width={chartWidth} height={chartHeight} data={manufacturerData}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
                             <YAxis />

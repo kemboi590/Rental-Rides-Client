@@ -58,7 +58,7 @@ const TicketReport = () => {
   ]);
 
   return (
-    <div className='bg-slate-200 min-h-screen p-4'>
+    <div className='bg-slate-200 p-4'>
       <div className='card mx-auto bg-white w-full rounded-md mb-5 border-2 p-4'>
         <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Ticket Report</h2>
 

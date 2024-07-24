@@ -39,11 +39,11 @@ const BookingPerMonth = () => {
   }, [bookings]);
 
   return (
-    <div className='bg-slate-200 min-h-screen p-4'>
+    <div className='bg-slate-200 p-4'>
       <div className='card mx-auto bg-white w-full rounded-md border-2 p-4'>
         <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold">Booking Per Month Report</h2>
         
-        <div className='mt-4'>
+        <div className='w-3/4 m-auto'>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
