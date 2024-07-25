@@ -89,7 +89,7 @@ const BookingForm = () => {
   if (vehicleError) return <div>Error loading vehicle data</div>;
 
   return (
-    <div>
+    <div className=" bg-slate-200 min-h-screen">
       <Toaster
         toastOptions={{
           classNames: {
@@ -105,7 +105,7 @@ const BookingForm = () => {
 
       <div className="card rounded-lg p-4 lg:w-3/4 m-auto">
         {!isLoading && !vehicleError && vehicleData && (
-          <div className="card shadow-xl lg:gap-10 border-2 lg:flex-row justify-center items-center bg-gray-100 ">
+          <div className="card lg:gap-10 border-2 lg:flex-row justify-center items-center bg-zinc-50 ">
             <figure className="w-[50%] lg:w-[35%] p-3 ">
               <img src={vehicleData.vehicle_specifications.image_url} alt="cardetails" className="rounded-lg" />
             </figure>
@@ -135,7 +135,7 @@ const BookingForm = () => {
       {vehicleData && vehicleData.availability ? (
         <>
           <h1 className="text-xl font-bold mb-4 text-webcolor text-center p-5">Booking Vehicle</h1>
-          <div className="p-5 rounded-lg shadow-lg card lg:w-3/4 border-2 m-auto">
+          <div className="p-5 rounded-lg card lg:w-3/4 border-2 bg-zinc-50 m-auto">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="flex flex-col lg:flex-row space-x-4 w-full">
                 <div className="form-control lg:w-1/2">
@@ -151,7 +151,7 @@ const BookingForm = () => {
               </div>
 
               <div className="form-control mt-4">
-                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none" >
+                <button type="submit" className="btn bg-webcolor text-text-light hover:text-black border-none w-1/4 m-auto" >
                   {isSubmitting ? (
                     <>
                       <span className="loading loading-spinner text-text-light"></span>

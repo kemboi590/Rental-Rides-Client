@@ -112,7 +112,7 @@ const UserBookings = () => {
           },
         }}
       />
-      <div className='card shadow-xl mx-auto bg-slate-200 w-full rounded-md mb-10 border-2'>
+      <div className='card shadow-xl mx-auto w-full rounded-md mb-10 border-2 bg-slate-200 min-h-screen'>
       <h2 className="text-center text-xl p-2 rounded-t-md text-webcolor font-bold border-b-2 border-slate-500">My Payment History</h2>
 
         <div className="overflow-x-auto">

@@ -117,7 +117,7 @@ const Profile = () => {
                     },
                 }}
             />
-            <div className="card shadow-xl mx-auto p-4 rounded-md bg-slate-200">
+            <div className="card shadow-xl mx-auto p-4 rounded-md bg-slate-200 min-h-screen">
                 <div className="border-b-2 border-slate-600 pb-4">
                     <div className="flex justify-center">
                         <img src={userData.image_url || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} className="rounded-full h-28 w-28 object-cover border-4 border-white" alt="User Avatar" />

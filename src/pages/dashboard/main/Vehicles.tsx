@@ -56,7 +56,7 @@ function Vehicles() {
   }
 
   return (
-    <div className="overflow-x-auto text-base-content rounded-lg p-4">
+    <div className="overflow-x-auto text-base-content rounded-lg p-4  bg-slate-200 min-h-screen">
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <input
           type="text"
@@ -86,9 +86,9 @@ function Vehicles() {
           Reset Filters
         </button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-8 gap-4">
         {filteredVehicles.map((vehicle: VehicleDataTypes) => (
-          <div key={vehicle.vehicle_id} className="card bg-base-100 shadow-xl h-fit">
+          <div key={vehicle.vehicle_id} className="card h-fit bg-zinc-50">
             <figure className='h-40'>
               <img src={vehicle.vehicle_specifications.image_url} alt="image for the car" className='w-full h-full object-cover' />
             </figure>

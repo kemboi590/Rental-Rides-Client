@@ -105,7 +105,7 @@ function SupportTickets() {
   });
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto bg-slate-200 min-h-screen">
       <Toaster
         toastOptions={{
           classNames: {
@@ -171,7 +171,7 @@ function SupportTickets() {
               <td>
                 {ticket.status === 'Closed' ? (
                   <button
-                    className="btn bg-blue-500 text-white mr-2"
+                    className="btn bg-blue-500 text-white hover:text-black"
                     onClick={() => handleReopenTicket(ticket.ticket_id, ticket.user_id, ticket.subject, ticket.description)}
                     disabled={isUpdatingTicket === ticket.ticket_id}
                   >
@@ -186,7 +186,7 @@ function SupportTickets() {
                   </button>
                 ) : (
                   <button
-                    className="btn bg-yellow-500 text-text-light hover:text-black"
+                    className="btn bg-webcolor text-text-light hover:text-black"
                     onClick={() => handleCloseTicket(ticket.ticket_id, ticket.user_id, ticket.subject, ticket.description)}
                     disabled={isUpdatingTicket === ticket.ticket_id}
                   >

@@ -23,7 +23,7 @@ const schema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   contact_phone: yup.string().required("Phone number is required"),
   address: yup.string().required("Address is required"),
-  password: yup.string().min(4, "Password must be at least 4 characters").required("Password is required"),
+  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
   confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required("Confirm password is required")
 })
 
@@ -44,7 +44,9 @@ const Register = () => {
       const response = await createUser(data);
       console.log("Response data:", response); // success
       toast.success("Registration successful")
-      navigate('/login')
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
     } catch (err) {
       if (error) {
         console.error("API error:", error); // error
